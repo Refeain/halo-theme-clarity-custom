@@ -28,13 +28,13 @@
     />
     <link
       rel="stylesheet"
-      th:href="@{/assets/fonts/JetBrainsMono-Regular/jetBrainsMonoRegular.css?v={version}(version=${theme.spec.version})}"
+      th:href="@{/assets/fonts/JetBrainsMono-Regular/jetBrainsMonoRegular.css?v=20261102}"
       media="print"
       onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
-      th:href="@{/assets/fonts/JetBrainsMono-Italic/jetBrainsMonoItalic.css?v={version}(version=${theme.spec.version})}"
+      th:href="@{/assets/fonts/JetBrainsMono-Italic/jetBrainsMonoItalic.css?v=20261102}"
       media="print"
       onload="this.media = 'all'"
     />
@@ -54,13 +54,17 @@
 
     <th:block th:unless="${theme.config.development.enabled}">
       <th:block th:if="${theme.config.style?.font_source == null or theme.config.style.font_source == 'theme'}">
-        <link rel="stylesheet" th:href="@{/assets/dist/chinese-fonts.css?v={version}(version=${theme.spec.version})}" />
+        <link rel="stylesheet" th:href="@{/assets/dist/chinese-fonts.css?v=20261102}" />
       </th:block>
       <th:block th:if="${theme.config.style?.font_source == 'custom' and theme.config.style?.custom_font_css}">
         <style th:utext="${theme.config.style.custom_font_css}"></style>
       </th:block>
-      <link rel="stylesheet" th:href="@{/assets/dist/main.css?v={version}(version=${theme.spec.version})}" />
-      <script type="module" th:src="@{/assets/dist/main.js?v={version}(version=${theme.spec.version})}"></script>
+      <link rel="stylesheet" th:href="@{/assets/dist/main.css?v=20261102}" />
+      <link rel="stylesheet" th:href="@{/assets/dist/footer.css?v=20261102}" />
+      <link rel="stylesheet" th:href="@{/assets/dist/plugin-fix.css?v=20261102x2}" />
+      <link rel="stylesheet" th:href="@{/assets/dist/su-reader.css?v=20261102}" />
+      <script type="module" th:src="@{/assets/dist/main.js?v=20261102}"></script>
+      <script type="module" defer th:src="@{/assets/dist/site-custom.js?v=20261102}"></script>
     </th:block>
     <style th:inline="text">
       :root,
@@ -178,5 +182,5 @@
     </button>
 
     <th:block th:replace="~{modules/music-player :: player}" />
-  </body>
+</body>
 </html>

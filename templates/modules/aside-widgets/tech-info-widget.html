@@ -3,17 +3,27 @@
   <div class="widget-body widget-card">
     <dl class="dl-group medium">
       <div>
+        <dt>构建平台</dt>
+        <dd class="tech-info-row">
+          <img th:src="${#strings.isEmpty(theme.config.aside.basic.tech_platform_icon) ? '/themes/theme-clarity/assets/images/logo.png' : theme.config.aside.basic.tech_platform_icon}" alt="" /><span th:text="${theme.config.aside.basic.tech_platform}">Halo</span>
+        </dd>
+      </div>
+      <div>
         <dt>图片存储</dt>
-        <dd th:text="${theme.config.aside.basic.image_hosting}">本地存储</dd>
+        <dd class="tech-info-row">
+          <img th:if="${not #strings.isEmpty(theme.config.aside.basic.image_hosting_icon)}" th:src="${theme.config.aside.basic.image_hosting_icon}" alt="" /><span th:text="${theme.config.aside.basic.image_hosting}">本地存储</span>
+        </dd>
       </div>
       <div>
         <dt>软件协议</dt>
-        <dd>GPL-3.0</dd>
+        <dd class="tech-info-row">
+          <img th:if="${not #strings.isEmpty(theme.config.aside.basic.tech_protocol_icon)}" th:src="${theme.config.aside.basic.tech_protocol_icon}" alt="" /><span th:text="${theme.config.aside.basic.tech_protocol}">GPL-3.0</span>
+        </dd>
       </div>
       <div>
         <dt>文章许可</dt>
-        <dd>
-          <a
+        <dd class="tech-info-row">
+          <img th:if="${not #strings.isEmpty(theme.config.aside.basic.license_icon)}" th:src="${theme.config.aside.basic.license_icon}" alt="" /><a
             th:href="${theme.config.aside.basic.license_url}"
             th:text="${theme.config.aside.basic.license}"
             target="_blank"
@@ -22,35 +32,6 @@
           >
         </dd>
       </div>
-      <div>
-        <dt>规范域名</dt>
-        <dd
-          class="domain-text"
-          th:title="${site.url}"
-          th:with="tempUrl=${#strings.replace(#strings.replace(#strings.replace(site.url, 'https://', ''), 'http://', ''), 'www.', '')},
-                    cleanUrl=${#strings.endsWith(tempUrl, '/') ? #strings.substring(tempUrl, 0, #strings.length(tempUrl) - 1) : tempUrl}"
-          th:text="${cleanUrl}"
-        ></dd>
-      </div>
     </dl>
-
-    <div class="z-expand" x-data="{ expand: false }">
-      <div class="expand-content" x-show="expand" x-collapse>
-        <dl class="dl-group small build-info">
-          <div>
-            <dt>Theme</dt>
-            <dd>Clarity</dd>
-          </div>
-          <div>
-            <dt>Version</dt>
-            <dd th:text="${theme.spec.version}">1.0.0</dd>
-          </div>
-        </dl>
-      </div>
-      <button class="toggle-btn in-place" @click="expand = !expand">
-        <span class="icon-[ph--caret-double-down-bold] toggle-icon" :class="{ 'expand': expand }"></span>
-        <span x-text="expand ? '收起构建信息' : '展开构建信息'"></span>
-      </button>
-    </div>
   </div>
 </section>

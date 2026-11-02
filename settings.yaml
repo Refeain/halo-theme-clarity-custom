@@ -215,8 +215,57 @@ spec:
               label: 跟随系统
 
     - group: footer
-      label: 页脚 & 社交
+      label: 页脚设置
       formSchema:
+        - $formkit: switch
+          name: show_footer_powered
+          label: 显示 Powered by 信息
+          value: true
+          offValue: false
+          onValue: true
+          help: 关闭后将隐藏页脚底部的"Powered by Halo"与主题信息
+        - $formkit: group
+          name: sponsor
+          label: 服务商/赞助商
+          help: 在页脚底部显示服务商或赞助商信息
+          children:
+            - $formkit: switch
+              name: enabled
+              label: 显示服务商信息
+              value: false
+            - $formkit: text
+              name: icon
+              label: 服务商图标
+              value: ""
+              help: "使用 Iconify 图标名（如 ri:cloud-line）或完整图片 URL"
+            - $formkit: text
+              name: name
+              label: 服务商名称
+              value: ""
+              help: 如：腾讯云、阿里云
+            - $formkit: url
+              name: url
+              label: 服务商链接
+              value: ""
+            - $formkit: text
+              name: prefix
+              label: 前缀文字
+              value: "本网站由"
+            - $formkit: text
+              name: suffix
+              label: 后缀文字
+              value: "提供云服务支持"
+            - $formkit: switch
+              name: name_is_link
+              label: 服务商名称为超链接
+              value: true
+        - $formkit: switch
+          name: halo_version
+          label: 显示 Halo 版本
+          value: false
+          offValue: false
+          onValue: true
+          help: 在 Powered by 信息中显示 Halo 版本号
         - $el: div
           attrs:
             class: "text-sm"

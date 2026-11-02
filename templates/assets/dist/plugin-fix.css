@@ -1,0 +1,124 @@
+/* ============================================================
+   theme-clarity 插件兼容性修复（2026-08-11）
+   问题：summaraidGPT 插件 v4 在文章开头注入 AI 总结卡片
+        （likcc-article-summary），与主题自动从正文提取的
+        .md-excerpt.gradient-card 重复，导致"AI 总结出现两边"。
+   修复：当文章内同时存在 AI 总结组件时，隐藏主题的 md-excerpt
+        前言，仅保留插件的 AI 总结卡片。
+   使用 :has() 选择器精准匹配，未安装插件的文章不受影响。
+   ============================================================ */
+
+/* 文章 main 里有 AI 总结时，隐藏主题自动前言（按标签大小写都匹配一次） */
+main:has(likcc-article-summary) .md-excerpt,
+main:has(ai-summaraidgpt) .md-excerpt,
+main:has(ai-summaraidGPT) .md-excerpt {
+  display: none !important;
+}
+
+/* 兜底：如果 :has() 不被识别，退而求其次全局隐藏 md-excerpt
+   （只在安装 summaraidGPT 的站点启用此 CSS 时生效，普通站点不受影响） */
+@supports not selector(:has(*)) {
+  main:has(.md-excerpt) .md-excerpt {
+    display: none;
+  }
+}
+/* 摘要文字蓝色（用户要求 2026-09-01） */
+.md-excerpt{color:#3b82f6}
+.md-excerpt:hover{color:#3b82f6}
+
+/* ====== 数据看板 X 轴月份 label 居中（2026-09-02） ======
+   让 label 文字在该月 span 中央列，与格子对位更准确（GitHub 风） */
+
+
+/* 左边九月右移10px（仅视觉，不影响布局） */
+
+
+/* ===== 以下从 main.css 迁出（升级 1.6.17 时保留，2026-10-29） ===== */
+/* === Clarity patch 2026-08-17: 数据看板热力图样式覆盖 === */
+.xhhaocom-chartboard-section__header { display: none !important; }
+.xhhaocom-chartboard-section { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
+.xhhaocom-chartboard-card--heatmap { min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
+.xhhaocom-chartboard-heatmap__grid, .xhhaocom-chartboard-heatmap__months { width: 100% !important; }
+/* === end patch === */
+
+/* === Clarity patch2 v2 2026-08-17 17:30: 保留边框，去白底 === */
+.xhhaocom-chartboard-card--heatmap { background: transparent !important; border: 1px solid rgba(0,0,0,0.1) !important; border-radius: 12px !important; box-shadow: none !important; padding: 16px !important; min-height: 0 !important; }
+/* === end patch2 v2 === */
+/* === end patch2 === */
+
+/* === Clarity patch3 v3 2026-08-17 17:39: 保留标题字号3rem，紧凑间距 === */
+.custom-widget .z-slide-header { height: auto !important; min-height: 0 !important; margin: 0 0 0.25rem !important; padding: 0 !important; }
+.custom-widget { margin: 1rem 1rem 0.25rem !important; }
+.xhhaocom-chartboard-card--heatmap { padding: 8px !important; }
+/* === end patch3 v3 === */
+
+/* === Clarity patch4 2026-08-17 17:55: 自定义组件副标题样式 === */
+.custom-widget .z-slide-header .subtitle { font-size: 0.8em; font-weight: 400; color: var(--c-text-2); margin-left: 0.5rem; line-height: 1; }
+/* === end patch4 === */
+
+/* === Clarity patch5 2026-08-17 18:07: 副标题改到主标题下方(Tim's风格) === */
+/* === end patch5 === */
+
+/* === Clarity patch5 v2 2026-08-17 18:12: 副标题block布局强制左对齐 === */
+.custom-widget .z-slide-header { display: block !important; height: auto !important; margin: 0 0 0.5rem !important; padding: 0 !important; }
+.custom-widget .z-slide-header .title { display: block !important; font-size: 3rem !important; line-height: 1 !important; text-align: left !important; }
+.custom-widget .z-slide-header .subtitle { display: block !important; font-size: 0.7em !important; font-weight: 400 !important; color: var(--c-text-1) !important; margin: 0.25rem 0 0 0 !important; line-height: 1.2 !important; text-align: left !important; }
+/* === end patch5 v2 === */
+
+/* === categories-header patch 2026-08-18 === */
+.tags-header,.categories-header{align-items:baseline;border-bottom:1px solid var(--c-border);display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin-bottom:2rem;padding-bottom:1rem}
+.tags-title,.categories-title{align-items:center;color:var(--c-text);display:flex;font-size:1.5rem;font-weight:600;gap:.5em;margin:0}
+.tags-title>span:first-child,.categories-title>span:first-child{color:var(--c-primary)}
+.tags-count,.categories-count{color:var(--c-text-3);font-size:.9rem;margin:0}
+.tags-count strong,.categories-count strong{color:var(--c-primary);font-weight:600}
+
+/* === tech-info-row patch 2026-08-18 === .platform-halo 改名 .tech-info-row（保留 .platform-halo alias 兼容）===
+ */
+/* === moment-detail proper-height override 2026-08-19 === */.moment-detail.proper-height,.moment-detail-list.proper-height{min-height:0}
+
+/* === tech-info-row 尺寸补丁（1.6.17 缺失，2026-10-29 升级后补回）=== */
+.tech-info-row,.platform-halo{align-items:center;display:flex;gap:.3em}
+.tech-info-row img,.platform-halo img{border-radius:.2em;height:1.2em;object-fit:cover;width:1.2em}
+
+/* === 页脚底部三块：与分页条/文章卡同一列、同中心 2026-10-29 ===
+   1) #z-footer 默认 grid-column:1/-1 横跨内容列+右栏，中心落在整条内容带上，比卡片偏右
+   2) 收进第 1 列，容器宽度就等于分页条的宽度，居中自然与卡片对齐
+   3) 子项 flex:0 0 auto + 自身 nowrap：只在块与块之间换行，不在 "Powered by" 里折断 */
+@media (min-width: 1081px) {
+  #z-footer { grid-column: 1 / 2; }
+}
+#z-footer .footer-container { max-width: none; width: 100%; }
+#z-footer .footer-bottom {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: clamp(12px, 1.6vw, 26px) !important;
+  width: 100% !important;
+}
+#z-footer .footer-bottom > * { flex: 0 0 auto !important; }
+#z-footer .footer-copy,
+#z-footer .footer-powered,
+#z-footer .footer-bottom > * > * {
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+/* === 文字潮汐月份标签（2026-10-29 定稿）
+   插件给 __months 与 __grid 写的是同一份内联 grid-template-columns，
+   每个月份项 grid-column:span N 之和 = 该月第一列序号。
+   因此只要 width:max-content + justify-self:start，
+   标签左缘就精确落在该月第一列，无需任何坐标计算。 === */
+.xhhaocom-chartboard-heatmap__months{overflow:visible!important}
+.xhhaocom-chartboard-heatmap__month{
+  width:max-content!important;max-width:none!important;min-width:0!important;
+  white-space:nowrap!important;overflow:visible!important;
+  justify-self:start!important;text-align:left!important;
+  font-size:11px!important;line-height:16px!important;
+}
+.xhhaocom-chartboard-heatmap__month.is-placeholder{display:none!important}
+.xhhaocom-chartboard-heatmap__month::after{content:none!important}
+.xhhaocom-chartboard-heatmap__month:first-child:not(.is-placeholder){
+  justify-self:end!important;
+  margin-right:8px;
+  text-align:right!important;
+}

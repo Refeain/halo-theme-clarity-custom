@@ -19,7 +19,7 @@
         </a>
       </div>
 
-      <article class="moment-detail" style="--delay: 0.1s">
+      <article class="moment-detail proper-height" style="--delay: 0.1s">
         <header class="moment-header">
           <div th:if="${moment.owner != null}" class="author-info">
             <img
@@ -56,7 +56,6 @@
               <span th:text="${moment.stats.approvedComment ?: 0}"></span>
             </a>
             <th:block th:replace="~{modules/moment/common :: share-button(url='')}"></th:block>
-            <th:block th:replace="~{modules/moment/common :: poster-button}"></th:block>
           </div>
         </footer>
       </article>
@@ -71,7 +70,7 @@
         </a>
       </div>
 
-      <article class="moment-detail-list" style="--delay: 0.1s">
+      <article class="moment-detail-list proper-height" style="--delay: 0.1s">
         <header class="moment-header">
           <img
             th:if="${moment.owner != null and moment.owner.avatar != null}"
@@ -109,15 +108,10 @@
               <span th:text="${moment.stats.approvedComment ?: 0}"></span>
             </a>
             <th:block th:replace="~{modules/moment/common :: share-button(url='')}"></th:block>
-            <th:block th:replace="~{modules/moment/common :: poster-button}"></th:block>
           </div>
         </footer>
       </article>
     </th:block>
-
-    <!-- 瞬间海报弹窗 -->
-    <th:block th:replace="~{modules/moment/poster-modal :: poster-modal}" />
-    <th:block th:replace="~{modules/moment/poster-script :: poster-script}" />
 
     <!-- 评论区 -->
     <th:block

@@ -1,0 +1,48 @@
+<!doctype html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="${theme.config.plugins?.docs?.enable_template != false} ? ~{modules/layout :: html(content = ~{::content}, showAside = true, pageTitle = (${theme.config.plugins?.docs?.title} ?: '文档'), head = ~{::head})} : ~{plugin:plugin-docsme:docs}"
+>
+  <th:block th:fragment="head">
+    <th:block th:replace="~{modules/head :: docs-head}" />
+  </th:block>
+  <th:block th:fragment="content">
+    <div class="docs-page proper-height">
+      <div class="docs-header">
+        <div class="docs-title">
+          <span class="icon-[ph--book-open-bold]"></span>
+          <h1 class="text-creative" th:text="${theme.config.plugins?.docs?.title} ?: '文档'">文档</h1>
+        </div>
+      </div>
+
+      <div class="docs-grid">
+        <th:block th:each="project : ${projects}">
+          <a th:href="${project.status.permalink}" class="docs-card">
+            <div class="docs-card-icon">
+              <img
+                th:unless="${#strings.isEmpty(project.spec.icon)}"
+                th:src="${project.spec.icon}"
+                th:alt="${project.spec.displayName}"
+              />
+              <span th:if="${#strings.isEmpty(project.spec.icon)}" class="icon-[ph--book-open-duotone]"></span>
+            </div>
+            <h2 th:text="${project.spec.displayName}">项目名称</h2>
+            <div class="docs-card-stats">
+              <span class="icon-[ph--files-duotone]"></span>
+              <span th:text="${(project.status.totalDocs ?: 0) + ' 篇文档'}">0 篇文档</span>
+            </div>
+            <div class="docs-card-arrow">
+              <span class="icon-[ph--arrow-right-duotone]"></span>
+            </div>
+          </a>
+        </th:block>
+      </div>
+
+      <div th:if="${projects == null || projects.isEmpty()}" class="docs-empty">
+        <span class="icon-[ph--book-duotone]"></span>
+        <p>暂无文档项目</p>
+        <p>请在后台创建文档项目</p>
+      </div>
+    </div>
+  </th:block>
+</html>

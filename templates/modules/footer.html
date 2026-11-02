@@ -1,122 +1,180 @@
 <footer
   th:fragment="footer"
-  class="z-footer"
-  th:with="filing = ${multiSiteFilingFinder != null ? multiSiteFilingFinder.getCurrent() : null}"
->
-  <nav class="footer-nav">
-    <div
-      class="footer-nav-group"
-      th:if="${theme.config.footer.explore?.show_rss != false or theme.config.footer.explore?.show_travellings != false or (theme.config.footer.explore?.links != null and !theme.config.footer.explore.links.isEmpty())}"
-    >
-      <h3 th:text="${theme.config.footer.explore?.title ?: '探索'}"></h3>
-      <menu>
-        <li th:if="${theme.config.footer.explore?.show_rss != false}">
-          <a th:href="${theme.config.footer.explore?.rss_url} ?: '/rss.xml'" target="_blank">
-            <span class="icon-[ph--rss-simple-bold]"></span>
-            <span class="nav-text">RSS 订阅</span>
-          </a>
-        </li>
-        <li th:if="${theme.config.footer.explore?.show_travellings != false}">
-          <a href="https://www.travellings.cn/go.html" target="_blank">
-            <span class="icon-[ph--train-regional-bold]"></span>
-            <span class="nav-text">开往</span>
-          </a>
-        </li>
-        <li th:each="link : ${theme.config.footer.explore?.links}">
-          <a th:href="${link.url}" target="_blank">
-            <th:block
-              th:if="${link.icon != null}"
-              th:with="iconVal = ${link.icon.value != null ? link.icon.value : (link.icon instanceof T(String) ? link.icon : null)}"
-            >
-              <img
-                th:if="${iconVal != null and not #strings.isEmpty(iconVal)}"
-                th:src="${iconVal}"
-                alt=""
-                class="link-icon"
-              />
-            </th:block>
-            <span class="nav-text" th:text="${link.text}"></span>
-          </a>
-        </li>
-      </menu>
-    </div>
+  class="z-footer z-footer-cosolar"
+  th:with="
+    showFooterMain=${theme.config.footer?.show_footer_main ?: true},
+    showFooterPowered=${theme.config.footer?.show_footer_powered ?: true},
 
-    <div
-      class="footer-nav-group"
-      th:if="${theme.config.footer.links?.items != null and !theme.config.footer.links.items.isEmpty()}"
-    >
-      <h3 th:text="${theme.config.footer.links?.title} ?: '链接'"></h3>
-      <menu>
-        <li th:each="link : ${theme.config.footer.links.items}">
-          <a th:href="${link.url}" target="_blank">
-            <th:block
-              th:if="${link.icon != null}"
-              th:with="iconVal = ${link.icon.value != null ? link.icon.value : (link.icon instanceof T(String) ? link.icon : null)}"
-            >
-              <img
-                th:if="${iconVal != null and not #strings.isEmpty(iconVal)}"
-                th:src="${iconVal}"
-                alt=""
-                class="link-icon"
-              />
-            </th:block>
-            <span class="nav-text" th:text="${link.text}"></span>
-          </a>
-        </li>
-      </menu>
-    </div>
+    footerLogo=${theme.config.footer?.brand?.logo_image ?: theme.config.header?.logo},
+    footerLogoWidth=${theme.config.footer?.brand?.logo_width ?: 40},
+    footerLogoHeight=${theme.config.footer?.brand?.logo_height ?: 40},
+    footerName=${theme.config.footer?.brand?.logo_text ?: site.title},
+    footerTagline=${theme.config.footer?.brand?.tagline ?: theme.config.header?.subtitle ?: ''},
+    footerDesc=${theme.config.footer?.brand?.description ?: footerTagline},
+    footerBgImage=${theme.config.footer?.brand?.bg_image_light},
+    footerBgImageDark=${theme.config.footer?.brand?.bg_image_dark},
+    footerBgOpacity=${theme.config.footer?.brand?.bg_opacity ?: 0.2},
+    footerSocialColor=${theme.config.footer?.brand?.social_color},
+    footerSocialColorDark=${theme.config.footer?.brand?.social_color_dark},
 
-    <div class="footer-nav-group">
-      <h3>信息</h3>
-      <menu>
-        <li>
-          <a href="https://halo.run" target="_blank" rel="noopener noreferrer">
-            <span class="icon-[ph--cube-bold]" aria-hidden="true"></span>
-            <span class="nav-text">架构于 Halo</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/acanyo/theme-clarity" target="_blank" rel="noopener noreferrer">
-            <span class="icon-[ph--mountains-bold]" aria-hidden="true"></span>
-            <span class="nav-text" th:text="|驱动 Clarity ${theme.spec.version}|"></span>
-          </a>
-        </li>
-        <li th:if="${not #strings.isEmpty(theme.config.footer.beian)}">
-          <a href="https://beian.miit.gov.cn/" target="_blank">
-            <img th:src="@{/assets/images/icp.webp}" alt="ICP" class="beian-icon" />
-            <span class="nav-text" th:text="${theme.config.footer.beian}"></span>
-          </a>
-        </li>
-        <li th:if="${filing != null and filing.configured and not #strings.isEmpty(filing.icpNumber)}">
-          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" aria-label="ICP备案号">
-            <img th:src="@{/assets/images/icp.webp}" alt="ICP" class="beian-icon" />
-            <span class="nav-text" th:text="${filing.icpNumber}"></span>
-          </a>
-        </li>
-        <li th:if="${not #strings.isEmpty(theme.config.footer.gongan_beian)}">
-          <a id="gongan-beian-link" href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank">
-            <img th:src="@{/assets/images/gonganbeian.png}" alt="公安备案" class="beian-icon" />
-            <span id="gongan-beian-text" class="nav-text" th:text="${theme.config.footer.gongan_beian}"></span>
-          </a>
-          <script>
-            (function () {
-              const text = document.getElementById("gongan-beian-text").innerText;
-              const code = text.replace(/[^0-9]/g, "");
-              if (code) {
-                document.getElementById("gongan-beian-link").href =
-                  "https://beian.mps.gov.cn/#/query/webSearch?code=" + code;
-              }
-            })();
-          </script>
-        </li>
-        <li th:if="${theme.config.footer.enable_uptime_kuma}" class="xhhaocom-dataStatistics-v2-uptime-kuma"></li>
-      </menu>
+    showStats=${theme.config.footer?.stats?.enabled ?: true},
+    showAuthorLocation=${theme.config.footer?.stats?.show_author_location ?: true},
+    authorLocation=${theme.config.footer?.stats?.author_location ?: ''},
+    showJoinDate=${theme.config.footer?.stats?.show_join_date ?: true},
+    authorJoinDate=${theme.config.aside?.basic?.site_start_time ?: ''},
+
+    showSubscribe=${theme.config.footer?.subscribe?.enabled ?: true},
+    subscribeTitle=${theme.config.footer?.subscribe?.title ?: '订阅更新'},
+    subscribeDesc=${theme.config.footer?.subscribe?.desc ?: '订阅我们的技术文章，每周精选内容送达你的邮箱'},
+    subscribeAction=${theme.config.footer?.subscribe?.action ?: ''},
+
+    showLegal=${theme.config.footer?.legal?.enabled ?: true},
+    privacyUrl=${theme.config.footer?.legal?.privacy_url},
+    termsUrl=${theme.config.footer?.legal?.terms_url},
+    linksUrl=${theme.config.footer?.legal?.links_url},
+    aboutUrl=${theme.config.footer?.legal?.about_url},
+
+    showSponsor=${theme.config.footer?.sponsor?.enabled ?: false},
+    sponsorIcon=${theme.config.footer?.sponsor?.icon},
+    sponsorName=${theme.config.footer?.sponsor?.name},
+    sponsorUrl=${theme.config.footer?.sponsor?.url},
+    sponsorPrefix=${theme.config.footer?.sponsor?.prefix ?: '本网站由'},
+    sponsorSuffix=${theme.config.footer?.sponsor?.suffix ?: '提供云服务支持'},
+    sponsorNameIsLink=${theme.config.footer?.sponsor?.name_is_link ?: true},
+
+    siteStats=${siteStatsFinder.getStats()},
+    tagStatTotal=${tagFinder.list(1, 1).total},
+
+    footerHasBgImg=${footerBgImage != null and !#strings.isEmpty(footerBgImage)},
+    footerHasBgImgDark=${footerBgImageDark != null and !#strings.isEmpty(footerBgImageDark)},
+    footerHasSocial=${footerSocialColor != null and !#strings.isEmpty(footerSocialColor)},
+    footerHasSocialDark=${footerSocialColorDark != null and !#strings.isEmpty(footerSocialColorDark)},
+
+    footerStyle=${(footerHasBgImg or footerHasBgImgDark or footerHasSocial or footerHasSocialDark) ? ('--footer-bg-image: url(''' + footerBgImage + '''); --footer-bg-img-opacity: ' + footerBgOpacity + '; --footer-bg-image-dark: url(''' + (footerHasBgImgDark ? footerBgImageDark : footerBgImage) + '''); --footer-bg-img-opacity-dark: ' + footerBgOpacity + ';' + (footerHasSocial ? ' --footer-social-color: ' + footerSocialColor + ';' : '') + (footerHasSocialDark ? ' --footer-social-color-dark: ' + footerSocialColorDark + ';' : '')) : ''}
+  "
+  th:style="${footerStyle}">
+  <div class="footer-container">
+    <style>
+      .footer-bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+        column-gap: 20px;
+        row-gap: 6px;
+        font-size: 0.85em;
+        width: 100%;
+        max-width: 100%;
+      }
+      .footer-copy {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      @media (max-width: 768px) {
+        .footer-bottom {
+          flex-direction: column;
+          align-items: stretch;
+          text-align: center;
+          row-gap: 8px;
+        }
+        .footer-bottom > .footer-sponsor,
+        .footer-bottom > .footer-copy,
+        .footer-bottom > .footer-powered {
+          display: block !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          text-align: center !important;
+        }
+        .footer-bottom > .footer-sponsor > .footer-sponsor-brand {
+          display: inline-flex !important;
+          vertical-align: middle;
+        }
+        .footer-bottom > .footer-copy {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 4px;
+        }
+        .footer-bottom > .footer-copy > a {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 4px;
+        }
+        .footer-bottom > .footer-powered > .footer-powered-item {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 4px;
+        }
+        .footer-bottom > .footer-sponsor,
+        .footer-bottom > .footer-copy > a,
+        .footer-bottom > .footer-powered > .footer-powered-item {
+          white-space: nowrap;
+        }
+      }
+    </style>
+
+
+    <div class="footer-bottom">
+      <!-- 版权信息 -->
+      <div class="footer-copy">
+        <a class="footer-badge" th:if="${! #strings.isEmpty(theme.config.footer.beian)}"
+           th:href="'https://beian.miit.gov.cn/'" th:title="${theme.config.footer.beian}" target="_blank" rel="noopener">
+          <svg class="footer-badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="var(--c-primary)" />
+            <path d="m8.5 12 2.2 2.2 4.3-4.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span th:text="${theme.config.footer.beian}"></span>
+        </a>
+        <a class="footer-badge" th:if="${! #strings.isEmpty(theme.config.footer.gongan_beian)}"
+           id="gongan-beian-link" href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank" rel="noopener">
+          <svg class="footer-badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z" fill="var(--c-accent)" />
+            <path d="m8.5 12 2.2 2.2 4.3-4.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span id="gongan-beian-text" th:text="${theme.config.footer.gongan_beian}"></span>
+        </a>
+        <script th:if="${! #strings.isEmpty(theme.config.footer.gongan_beian)}">
+          (function () {
+            var el = document.getElementById("gongan-beian-text");
+            if (!el) return;
+            var text = el.innerText;
+            var code = text.replace(/[^0-9]/g, "");
+            if (code) {
+              document.getElementById("gongan-beian-link").href =
+                "https://beian.mps.gov.cn/#/query/webSearch?code=" + code;
+            }
+          })();
+        </script>
+      </div>
+
+      <!-- Powered by -->
+      <div class="footer-powered" th:if="${showFooterPowered}">
+        <span class="footer-powered-item">
+          <svg class="footer-powered-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <span>Powered by</span>
+          <a href="https://halo.run" target="_blank" rel="noopener">Halo</a>
+          <span th:if="${theme.config.footer.halo_version}" th:text="' ' + ${site.version}"></span>
+        </span>
+        <span class="footer-powered-divider"></span>
+        <span class="footer-powered-item">
+          <span>Theme</span>
+          <a href="https://github.com/acanyo/theme-clarity" target="_blank" rel="noopener" th:text="${theme.spec.displayName}"></a>
+          <span th:text="' ' + ${theme.spec.version}"></span>
+        </span>
+      </div>
     </div>
-  </nav>
+  </div>
 
   <div class="footer-inject">
     <halo:footer />
   </div>
-
-  <p>© <span th:text="${#temporals.year(#temporals.createNow())}"></span> <span th:text="${site.title}"></span></p>
 </footer>

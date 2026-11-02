@@ -1,0 +1,64 @@
+/* ============================================
+   轻言页面主题覆盖 — 对接博客主色调(蓝)
+   由 nginx sub_filter 注入到 /hitokoto 页面
+   暗色 = :root / 浅色 = [data-theme="light"]
+   ============================================ */
+
+/* ---- 暗色主题(默认) ---- */
+:root {
+  --accent: #3b82f6;
+  --accent-soft: #60a5fa;
+  --accent-glow: rgba(59, 130, 246, 0.35);
+  --bg: #08090d;
+  --bg-glass: rgba(12, 14, 20, 0.5);
+  --bg-glass-hover: rgba(59, 130, 246, 0.1);
+  --bg-glass-toast: rgba(12, 14, 20, 0.82);
+  --bg-card: rgba(9, 10, 16, 0.92);
+  --bg-input-focus: rgba(59, 130, 246, 0.04);
+  --bg-dropdown: rgba(12, 14, 20, 0.97);
+  --bg-select-option: #101218;
+  --line: rgba(59, 130, 246, 0.35);
+  --border-default: rgba(59, 130, 246, 0.14);
+  --border-hover: rgba(59, 130, 246, 0.32);
+  --border-focus: rgba(59, 130, 246, 0.5);
+  --border-card: rgba(59, 130, 246, 0.22);
+  --border-toast: rgba(59, 130, 246, 0.18);
+  --border-dropdown: rgba(59, 130, 246, 0.18);
+  --border-input: rgba(59, 130, 246, 0.16);
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.05);
+  --glow-primary: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
+  --glow-secondary: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.05) 0%, transparent 70%);
+  --petal-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.65) 0%, rgba(96, 165, 250, 0.18) 100%);
+  --scrollbar-thumb: rgba(59, 130, 246, 0.25);
+  --scrollbar-thumb-hover: rgba(59, 130, 246, 0.45);
+}
+
+/* ---- 浅色主题 ---- */
+[data-theme="light"] {
+  --bg: #f6f8fb;
+  --bg-glass: rgba(247, 249, 252, 0.6);
+  --bg-glass-hover: rgba(59, 130, 246, 0.08);
+  --bg-glass-toast: rgba(247, 249, 252, 0.88);
+  --bg-card: rgba(250, 252, 255, 0.92);
+  --bg-input-focus: rgba(59, 130, 246, 0.04);
+  --bg-dropdown: rgba(250, 252, 255, 0.97);
+  --bg-select-option: #f0f5ff;
+  --bg-next-line: #d3d7dd;
+  --accent: #3b82f6;
+  --accent-soft: #60a5fa;
+  --accent-glow: rgba(59, 130, 246, 0.25);
+  --line: rgba(59, 130, 246, 0.25);
+  --border-default: rgba(59, 130, 246, 0.18);
+  --border-hover: rgba(59, 130, 246, 0.38);
+  --border-focus: rgba(59, 130, 246, 0.55);
+  --border-card: rgba(59, 130, 246, 0.2);
+  --border-toast: rgba(59, 130, 246, 0.15);
+  --border-dropdown: rgba(59, 130, 246, 0.15);
+  --border-input: rgba(59, 130, 246, 0.18);
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(59, 130, 246, 0.04);
+  --glow-primary: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+  --glow-secondary: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.04) 0%, transparent 70%);
+  --petal-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.45) 0%, rgba(96, 165, 250, 0.3) 100%);
+  --scrollbar-thumb: rgba(59, 130, 246, 0.2);
+  --scrollbar-thumb-hover: rgba(59, 130, 246, 0.35);
+}

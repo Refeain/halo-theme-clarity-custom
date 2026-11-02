@@ -1,0 +1,87 @@
+<!doctype html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="${theme.config.plugins?.docs?.enable_template != false} ? ~{modules/layout :: html(content = ~{::content}, showAside = true, pageTitle = ${docTree?.spec?.title}, head = ~{::head})} : ~{plugin:plugin-docsme:doc}"
+>
+  <th:block th:fragment="head">
+    <th:block th:replace="~{modules/head :: docs-head}" />
+    <script>
+      var docsme = { disableThemeFunction: true };
+    </script>
+    <th:block th:replace="~{plugin:plugin-docsme:modules/prism}" />
+  </th:block>
+  <th:block th:fragment="content">
+    <div class="doc-page">
+      <th:block th:replace="~{modules/doc/doc-tree :: doc-tree}" />
+
+      <main class="doc-main">
+        <div class="doc-content-wrapper">
+          <nav class="doc-breadcrumb">
+            <a th:href="${project.status.permalink}">
+              <span class="icon-[ph--house-duotone]"></span>
+              <span th:text="${project.spec.displayName}">首页</span>
+            </a>
+            <th:block th:each="crumb : ${crumbs}">
+              <span class="icon-[ph--caret-right-duotone]"></span>
+              <a th:href="${crumb.status.permalink}" th:text="${crumb.spec.title}">分类</a>
+            </th:block>
+          </nav>
+
+          <h1
+            th:if="${theme.config.plugins?.docs?.enable_docs_h1} != false"
+            class="doc-title"
+            th:text="${docTree.spec.title}"
+          >
+            文档标题
+          </h1>
+
+          <article class="doc-article article">
+            <div id="article-content" th:utext="${docInfo.content.content}"></div>
+          </article>
+
+          <div
+            th:if="${linkNavigation}"
+            class="surround-post"
+            th:attr="data-prev-url=${linkNavigation.hasPrevious ? linkNavigation.previous.link : ''}, data-next-url=${linkNavigation.hasNext ? linkNavigation.next.link : ''}"
+          >
+            <a th:if="${linkNavigation.hasPrevious}" th:href="${linkNavigation.previous.link}" class="surround-link">
+              <span class="icon-[solar--rewind-back-bold-duotone] rtl-flip"></span>
+              <div class="surround-text">
+                <strong class="title text-creative" th:text="${linkNavigation.previous.title}"></strong>
+              </div>
+            </a>
+            <div th:unless="${linkNavigation.hasPrevious}" class="surround-link no-link">
+              <span class="icon-[solar--document-add-bold-duotone]"></span>
+              <div class="surround-text">
+                <strong class="title">已是第一篇</strong>
+              </div>
+            </div>
+
+            <a th:if="${linkNavigation.hasNext}" th:href="${linkNavigation.next.link}" class="surround-link align-end">
+              <span class="icon-[solar--rewind-forward-bold-duotone] rtl-flip"></span>
+              <div class="surround-text">
+                <strong class="title text-creative" th:text="${linkNavigation.next.title}"></strong>
+              </div>
+            </a>
+            <div th:unless="${linkNavigation.hasNext}" class="surround-link align-end no-link">
+              <span class="icon-[solar--reel-bold-duotone]"></span>
+              <div class="surround-text">
+                <strong class="title">已是最后一篇</strong>
+              </div>
+            </div>
+          </div>
+
+          <div th:if="${project?.spec?.enableComment == true}" class="doc-comments" id="comment">
+            <halo:comment
+              group="run.halo.docsme"
+              kind="Doc"
+              th:attr="name=${docInfo.doc.metadata.name}"
+              colorScheme="system"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+    <th:block th:replace="~{plugin:plugin-docsme:modules/plugin-scripts}" />
+  </th:block>
+</html>

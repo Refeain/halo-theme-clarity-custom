@@ -1,0 +1,49 @@
+<!doctype html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="${theme.config.plugins?.docs?.enable_template != false} ? ~{modules/layout :: html(content = ~{::content}, showAside = true, pageTitle = ${docTree?.spec?.title}, head = ~{::head})} : ~{plugin:plugin-docsme:doc-catalog}"
+>
+  <th:block th:fragment="head">
+    <th:block th:replace="~{modules/head :: docs-head}" />
+  </th:block>
+  <th:block th:fragment="content">
+    <div class="doc-page">
+      <th:block th:replace="~{modules/doc/doc-tree :: doc-tree}" />
+
+      <main class="doc-main">
+        <div class="doc-content-wrapper">
+          <nav class="doc-breadcrumb">
+            <a th:href="${project.status.permalink}">
+              <span class="icon-[ph--house-duotone]"></span>
+              <span th:text="${project.spec.displayName}">首页</span>
+            </a>
+            <th:block th:each="crumb : ${crumbs}">
+              <span class="icon-[ph--caret-right-duotone]"></span>
+              <a th:href="${crumb.status.permalink}" th:text="${crumb.spec.title}">分类</a>
+            </th:block>
+          </nav>
+
+          <h1
+            th:if="${theme.config.plugins?.docs?.enable_docs_h1} != false"
+            class="doc-title"
+            th:text="${docTree.spec.title}"
+          >
+            目录标题
+          </h1>
+
+          <div class="doc-catalog-list">
+            <th:block th:if="${sonNodes != null}">
+              <th:block th:each="node : ${sonNodes}">
+                <a th:href="${node.status.permalink}" class="doc-catalog-item">
+                  <span th:if="${node.spec.type == 'TREE'}" class="icon-[ph--folder-duotone]"></span>
+                  <span th:if="${node.spec.type == 'DOC'}" class="icon-[ph--file-duotone]"></span>
+                  <span th:text="${node.spec.title}">标题</span>
+                </a>
+              </th:block>
+            </th:block>
+          </div>
+        </div>
+      </main>
+    </div>
+  </th:block>
+</html>

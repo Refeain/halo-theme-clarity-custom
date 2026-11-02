@@ -94,6 +94,13 @@
                   <div class="comment-content"></div>
                 </a>
               </th:block>
+              <!-- TODO 文档插件未完全适配评论插件 -->
+              <th:block th:if="${comment.spec.subjectRef.kind == 'Doc'}">
+                <a class="comment-link" href="/docs">
+                  <script type="text/plain" class="comment-raw-content" th:utext="${comment.spec.content}"></script>
+                  <div class="comment-content"></div>
+                </a>
+              </th:block>
               <!-- 图库照片评论 -->
               <th:block th:if="${comment.spec.subjectRef.kind == 'Photo'}">
                 <a
@@ -218,129 +225,105 @@
           }
         };
 
-        const getSafeMediaSource = (media) => {
-          const source = media.getAttribute("src") || media.querySelector("source[src]")?.getAttribute("src") || "";
-          const rawSource = source.trim();
-          if (!rawSource) return "";
+        const isEmojiImage = (image) => {
+          const imageText = [
+            image.getAttribute("class"),
+            image.getAttribute("alt"),
+            image.getAttribute("title"),
+            image.getAttribute("src"),
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
 
-          try {
-            const url = new URL(rawSource, window.location.origin);
-            return ["http:", "https:", "blob:"].includes(url.protocol) ? url.href : "";
-          } catch (error) {
-            return "";
-          }
+          return /emoji|emoticon|sticker|twemoji|owo|表情/.test(imageText);
         };
 
-        const renderPreview = (target, raw, options = {}) => {
+        const createContentPreview = (raw, maxLength, options = {}) => {
           const doc = parser.parseFromString(raw || "", "text/html");
-          const hasMedia = Boolean(doc.body.querySelector("img[src], video, audio"));
-          const maxLength = options.maxLength || 50;
+          const text = truncateText(doc.body.textContent || doc.body.innerText || "", maxLength);
+          if (text) {
+            return { type: "text", text };
+          }
+
+          const imageNodes = Array.from(doc.body.querySelectorAll("img[src]"));
           const imageLimit = options.imageLimit || 2;
-          const mediaLimit = options.mediaLimit || 1;
-          let remainingTextLength = maxLength;
-          let imageCount = 0;
-          let mediaCount = 0;
+          const images = imageNodes
+            .map((image) => ({
+              src: getSafeImageSource(image.getAttribute("src")),
+              alt: image.getAttribute("alt") || "",
+              emoji: isEmojiImage(image),
+            }))
+            .filter((image) => image.src)
+            .slice(0, imageLimit);
 
+          if (imageNodes.length > 0) {
+            const emojiOnly = imageNodes.every(isEmojiImage);
+            return {
+              type: "media",
+              marker: emojiOnly ? "表情" : "图片",
+              label: emojiOnly ? "表情评论" : "图片评论",
+              images,
+              count: imageNodes.length,
+            };
+          }
+
+          if (doc.body.querySelector("video")) {
+            return { type: "media", marker: "视频", label: "视频评论", images: [], count: 0 };
+          }
+
+          if (doc.body.querySelector("audio")) {
+            return { type: "media", marker: "音频", label: "音频评论", images: [], count: 0 };
+          }
+
+          if (doc.body.querySelector("iframe, embed")) {
+            return { type: "media", marker: "嵌入", label: "嵌入内容", images: [], count: 0 };
+          }
+
+          return { type: "media", marker: "内容", label: "无文字评论", images: [], count: 0 };
+        };
+
+        const renderPreview = (target, preview) => {
           target.replaceChildren();
-          target.classList.toggle("has-media", hasMedia);
+          target.classList.toggle("has-media", preview.type === "media");
 
-          if (!hasMedia) {
-            target.textContent = truncateText(doc.body.textContent || doc.body.innerText || "", maxLength);
+          if (preview.type === "text") {
+            target.textContent = preview.text;
             return;
           }
 
           const mediaPreview = document.createElement("span");
           mediaPreview.className = "comment-media-preview";
+          mediaPreview.setAttribute("aria-label", preview.label);
 
-          const appendText = (value) => {
-            if (remainingTextLength <= 0) return;
+          const marker = document.createElement("span");
+          marker.className = "comment-media-marker";
+          marker.textContent = preview.marker;
+          mediaPreview.appendChild(marker);
 
-            const text = normalizeText(value);
-            if (!text) return;
+          if (preview.images.length > 0) {
+            const thumbs = document.createElement("span");
+            thumbs.className = "comment-media-thumbs";
 
-            const previewText = document.createElement("span");
-            previewText.className = "comment-preview-text";
+            preview.images.forEach((image) => {
+              const thumb = document.createElement("img");
+              thumb.src = image.src;
+              thumb.alt = image.alt || preview.label;
+              thumb.loading = "lazy";
+              thumbs.appendChild(thumb);
+            });
 
-            if (text.length > remainingTextLength) {
-              previewText.textContent = `${text.substring(0, remainingTextLength)}...`;
-              remainingTextLength = 0;
-            } else {
-              previewText.textContent = text;
-              remainingTextLength -= text.length;
-            }
-
-            mediaPreview.appendChild(previewText);
-          };
-
-          const appendImage = (image) => {
-            if (imageCount >= imageLimit) return;
-
-            const source = getSafeImageSource(image.getAttribute("src"));
-            if (!source) return;
-
-            const previewImage = document.createElement("img");
-            previewImage.className = "comment-preview-image";
-            previewImage.src = source;
-            previewImage.alt = image.getAttribute("alt") || "";
-            previewImage.loading = "lazy";
-            mediaPreview.appendChild(previewImage);
-            imageCount += 1;
-          };
-
-          const appendMedia = (media) => {
-            if (mediaCount >= mediaLimit) return;
-
-            const source = getSafeMediaSource(media);
-            if (!source) return;
-
-            const tagName = media.tagName.toLowerCase();
-            const previewMedia = document.createElement(tagName);
-            previewMedia.className = `comment-preview-${tagName}`;
-            previewMedia.src = source;
-            previewMedia.preload = "metadata";
-
-            if (tagName === "video") {
-              previewMedia.muted = true;
-              previewMedia.playsInline = true;
-            } else {
-              previewMedia.controls = true;
-            }
-
-            mediaPreview.appendChild(previewMedia);
-            mediaCount += 1;
-          };
-
-          const walkNode = (node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-              appendText(node.textContent);
-              return;
-            }
-
-            if (node.nodeType !== Node.ELEMENT_NODE) return;
-
-            const tagName = node.tagName.toLowerCase();
-            if (["script", "style", "template"].includes(tagName)) return;
-            if (tagName === "img") {
-              appendImage(node);
-              return;
-            }
-            if (tagName === "video" || tagName === "audio") {
-              appendMedia(node);
-              return;
-            }
-            if (tagName === "br") {
-              appendText(" ");
-              return;
-            }
-
-            Array.from(node.childNodes).forEach(walkNode);
-          };
-
-          Array.from(doc.body.childNodes).forEach(walkNode);
-
-          if (mediaPreview.childNodes.length > 0) {
-            target.appendChild(mediaPreview);
+            mediaPreview.appendChild(thumbs);
           }
+
+          const label = document.createElement("span");
+          label.className = "comment-media-label";
+          label.textContent =
+            preview.images.length > 0 && preview.count > preview.images.length
+              ? `${preview.label} +${preview.count - preview.images.length}`
+              : preview.label;
+          mediaPreview.appendChild(label);
+          target.appendChild(mediaPreview);
         };
 
         // Halo 原生评论处理
@@ -361,7 +344,7 @@
               const contentDiv = item.querySelector(".comment-content");
               if (rawScript && contentDiv) {
                 const raw = rawScript.textContent || rawScript.innerText || "";
-                renderPreview(contentDiv, raw, { maxLength });
+                renderPreview(contentDiv, createContentPreview(raw, maxLength));
               }
 
               // 处理回复内容
@@ -372,7 +355,7 @@
                 const replyContentSpan = replyItem.querySelector(".reply-content");
                 if (replyRawScript && replyContentSpan) {
                   const raw = replyRawScript.textContent || replyRawScript.innerText || "";
-                  renderPreview(replyContentSpan, raw, { maxLength: 30, imageLimit: 1 });
+                  renderPreview(replyContentSpan, createContentPreview(raw, 30, { imageLimit: 1 }));
 
                   if (isCommentNextAnchor && replyContentSpan.classList.contains("reply-content-link")) {
                     const replyName = replyItem.dataset.replyName;
@@ -488,7 +471,7 @@
 
               const content = document.createElement("div");
               content.className = "comment-content";
-              renderPreview(content, comment.comment || comment.commentText || "", { maxLength });
+              renderPreview(content, createContentPreview(comment.comment || comment.commentText || "", maxLength));
 
               link.appendChild(content);
               li.appendChild(header);

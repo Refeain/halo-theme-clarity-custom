@@ -1,0 +1,95 @@
+<th:block th:fragment="doc-tree">
+  <!-- 文档树浮动按钮 -->
+  <button class="doc-tree-floating-btn" onclick="openDocTreeModal()" aria-label="打开文档目录">
+    <span class="icon-[ph--list-duotone]"></span>
+  </button>
+
+  <!-- 文档树模态框 -->
+  <div id="doc-tree-modal" class="doc-tree-modal">
+    <div class="doc-tree-modal-overlay" onclick="closeDocTreeModal()"></div>
+    <div class="doc-tree-modal-content">
+      <div class="doc-tree-modal-header">
+        <a th:href="${project.status.permalink}" class="doc-tree-modal-title">
+          <span th:if="${project.spec.icon}" class="doc-project-icon">
+            <img th:src="${project.spec.icon}" th:alt="${project.spec.displayName}" />
+          </span>
+          <span th:unless="${project.spec.icon}" class="icon-[ph--book-open-duotone]"></span>
+          <span th:text="${project.spec.displayName}">项目名称</span>
+        </a>
+        <button class="doc-tree-modal-close" onclick="closeDocTreeModal()" aria-label="关闭">
+          <span class="icon-[ph--x-bold]"></span>
+        </button>
+      </div>
+
+      <div class="doc-tree-modal-body">
+        <nav class="doc-nav-tree" th:if="${docTrees != null}">
+          <ul class="dm-nav-tree">
+            <th:block th:each="treeItem : ${docTrees}">
+              <li class="dm-nav-tree__item" th:replace="~{this :: doc-tree-node(${treeItem})}"></li>
+            </th:block>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script th:inline="javascript">
+    function openDocTreeModal() {
+      const modal = document.getElementById("doc-tree-modal");
+      if (modal) {
+        modal.classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    function closeDocTreeModal() {
+      const modal = document.getElementById("doc-tree-modal");
+      if (modal) {
+        modal.classList.remove("show");
+        document.body.style.overflow = "";
+      }
+    }
+
+    // ESC 键关闭模态框
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeDocTreeModal();
+      }
+    });
+  </script>
+</th:block>
+
+<!-- 递归渲染文档树节点 -->
+<th:block th:fragment="doc-tree-node(node)">
+  <!-- 文档类型 -->
+  <th:block th:if="${node.spec.type == 'DOC'}">
+    <a
+      class="dm-nav-tree__link"
+      th:href="@{${node.status.permalink}}"
+      th:title="${node.spec.title}"
+      th:classappend="${node.metadata.name == docTree.metadata.name ? 'dm-nav-tree__link--active' : ''}"
+      th:text="${node.spec.title}"
+      onclick="closeDocTreeModal()"
+    ></a>
+  </th:block>
+
+  <!-- 目录类型 -->
+  <th:block th:if="${node.spec.type == 'TREE'}">
+    <details class="dm-nav-tree__details" th:attr="open=${#arrays.contains(crumbs, node)}">
+      <summary class="dm-nav-tree__toggle">
+        <a
+          class="dm-nav-tree__link"
+          th:href="${node.status.permalink}"
+          th:text="${node.spec.title}"
+          th:classappend="${node.metadata.name == docTree.metadata.name ? 'dm-nav-tree__link--active' : ''}"
+          onclick="event.stopPropagation(); closeDocTreeModal()"
+        ></a>
+      </summary>
+      <ul class="dm-nav-tree dm-nav-tree__nested" th:if="${node.children != null and !node.children.isEmpty()}">
+        <th:block th:each="childNode : ${node.children}">
+          <li class="dm-nav-tree__item" th:replace="~{this :: doc-tree-node(${childNode})}"></li>
+        </th:block>
+      </ul>
+    </details>
+  </th:block>
+</th:block>

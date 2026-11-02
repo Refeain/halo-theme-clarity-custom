@@ -1,15 +1,18 @@
+<!-- CACHE-BUSTING RULE: every assets/dist/*.css|js below carries a fixed ?v= tag.
+     When you edit any file under assets/dist/, bump ?v= in BOTH head.html and layout.html,
+     or browser/EdgeOne will keep serving the stale copy. 本次升级标记: 20261102 (主题升级 1.6.18) -->
 <th:block th:fragment="moments-head">
   <link
     rel="stylesheet"
     th:if="${pluginFinder.available('PluginMoments')}"
     data-swup-conditional="moments"
-    th:href="@{/assets/dist/moments.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/moments.css?v=20261102}"
   />
   <script
     type="module"
     th:if="${pluginFinder.available('PluginMoments')}"
     data-swup-conditional="moments"
-    th:src="@{/assets/dist/moments.js?v={version}(version=${theme.spec.version})}"
+    th:src="@{/assets/dist/moments.js?v=20261102}"
   ></script>
 </th:block>
 
@@ -17,7 +20,7 @@
   <link
     rel="stylesheet"
     data-swup-conditional="photos"
-    th:href="@{/assets/dist/photos.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/photos.css?v=20261102}"
   />
 </th:block>
 
@@ -25,7 +28,7 @@
   <link
     rel="stylesheet"
     data-swup-conditional="equipments"
-    th:href="@{/assets/dist/equipments.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/equipments.css?v=20261102}"
   />
 </th:block>
 
@@ -33,12 +36,12 @@
   <link
     rel="stylesheet"
     data-swup-conditional="links"
-    th:href="@{/assets/dist/links.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/links.css?v=20261102}"
   />
   <script
     type="module"
     data-swup-conditional="links"
-    th:src="@{/assets/dist/links.js?v={version}(version=${theme.spec.version})}"
+    th:src="@{/assets/dist/links.js?v=20261102}"
   ></script>
 </th:block>
 
@@ -46,12 +49,12 @@
   <link
     rel="stylesheet"
     data-swup-conditional="friends"
-    th:href="@{/assets/dist/friends.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/friends.css?v=20261102}"
   />
   <script
     type="module"
     data-swup-conditional="friends"
-    th:src="@{/assets/dist/friends.js?v={version}(version=${theme.spec.version})}"
+    th:src="@{/assets/dist/friends.js?v=20261102}"
   ></script>
 </th:block>
 
@@ -59,12 +62,12 @@
   <link
     rel="stylesheet"
     data-swup-conditional="page-friends"
-    th:href="@{/assets/dist/friends.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/friends.css?v=20261102}"
   />
   <script
     type="module"
     data-swup-conditional="page-friends"
-    th:src="@{/assets/dist/page-friends.js?v={version}(version=${theme.spec.version})}"
+    th:src="@{/assets/dist/page-friends.js?v=20261102}"
   ></script>
 </th:block>
 
@@ -72,7 +75,7 @@
   <link
     rel="stylesheet"
     data-swup-conditional="bangumis"
-    th:href="@{/assets/dist/bangumis.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/bangumis.css?v=20261102}"
   />
 </th:block>
 
@@ -80,7 +83,7 @@
   <link
     rel="stylesheet"
     data-swup-conditional="steam"
-    th:href="@{/assets/dist/steam.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/steam.css?v=20261102}"
   />
 </th:block>
 
@@ -88,6 +91,14 @@
   <link
     rel="stylesheet"
     data-swup-conditional="shop"
-    th:href="@{/assets/dist/shop.css?v={version}(version=${theme.spec.version})}"
+    th:href="@{/assets/dist/shop.css?v=20261102}"
+  />
+</th:block>
+
+<th:block th:fragment="docs-head">
+  <link
+    rel="stylesheet"
+    data-swup-conditional="docs"
+    th:href="@{/assets/dist/docs.css?v=20261102}"
   />
 </th:block>
