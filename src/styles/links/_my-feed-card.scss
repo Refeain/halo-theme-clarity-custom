@@ -1,0 +1,41 @@
+// ========================================
+// 我的博客卡片 (用于 Tab 内)
+// ========================================
+.my-feed-card {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  line-height: 1.4;
+
+  .avatar {
+    position: relative;
+    margin: 0 0.5rem 0 0;
+
+    img {
+      display: block;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 2px 4px 0.5em var(--ld-shadow);
+      background-color: white;
+      object-fit: contain;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author {
+    font-weight: 600;
+  }
+
+  .title {
+    opacity: 0.5;
+    font-size: 0.85em;
+  }
+}

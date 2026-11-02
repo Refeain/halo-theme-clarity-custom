@@ -1,0 +1,56 @@
+// ========================================
+// Steam 分页样式 (Steam Pagination)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 分页
+.steam-pagination {
+  @include flex(row, center, center, 4px);
+  margin-top: $spacing-3xl;
+  padding-top: $spacing-2xl;
+  border-top: 1px solid var(--c-border);
+
+  // 按钮
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 $spacing-md;
+    background: var(--c-bg-soft);
+    color: var(--c-text);
+    text-decoration: none;
+    font-size: $font-size-md;
+    border-radius: $radius-md;
+    transition: all $transition-fast;
+    border: 1px solid var(--c-border);
+
+    &:hover {
+      background: var(--c-primary);
+      color: #fff;
+      border-color: var(--c-primary);
+    }
+
+    &.active {
+      background: var(--c-primary);
+      color: #fff;
+      border-color: var(--c-primary);
+      font-weight: 600;
+    }
+
+    &.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  // 省略号
+  &__ellipsis {
+    color: var(--c-text-3);
+    font-size: $font-size-md;
+    padding: 0 4px;
+  }
+}

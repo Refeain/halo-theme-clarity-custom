@@ -1,0 +1,62 @@
+// ========================================
+// Steam 响应式样式 (Steam Responsive)
+// ========================================
+
+@use 'variables' as *;
+
+// 大屏幕
+@media (max-width: $breakpoint-lg) {
+  .steam-recent-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// 平板/手机
+@media (max-width: $breakpoint-md) {
+  // 个人资料
+  .steam-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__header {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
+
+    &__meta {
+      justify-content: center;
+    }
+
+    &__badges {
+      justify-content: center;
+    }
+  }
+
+  // 统计
+  .steam-stats {
+    grid-template-columns: 1fr;
+  }
+
+  // 最近游戏
+  .steam-recent-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // 所有游戏
+  .steam-games-grid {
+    grid-template-columns: 1fr;
+  }
+
+  // 头部
+  .steam-header {
+    flex-wrap: wrap;
+  }
+
+  // 返回按钮
+  .steam-back {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+}

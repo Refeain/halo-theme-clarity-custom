@@ -1,0 +1,188 @@
+:root {
+	--max-bezier-to-full: cubic-bezier(0.5, 0, 1, 0.5);
+	--max-bezier-to-collapse: cubic-bezier(0, 0.5, 0.5, 1);
+}
+
+@keyframes float-in {
+	0% {
+		opacity: 0;
+		transform: translateY(var(--float-distance, 10%));
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.float-in-enter-active,
+.float-in-leave-active {
+	transition: all 0.2s !important;
+}
+
+.float-in-leave-active {
+	position: absolute !important;
+}
+
+.float-in-enter-from,
+.float-in-leave-to {
+	opacity: 0;
+	transform: translateY(var(--float-distance, 10%));
+}
+
+.float-in-move {
+	transition: transform 0.2s !important;
+}
+
+.collapse-enter-active,
+.collapse-leave-active {
+	overflow: hidden;
+	overflow: clip;
+	transition: max-height 0.1s;
+}
+
+.collapse-enter-from,
+.collapse-leave-to {
+	max-height: 0;
+	transition-timing-function: var(--max-bezier-to-collapse);
+}
+
+.collapse-enter-to,
+.collapse-leave-from {
+	max-height: 50vh;
+	transition-timing-function: var(--max-bezier-to-full);
+}
+
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+	z-index: 1;
+}
+
+::view-transition-new(root) {
+	z-index: 9999;
+}
+
+[data-theme-transition="dark"]::view-transition-old(root) {
+	z-index: 9999;
+}
+
+[data-theme-transition="dark"]::view-transition-new(root) {
+	z-index: 1;
+}
+
+
+::view-transition-new(root) {
+	animation: clip-in 0.5s ease-in;
+}
+
+@keyframes clip-in {
+	from {
+		clip-path: circle(0% at var(--x) var(--y));
+	}
+	to {
+		clip-path: circle(150% at var(--x) var(--y));
+	}
+}
+
+// 骨架屏加载动画
+@keyframes skeleton-loading {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+
+// 跨页面导航过渡 (MPA View Transitions)
+// 仅 Chrome 126+ 支持
+@view-transition {
+	navigation: auto;
+}
+
+// ===== 页面导航过渡动画 =====
+
+// 效果1: 淡出缩小模糊 + 淡入放大清晰
+@keyframes fade-scale-out {
+	from {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0);
+	}
+	to {
+		opacity: 0;
+		transform: scale(0.95);
+		filter: blur(4px);
+	}
+}
+
+@keyframes fade-scale-in {
+	from {
+		opacity: 0;
+		transform: scale(1.02);
+		filter: blur(4px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0);
+	}
+}
+
+// 效果2: 黑幕扫光 (sweep)
+@keyframes sweep-out {
+	from {
+		clip-path: inset(0 0 0 0);
+	}
+	to {
+		clip-path: inset(0 100% 0 0);
+	}
+}
+
+@keyframes sweep-in {
+	from {
+		clip-path: inset(0 0 0 100%);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+// 效果3: 无过渡动画 (none)
+// 不需要定义 keyframes
+
+// 根据 data-page-transition 属性选择动画
+// 默认: fade-scale
+html:not([data-theme-transition]):not([data-page-transition])::view-transition-old(root),
+html:not([data-theme-transition])[data-page-transition="fade-scale"]::view-transition-old(root) {
+	animation: fade-scale-out 0.3s ease-out both;
+}
+
+html:not([data-theme-transition]):not([data-page-transition])::view-transition-new(root),
+html:not([data-theme-transition])[data-page-transition="fade-scale"]::view-transition-new(root) {
+	animation: fade-scale-in 0.4s ease-out both;
+}
+
+// sweep 效果
+html:not([data-theme-transition])[data-page-transition="sweep"]::view-transition-old(root) {
+	animation: sweep-out 0.5s ease-in-out both;
+	z-index: 1;
+}
+
+html:not([data-theme-transition])[data-page-transition="sweep"]::view-transition-new(root) {
+	animation: sweep-in 0.5s ease-in-out 0.1s both;
+	z-index: 2;
+}
+
+html:not([data-theme-transition])[data-page-transition="sweep"]::view-transition {
+	background: oklch(0.15 0 0);
+}
+
+// none 效果 - 禁用过渡
+html[data-page-transition="none"] {
+	@view-transition {
+		navigation: none;
+	}
+}

@@ -1,0 +1,54 @@
+// Swup 加载动画和过渡效果
+
+.swup-loading {
+  #main-content {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--c-primary, #3b82f6), transparent);
+    z-index: 9999;
+    animation: swup-progress 1s ease-in-out infinite;
+  }
+}
+
+@keyframes swup-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+// Swup 内容过渡动画
+.swup-content {
+  animation: swup-fade-in 0.3s ease-out;
+}
+
+@keyframes swup-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html[data-page-transition="none"] .swup-content { animation: none; }
+
+// 禁用 Swup 的链接样式
+[data-no-swup] {
+  cursor: pointer;
+}

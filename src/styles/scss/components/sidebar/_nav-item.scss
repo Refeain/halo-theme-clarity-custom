@@ -1,0 +1,94 @@
+// ========================================
+// 导航项
+// ========================================
+.sidebar-nav-item {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	padding: 0.5em 1em;
+	border-radius: 0.5em;
+	transition: all 0.2s;
+	color: inherit;
+	flex-grow: 1;
+
+	&:hover {
+		background-color: var(--c-bg-soft);
+		color: var(--c-text);
+	}
+
+	// 当前页激活状态
+	&.active {
+		background-color: var(--c-bg-soft);
+
+		// 右侧小圆点指示器
+		&::after {
+			content: "•";
+			color: var(--c-text-3);
+			font-size: 1.2em;
+		}
+	}
+
+	// 图标大小
+	> .iconfont,
+	> [class^="icon-"] {
+		font-size: 1.5em;
+	}
+
+	// 主菜单图标，开启「菜单图标颜色反转」时深色模式下反色
+	> img {
+		object-fit: contain;
+		flex-shrink: 0;
+
+		.dark #z-sidebar.menu-icon-invert & {
+			filter: invert(1) brightness(1.1);
+		}
+	}
+
+	> .nav-text {
+		flex-grow: 1;
+	}
+
+	> .external-tip {
+		opacity: 0.5;
+		font-size: 1em;
+	}
+}
+
+// 导航项包裹层（用于链接和下拉按钮并排）
+.nav-item-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 0.25em;
+
+	.sidebar-nav-item {
+		// 在包裹层内的链接不需要圆角（右侧）
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	.dropdown-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.95em 1em;
+		border-radius: 0.5em;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		transition: all 0.2s;
+		color: var(--c-text-2);
+		background: transparent;
+		border: none;
+		cursor: pointer;
+
+		&:hover {
+			background-color: var(--c-bg-soft);
+			color: var(--c-text);
+		}
+
+		.dropdown-arrow {
+			font-size: 0.8em;
+			transition: transform 0.2s;
+		}
+	}
+}

@@ -1,0 +1,199 @@
+:root {
+	--start: left;
+	--end: right;
+	--transform-start-far: translateX(-100%);
+	--transform-end-far: translateX(100%);
+// Halo 搜索插件样式变量
+	--halo-search-widget-base-font-size: 1rem;
+	--halo-search-widget-base-font-family: var(--font-basic, sans-serif);
+	--halo-search-widget-base-rounded: 0.75rem;
+	--halo-search-widget-base-bg-color: var(--c-bg);
+	--halo-search-widget-primary-color: var(--c-primary);
+	--halo-search-widget-muted-color: var(--c-text-3);
+	--halo-search-widget-content-color: var(--c-text);
+	--halo-search-widget-modal-bg-color: var(--ld-bg-card);
+	--halo-search-widget-modal-layer-color: rgba(0, 0, 0, 0.5);
+	--halo-search-widget-hit-bg-color: var(--c-bg-soft);
+	--halo-search-widget-divider-color: var(--c-border);
+	--halo-search-widget-kbd-border-color: var(--c-border);
+	--halo-search-widget-kbd-shadow: 0 2px 0 var(--c-border);
+	overflow-wrap: break-word;
+	background-color: var(--c-bg-1);
+	font-family: var(--font-basic, sans-serif);
+	font-synthesis: style;
+	line-height: 1.4;
+	text-autospace: normal;
+	text-size-adjust: none;
+	color: var(--c-text-1);
+	transition: color 0.1s, background-color 0.2s;
+	scroll-behavior: smooth;
+	scroll-padding: 2rem;
+	scrollbar-color: var(--c-text-3) transparent;
+	font-variant-alternates: styleset(open-digits, disambiguation, round-quotes-and-commas);
+	-webkit-tap-highlight-color: var(--c-primary-soft);
+
+	&:dir(rtl) {
+		--start: right;
+		--end: left;
+		--transform-start-far: translateX(100%);
+		--transform-end-far: translateX(-100%);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+		scroll-behavior: auto;
+	}
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+*, ::before, ::after {
+	box-sizing: border-box;
+}
+
+::selection {
+	background-color: var(--c-primary-soft);
+}
+
+a {
+	text-decoration: none;
+	color: currentcolor;
+}
+
+code, pre {
+	font-family: var(--font-monospace);
+	text-autospace: no-autospace;
+}
+
+menu, ol, ul {
+	list-style: none;
+}
+
+// Alpine.js x-cloak 指令：初始化前隐藏元素
+[x-cloak] {
+	display: none !important;
+}
+
+button {
+	cursor: pointer;
+
+	> .iconify:only-child {
+		display: block;
+	}
+
+	&:disabled {
+		cursor: auto;
+	}
+}
+
+button, input, textarea {
+	background: none;
+	font: inherit;
+	color: currentcolor;
+}
+
+// Iconify 图标复用了此类
+:where(.iconify) {
+	display: inline-block;
+	flex-shrink: 0;
+	font-size: 1.2em;
+	vertical-align: sub;
+}
+
+.rtl-flip:dir(rtl) {
+	transform: scaleX(-1);
+}
+
+.light [class^="iconify i-catppuccin:"] {
+	filter: invert(0.7) hue-rotate(180deg) saturate(4);
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.i-simple-icons\:mdnwebdocs {
+	transform: scale(0.8);
+}
+
+// 图片加载失败
+img {
+	display: inline-block;
+	overflow: hidden;    
+	overflow: clip;      
+	transform: scale(1); 
+
+	&::before {
+		position: absolute;
+		inset: 0;
+	}
+
+	&::before {
+		content: attr(alt);
+		display: grid;
+		place-content: center;
+		overflow: visible;
+		padding: 0.5em; 
+		background-color: var(--c-border);
+		font: bold 1.5rem/1.2 var(--font-serif);
+		word-break: normal;
+		text-align: center;
+		text-shadow: none;
+		color: var(--c-text-3); 
+	}
+}
+
+.tippy-box {
+	padding: 0.3em 0.6em;
+	border-radius: 0.5em;
+	box-shadow: 0 0 1rem var(--ld-shadow);
+	background-color: var(--ld-bg-card);
+	font-size: 0.8rem;
+	line-height: 1.4;
+	color: var(--c-text-2);
+	animation: float-in 0.2s;
+
+	&[data-state="hidden"] {
+		opacity: 0;
+	}
+
+	> .tippy-svg-arrow {
+		fill: var(--ld-bg-card);
+	}
+}
+
+.shiki > .line {
+	> span {
+		font-style: var(--shiki-light-font-style);
+
+		.dark & {
+			background-color: var(--shiki-dark-bg) !important; /* stylelint-disable-line declaration-no-important */
+			font-style: var(--shiki-dark-font-style);
+			color: var(--shiki-dark) !important; /* stylelint-disable-line declaration-no-important */
+		}
+	}
+
+	> .indent {
+		display: inline-block;
+		background-image: linear-gradient(to right, var(--c-border) 0.1em, transparent 0.1em);
+	}
+
+	> .space::before,
+	>.tab::before {
+		display: inline-block;
+		opacity: 0.3;
+		width: 0;
+		pointer-events: none;
+	}
+
+	> .space:is(:first-child, :last-child)::before,
+	> :not(.space) + .space:has(+ .space)::before,
+	> .space + .space::before {
+		content: "·";
+	}
+
+	>.tab::before {
+		content: "⇥";
+	}
+}

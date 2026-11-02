@@ -1,0 +1,27 @@
+// ========================================
+// Steam 错误提示样式 (Steam Error)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 错误提示
+.steam-error {
+  background: color-mix(in srgb, var(--c-danger), transparent 85%);
+  border: 1px solid var(--c-danger);
+  border-radius: $radius-md;
+  padding: $spacing-lg $spacing-xl;
+  margin-bottom: $spacing-2xl;
+  @include flex(row, center, flex-start, 12px);
+
+  &__icon {
+    color: var(--c-danger);
+    font-size: $font-size-lg;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: $font-size-md;
+    color: var(--c-text);
+  }
+}

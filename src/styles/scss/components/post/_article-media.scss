@@ -1,0 +1,75 @@
+// ========================================
+// 文章媒体样式（图片、引用块）
+// ========================================
+.article {
+	blockquote {
+		position: relative;
+		margin: 1.5em 0;
+		padding: 0.75rem 1rem 0.75rem 1.25rem;
+		border-radius: 0 0.5rem 0.5rem 0;
+		background-color: var(--c-bg-2);
+		color: var(--c-text-2);
+		border-inline-start: 3px solid var(--c-primary);
+
+		p:first-child {
+			margin-top: 0;
+		}
+
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// ==========================================
+	// 图片
+	// ==========================================
+	img {
+		max-width: 100%;
+
+		// 行内小图标
+		&.icon {
+			height: 1.4em;
+			vertical-align: middle;
+			transform: translateY(-0.1em);
+		}
+
+		&:not([class]), &.image {
+			display: block;
+			margin: 1.5rem auto;
+			border-radius: 0.5rem;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s, box-shadow 0.2s;
+
+			&:hover {
+				transform: scale(1.02);
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+			}
+		}
+
+		// 禁用灯箱的图片
+		&.no-lightbox {
+			cursor: default;
+
+			&:hover {
+				transform: none;
+			}
+		}
+	}
+
+	// 图片说明
+	figcaption {
+		text-align: center;
+		font-size: 0.85em;
+		color: var(--c-text-3);
+		margin-top: -0.5rem;
+	}
+
+	// ==========================================
+	// 分割线
+	// ==========================================
+	hr {
+		margin: 3em 0;
+		border: none;
+		border-top: 3px dashed var(--c-border);
+	}
+}

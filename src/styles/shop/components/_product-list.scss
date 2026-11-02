@@ -1,0 +1,10 @@
+.shop-product-list {
+  display: grid;
+  gap: var(--shop-spacing-lg);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

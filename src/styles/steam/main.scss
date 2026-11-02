@@ -1,0 +1,20 @@
+// ========================================
+// Steam 页面样式 (Steam Page Styles)
+// ========================================
+
+// 基础样式（包含变量和工具类）
+@use 'variables';
+@use 'mixins';
+
+// 组件模块
+@use 'base';
+@use 'error';
+@use 'profile';
+@use 'stats';
+@use 'section';
+@use 'game-card';
+@use 'pagination';
+@use 'empty';
+@use 'heatmap';
+@use 'responsive';
+@use 'header';

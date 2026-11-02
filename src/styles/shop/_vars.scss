@@ -1,0 +1,141 @@
+:root {
+  /* 基础背景色 */
+  --shop-color-base-100: hsl(0, 0%, 100%);
+  --shop-color-base-200: hsl(0, 0%, 98%);
+  --shop-color-base-300: hsl(0, 0%, 96%);
+  --shop-color-base-content: hsl(0, 0%, 9%);
+
+  /* 主要色 - 使用主题配置 */
+  --shop-color-primary: var(--c-primary, hsl(0, 0%, 9%));
+  --shop-color-primary-content: hsl(0, 0%, 100%);
+  --shop-color-primary-light: var(--c-primary-soft, rgba(59, 130, 246, 0.1));
+
+  /* 次要色 - 中性灰 */
+  --shop-color-secondary: hsl(0, 0%, 96%);
+  --shop-color-secondary-content: hsl(0, 0%, 9%);
+
+  /* 强调色 - 使用主题配置 */
+  --shop-color-accent: var(--c-accent, hsl(0, 0%, 15%));
+  --shop-color-accent-content: hsl(0, 0%, 100%);
+
+  /* 中性色 */
+  --shop-color-neutral: hsl(0, 0%, 45%); /* 中灰 */
+  --shop-color-neutral-content: hsl(0, 0%, 100%); /* 白色文字 */
+
+  /* 信息色 - 冷灰蓝 */
+  --shop-color-info: hsl(214, 13%, 47%); /* 冷灰蓝 */
+  --shop-color-info-content: hsl(0, 0%, 100%); /* 白色文字 */
+
+  /* 成功色 - 深绿灰 */
+  --shop-color-success: hsl(142, 10%, 30%); /* 深绿灰 */
+  --shop-color-success-content: hsl(0, 0%, 100%); /* 白色文字 */
+
+  /* 警告色 - 暗橙灰 */
+  --shop-color-warning: hsl(38, 15%, 35%); /* 暗橙灰 */
+  --shop-color-warning-content: hsl(0, 0%, 100%); /* 白色文字 */
+
+  /* 错误色 - 深红灰 */
+  --shop-color-error: hsl(0, 10%, 35%); /* 深红灰 */
+  --shop-color-error-content: hsl(0, 0%, 100%); /* 白色文字 */
+
+  /* 中性色阶 - 基于黑白灰 */
+  --shop-gray-50: hsl(0, 0%, 98%);
+  --shop-gray-100: hsl(0, 0%, 96%);
+  --shop-gray-200: hsl(0, 0%, 90%);
+  --shop-gray-300: hsl(0, 0%, 83%);
+  --shop-gray-400: hsl(0, 0%, 64%);
+  --shop-gray-500: hsl(0, 0%, 45%);
+  --shop-gray-600: hsl(0, 0%, 32%);
+  --shop-gray-700: hsl(0, 0%, 25%);
+  --shop-gray-800: hsl(0, 0%, 15%);
+  --shop-gray-900: hsl(0, 0%, 9%);
+
+  /* 边框和圆角 */
+  --shop-border-radius: 8px;
+  --shop-border-radius-sm: 4px;
+  --shop-border-radius-lg: 12px;
+
+  /* 间距 */
+  --shop-spacing-xs: 4px;
+  --shop-spacing-sm: 8px;
+  --shop-spacing-md: 16px;
+  --shop-spacing-lg: 24px;
+  --shop-spacing-xl: 32px;
+
+  /* 字体 */
+  --shop-font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --shop-font-size-xs: 12px;
+  --shop-font-size-sm: 14px;
+  --shop-font-size-base: 16px;
+  --shop-font-size-lg: 18px;
+  --shop-font-size-xl: 24px;
+
+  /* 阴影 */
+  --shop-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shop-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shop-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shop-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* 过渡 */
+  --shop-transition: all 0.2s ease;
+}
+
+.dark {
+  /* 基础背景色 - 深色模式 */
+  --shop-color-base-100: hsl(0, 0%, 9%);
+  --shop-color-base-200: hsl(0, 0%, 12%);
+  --shop-color-base-300: hsl(0, 0%, 15%);
+  --shop-color-base-content: hsl(0, 0%, 98%);
+
+  /* 主要色 - 使用主题配置 */
+  --shop-color-primary: var(--c-primary, hsl(0, 0%, 98%));
+  --shop-color-primary-content: hsl(0, 0%, 9%);
+  --shop-color-primary-light: var(--c-primary-soft, rgba(59, 130, 246, 0.2));
+
+  /* 次要色 - 深灰 */
+  --shop-color-secondary: hsl(0, 0%, 15%);
+  --shop-color-secondary-content: hsl(0, 0%, 98%);
+
+  /* 强调色 - 使用主题配置 */
+  --shop-color-accent: var(--c-accent, hsl(0, 0%, 20%));
+  --shop-color-accent-content: hsl(0, 0%, 98%);
+
+  /* 中性色 */
+  --shop-color-neutral: hsl(0, 0%, 60%);
+  --shop-color-neutral-content: hsl(0, 0%, 9%);
+
+  /* 信息色 - 浅蓝灰 */
+  --shop-color-info: hsl(214, 20%, 60%);
+  --shop-color-info-content: hsl(0, 0%, 9%);
+
+  /* 成功色 - 浅绿灰 */
+  --shop-color-success: hsl(142, 20%, 55%);
+  --shop-color-success-content: hsl(0, 0%, 9%);
+
+  /* 警告色 - 浅橙灰 */
+  --shop-color-warning: hsl(38, 20%, 60%);
+  --shop-color-warning-content: hsl(0, 0%, 9%);
+
+  /* 错误色 - 浅红灰 */
+  --shop-color-error: hsl(0, 20%, 60%);
+  --shop-color-error-content: hsl(0, 0%, 9%);
+
+  /* 中性色阶 - 深色模式 */
+  --shop-gray-50: hsl(0, 0%, 9%);
+  --shop-gray-100: hsl(0, 0%, 12%);
+  --shop-gray-200: hsl(0, 0%, 15%);
+  --shop-gray-300: hsl(0, 0%, 20%);
+  --shop-gray-400: hsl(0, 0%, 30%);
+  --shop-gray-500: hsl(0, 0%, 45%);
+  --shop-gray-600: hsl(0, 0%, 60%);
+  --shop-gray-700: hsl(0, 0%, 75%);
+  --shop-gray-800: hsl(0, 0%, 85%);
+  --shop-gray-900: hsl(0, 0%, 98%);
+
+  /* 阴影 - 深色模式 */
+  --shop-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shop-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shop-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shop-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}

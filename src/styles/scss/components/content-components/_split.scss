@@ -1,0 +1,16 @@
+// ========================================
+// Split 分栏布局
+// ========================================
+.c-split {
+  display: grid;
+  margin: 1em 0;
+
+  > div {
+    padding: 0.8em 1em;
+    border-radius: 0.5em;
+    background-color: var(--c-bg-2);
+
+    > *:first-child { margin-top: 0; }
+    > *:last-child { margin-bottom: 0; }
+  }
+}

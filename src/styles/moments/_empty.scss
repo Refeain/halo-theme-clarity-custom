@@ -1,0 +1,26 @@
+// 瞬间空状态样式
+// Moments empty state styles
+
+// 空状态
+.moments-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	padding: 5rem 2rem;
+	color: var(--c-text-3);
+
+	[class^="icon-"], .iconify {
+		font-size: 5rem;
+		opacity: 0.2;
+		color: var(--c-primary);
+		animation: float 3s ease-in-out infinite;
+	}
+
+	p {
+		margin: 0;
+		font-size: 1.1rem;
+		font-weight: 500;
+	}
+}

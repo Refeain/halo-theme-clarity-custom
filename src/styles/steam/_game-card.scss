@@ -1,0 +1,120 @@
+// ========================================
+// Steam 游戏卡片样式 (Steam Game Card)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 最近游戏网格
+.steam-recent-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: $spacing-md;
+}
+
+// 游戏卡片
+.steam-game-card {
+  @include card-base;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+    border-color: var(--c-primary);
+  }
+
+  // 链接
+  &__link {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  // 图片
+  &__img {
+    width: 100%;
+    aspect-ratio: 460 / 215;
+    object-fit: cover;
+    display: block;
+  }
+
+  // 库外标识角标（叠加在封面右上角）
+  &__library-badge {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    padding: 2px $spacing-sm;
+    background: var(--c-primary);
+    color: #fff;
+    border-radius: $radius-md;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  // 不可用标识角标（叠加在封面左上角，灰色调；与库外角标左右错开避免重叠）
+  &__delisted-badge {
+    position: absolute;
+    top: $spacing-sm;
+    left: $spacing-sm;
+    padding: 2px $spacing-sm;
+    background: rgba(60, 60, 60, 0.88);
+    color: #d4d4d4;
+    border: 1px solid rgba(200, 200, 200, 0.4);
+    border-radius: $radius-md;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  // 信息区域
+  &__info {
+    padding: $spacing-md;
+  }
+
+  // 游戏名称
+  &__name {
+    font-size: $font-size-md;
+    font-weight: 600;
+    color: var(--c-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+  }
+
+  // 元信息
+  &__meta {
+    @include flex(row, center, space-between, $spacing-sm);
+    font-size: $font-size-sm;
+  }
+
+  // 游戏时长
+  &__time {
+    color: $color-playing;
+    font-weight: 500;
+  }
+
+  // 成就
+  &__achievements {
+    color: var(--c-text-2);
+
+    &--locked {
+      color: var(--c-text-3);
+    }
+  }
+
+  // 最后游玩时间
+  &__last-played {
+    font-size: $font-size-sm;
+    color: var(--c-text-3);
+  }
+}
+
+// 游戏网格（所有游戏）
+.steam-games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $spacing-lg;
+}

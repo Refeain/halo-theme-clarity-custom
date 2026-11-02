@@ -1,0 +1,68 @@
+// 图片骨架屏基础样式
+// 排除 Fancybox 灯箱内的图片 以及 twikoo 的表情包，避免样式冲突
+img:not(
+    .fancybox__image,
+    .tk-owo-emotion,
+    .OwO-items-image img,
+    .author-deco-frame,
+    .author-banner-img,
+    .author-gallery-img
+  ) {
+  // 骨架屏占位
+  background: linear-gradient(
+    90deg,
+    var(--ld-bg-card) 25%,
+    color-mix(in srgb, var(--c-text-3) 40%, var(--ld-bg-card)) 50%,
+    var(--ld-bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  transition: opacity 0.3s ease;
+  max-width: 100%;
+  height: auto;
+
+  // 图片加载完成后
+  &.loaded {
+    background: none;
+    animation: none;
+  }
+
+  // 保持宽高比
+  &[width][height] {
+    height: auto;
+  }
+
+  // 特定类型图片的样式
+  &[class*="cover"],
+  &[class*="avatar"] {
+    object-fit: cover;
+  }
+
+  // 图标类图片不显示骨架屏
+  &[class*="icon"],
+  &[src$=".svg"],
+  &[src^="data:"] {
+    background: none;
+    animation: none;
+  }
+}
+
+// 减少动画 - 尊重用户偏好
+@media (prefers-reduced-motion: reduce) {
+  img:not(
+      .fancybox__image,
+      .tk-owo-emotion,
+      .OwO-items-image img,
+      .author-deco-frame,
+      .author-banner-img,
+      .author-gallery-img
+    ) {
+    animation: none;
+  }
+}
+
+// 头像样式
+.user-avatar,
+.author-avatar {
+  border-radius: 50%;
+}

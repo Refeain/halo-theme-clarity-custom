@@ -1,0 +1,64 @@
+{
+  "license": "GPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build && theme-package",
+    "build-only": "tsc && vite build",
+    "dev": "vite",
+    "lint": "eslint src",
+    "test": "node --test tests/*.test.mjs",
+    "prepare": "husky",
+    "prettier": "prettier --write './**/*.{ts,json,yaml,yml,html}'"
+  },
+  "lint-staged": {
+    "*.{ts,json,yaml,yml,html}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@alpinejs/collapse": "^3.15.2",
+    "@chinese-fonts/kksjt": "^3.0.0",
+    "@fancyapps/ui": "^6.1.6",
+    "alpinejs": "^3.15.1",
+    "embla-carousel": "8",
+    "embla-carousel-autoplay": "8",
+    "html2canvas": "^1.4.1",
+    "mermaid": "11",
+    "preact": "10.28.2",
+    "qrcode": "^1.5.4",
+    "swup": "^4.8.3",
+    "twikoo": "1.7.2"
+  },
+  "devDependencies": {
+    "@halo-dev/theme-package-cli": "^1.0.0",
+    "@iconify/json": "^2.2.412",
+    "@iconify/tailwind4": "^1.1.0",
+    "@preact/preset-vite": "^2.10.2",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/alpinejs": "^3.13.11",
+    "@types/node": "^24.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
+    "baseline-browser-mapping": "^2.10.7",
+    "cssnano": "^7.1.2",
+    "daisyui": "^5.4.7",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "sass": "^1.94.2",
+    "tailwindcss": "^4.1.17",
+    "terser": "^5.44.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2"
+  },
+  "overwrites": {
+    "vite": "npm:rolldown-vite@latest"
+  },
+  "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af"
+}

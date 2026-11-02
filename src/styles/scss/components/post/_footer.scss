@@ -1,0 +1,75 @@
+// ========================================
+// 文章页脚 (PostFooter)
+// ========================================
+.post-footer {
+	margin: 2rem 0.5rem;
+	border: 1px solid var(--c-border);
+	border-radius: 1rem;
+	background-color: var(--c-bg-2);
+
+	section {
+		padding: 1rem;
+
+		& + section {
+			border-top: 1px solid var(--c-border);
+		}
+	}
+
+	.title {
+		font-weight: bold;
+		color: var(--c-text);
+	}
+
+	.content {
+		margin-top: 0.5em;
+		font-size: 0.9rem;
+
+		a {
+			margin: -0.1em -0.2em;
+			padding: 0.1em 0.2em;
+			border-radius: 0.25em;
+			background: linear-gradient(var(--c-primary-soft), var(--c-primary-soft)) no-repeat center bottom / 100% 0.1em;
+			color: var(--c-primary);
+			text-decoration: none;
+			transition: all 0.2s ease;
+
+			svg {
+				transition: transform 0.2s ease;
+			}
+
+			&:hover {
+				background-size: 100% 100%;
+
+				svg {
+					transform: scale(1.1) rotate(-5deg);
+				}
+			}
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+}
+
+// 标签列表
+.tags-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+
+	.tag-item {
+		padding: 0.2em 0.6em;
+		border-radius: 0.3em;
+		background-color: var(--c-bg-soft);
+		font-size: 0.85em;
+		color: var(--c-text-2);
+		text-decoration: none !important;
+		transition: all 0.2s;
+
+		&:hover {
+			background-color: var(--c-primary-soft);
+			color: var(--c-primary);
+		}
+	}
+}

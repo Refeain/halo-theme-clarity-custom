@@ -1,0 +1,68 @@
+// ========================================
+// 文章链接样式
+// ========================================
+.article {
+	// ==========================================
+	// 链接样式 (来自 blog-v3 ProseA)
+	// ==========================================
+	a:not([class]) {
+		margin: -0.1em -0.2em;
+		padding: 0.1em 0.2em;
+		background: linear-gradient(var(--c-primary-soft), var(--c-primary-soft)) no-repeat center bottom / 100% 0.1em;
+		color: var(--c-primary);
+		text-decoration: none;
+		transition: all 0.2s;
+
+		&:hover {
+			border-radius: 0.3em;
+			background-size: 100% 100%;
+		}
+	}
+
+	// ==========================================
+	// 定义列表
+	// ==========================================
+	dl {
+		margin: 1em 0;
+
+		dt {
+			font-weight: 600;
+			color: var(--c-text);
+			margin-top: 0.5em;
+		}
+
+		dd {
+			margin-inline-start: 1.5em;
+			color: var(--c-text-2);
+		}
+	}
+
+	// ==========================================
+	// 详情/折叠
+	// ==========================================
+	details {
+		margin: 1em 0;
+		padding: 0.5em 1em;
+		border: 1px solid var(--c-border);
+		border-radius: 0.5em;
+		background-color: var(--c-bg-soft);
+
+		summary {
+			cursor: pointer;
+			font-weight: 500;
+			color: var(--c-text);
+
+			&:hover {
+				color: var(--c-primary);
+			}
+
+			&::marker {
+				color: var(--c-primary);
+			}
+		}
+
+		&[open] {
+			padding-bottom: 1em;
+		}
+	}
+}

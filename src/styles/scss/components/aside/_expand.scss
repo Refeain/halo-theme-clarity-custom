@@ -1,0 +1,36 @@
+// ========================================
+// Expand 组件样式
+// ========================================
+.z-expand {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.2em;
+}
+
+.toggle-btn {
+	display: block;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 0.3em;
+	font-size: 0.9em;
+	color: var(--c-text-2);
+	cursor: pointer;
+	transition: color 0.2s;
+
+	&:hover {
+		color: var(--c-primary);
+	}
+
+	&.in-place {
+		order: -1;
+	}
+}
+
+.toggle-icon {
+	display: inline-block;
+	transition: transform 0.2s;
+
+	&.expand {
+		transform: scaleY(-1);
+	}
+}

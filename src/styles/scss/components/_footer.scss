@@ -1,0 +1,55 @@
+.z-footer {
+	margin: 3rem 1rem;
+	font-size: 0.9em;
+	color: var(--c-text-2);
+
+	.footer-nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 5vw clamp(2rem, 5%, 5vw);
+		padding-block: 3rem;
+
+		h3 {
+			margin: 0.5em;
+			font: inherit;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			gap: 0.3em;
+			width: fit-content;
+			padding: 0.3em 0.5em;
+			border-radius: 0.5em;
+			font-size: 0.9em;
+			transition: background-color 0.2s, color 0.1s;
+
+			&:hover {
+				background-color: var(--c-bg-soft);
+				color: var(--c-text);
+			}
+		}
+	}
+
+	p {
+		margin: 0.5em;
+	}
+
+	// 备案图标
+	.beian-icon,
+	.link-icon {
+		width: 1.2em;
+		height: 1.2em;
+		object-fit: contain;
+		vertical-align: middle;
+	}
+
+	.footer-inject {
+		padding: 1rem 0;
+		text-align: center;
+
+		&:empty {
+			display: none;
+		}
+	}
+}

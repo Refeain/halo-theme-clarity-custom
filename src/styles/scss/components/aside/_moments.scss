@@ -1,0 +1,118 @@
+// ========================================
+// 微语组件 (Moments Widget)
+// ========================================
+.moments-widget {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.moment-item {
+	padding-bottom: 0.75rem;
+	border-bottom: 1px dashed var(--c-border);
+
+	&:last-child {
+		padding-bottom: 0;
+		border-bottom: none;
+	}
+}
+
+.moment-content {
+	font-size: 0.9em;
+	line-height: 1.6;
+	color: var(--c-text);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-decoration: none !important;
+	transition: color .2s;
+
+	&:hover {
+		color: var(--c-primary) !important;
+	}
+
+	// 确保所有子元素继承正确的样式
+	* {
+		text-decoration: inherit !important;
+		color: inherit !important;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	img {
+		display: none;
+	}
+}
+
+.moment-meta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.4em;
+	gap: 0.5em;
+
+	.moment-time {
+		display: flex;
+		align-items: center;
+		gap: 0.3em;
+		font-size: 0.75em;
+		color: var(--c-text-3);
+		white-space: nowrap;
+
+		[class^="icon-"] {
+			font-size: 1.1em;
+		}
+	}
+
+	// 内容标签 - 胶囊风格
+	.moment-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		justify-content: flex-end;
+		margin-left: auto;
+
+		.moment-tag {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.15rem;
+			padding: 0.25em 0.6em;
+			border-radius: 2em;
+			background-color: var(--c-primary-soft);
+			font-size: 0.7rem;
+			font-weight: 500;
+			color: var(--c-primary);
+			transition: all 0.2s;
+			border: 1px solid transparent;
+
+			.tag-hash {
+				font-weight: 700;
+				opacity: 0.7;
+			}
+
+			&:hover {
+				background-color: var(--c-primary);
+				color: white;
+				transform: translateY(-1px);
+				box-shadow: 0 2px 4px color-mix(in srgb, var(--c-primary), transparent 60%);
+			}
+		}
+	}
+}
+
+.empty-tip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	padding: 1rem;
+	font-size: 0.85em;
+	color: var(--c-text-3);
+
+	[class^="icon-"] {
+		font-size: 1.3em;
+	}
+}

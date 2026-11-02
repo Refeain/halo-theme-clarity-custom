@@ -1,0 +1,18 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  color: var(--c-text-3);
+
+  > span {
+    font-size: 4rem;
+    opacity: 0.5;
+  }
+
+  > p {
+    font-size: 1rem;
+  }
+}

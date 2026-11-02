@@ -1,0 +1,229 @@
+// ========================================
+// 登录弹窗
+// ========================================
+.login-modal-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(8px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	transition: all 0.3s;
+
+	&.v-enter-from,
+	&.v-leave-to {
+		opacity: 0;
+		backdrop-filter: blur(0);
+	}
+}
+
+.login-modal {
+	width: 90%;
+	max-width: 380px;
+	background: var(--ld-bg-card);
+	border: 1px solid var(--c-border);
+	border-radius: 1.5rem;
+	box-shadow:
+		0 20px 60px -10px rgba(0, 0, 0, 0.3),
+		0 0 0 1px rgba(255, 255, 255, 0.1);
+	overflow: hidden;
+	animation: modal-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	@keyframes modal-pop {
+		from { transform: scale(0.95) translateY(10px); opacity: 0; }
+		to { transform: scale(1) translateY(0); opacity: 1; }
+	}
+
+	.login-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		padding: 1.5rem 1.5rem 0.5rem;
+
+		.header-text {
+			h3 {
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: var(--c-text);
+				margin-bottom: 0.2rem;
+				letter-spacing: -0.02em;
+			}
+			p {
+				font-size: 0.85rem;
+				color: var(--c-text-3);
+			}
+		}
+
+		.close-btn {
+			color: var(--c-text-3);
+			padding: 0.4rem;
+			border-radius: 50%;
+			background: var(--c-bg-soft);
+			cursor: pointer;
+			transition: all 0.2s;
+
+			&:hover {
+				color: var(--c-text);
+				background: var(--c-bg-2);
+				transform: rotate(90deg);
+			}
+		}
+	}
+
+	.login-form {
+		padding: 1.5rem;
+
+		.form-group {
+			margin-bottom: 1.25rem;
+
+			label {
+				display: block;
+				margin-bottom: 0.5rem;
+				font-size: 0.85rem;
+				font-weight: 600;
+				color: var(--c-text-2);
+				margin-inline-start: 0.2rem;
+			}
+
+			.input-wrapper {
+				position: relative;
+
+				.input-icon {
+					position: absolute;
+					left: 0.8rem;
+					top: 50%;
+					transform: translateY(-50%);
+					color: var(--c-text-3);
+					font-size: 1.1rem;
+					transition: color 0.2s;
+				}
+
+				input[type="text"],
+				input[type="password"] {
+					width: 100%;
+					padding: 0.75rem 1rem 0.75rem 2.4rem;
+					border: 1px solid var(--c-border);
+					border-radius: 0.8rem;
+					background: var(--c-bg-soft);
+					color: var(--c-text);
+					font-size: 0.95rem;
+					transition: all 0.2s;
+
+					&:focus {
+						outline: none;
+						background: var(--c-bg);
+						border-color: var(--c-primary);
+						box-shadow: 0 0 0 4px var(--c-primary-soft);
+
+						~ .input-icon {
+							color: var(--c-primary);
+						}
+					}
+
+					&::placeholder {
+						color: var(--c-text-3);
+						font-size: 0.9em;
+					}
+				}
+			}
+
+			&.checkbox {
+				margin-top: -0.5rem;
+
+				label {
+					display: flex;
+					align-items: center;
+					gap: 0.5rem;
+					cursor: pointer;
+					font-weight: normal;
+
+					input[type="checkbox"] {
+						width: 1.1rem;
+						height: 1.1rem;
+						accent-color: var(--c-primary);
+						border-radius: 4px;
+					}
+
+					span {
+						font-size: 0.9rem;
+						color: var(--c-text-2);
+					}
+				}
+			}
+		}
+
+		.form-error {
+			margin-bottom: 1rem;
+			padding: 0.6rem 0.8rem;
+			background: rgba(239, 68, 68, 0.1);
+			color: #ef4444;
+			border: 1px solid rgba(239, 68, 68, 0.2);
+			border-radius: 0.5rem;
+			font-size: 0.85rem;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+
+			&::before {
+				content: "!";
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 1.2em;
+				height: 1.2em;
+				background: #ef4444;
+				color: white;
+				border-radius: 50%;
+				font-size: 0.75em;
+				font-weight: bold;
+			}
+		}
+
+		.submit-btn {
+			width: 100%;
+			padding: 0.8rem 1rem;
+			background: var(--c-primary);
+			color: #fff;
+			border-radius: 0.8rem;
+			font-size: 1rem;
+			font-weight: 600;
+			letter-spacing: 0.02em;
+			cursor: pointer;
+			transition: all 0.2s;
+			box-shadow: 0 4px 12px var(--c-primary-soft);
+
+			&:hover:not(:disabled) {
+				transform: translateY(-1px);
+				box-shadow: 0 6px 16px var(--c-primary-soft);
+				filter: brightness(1.1);
+			}
+
+			&:active:not(:disabled) {
+				transform: translateY(0);
+			}
+
+			&:disabled {
+				opacity: 0.7;
+				cursor: wait;
+			}
+
+			.loading-text {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+			}
+
+			.animate-spin {
+				animation: spin 1s linear infinite;
+			}
+
+			@keyframes spin {
+				from { transform: rotate(0deg); }
+				to { transform: rotate(360deg); }
+			}
+		}
+	}
+}

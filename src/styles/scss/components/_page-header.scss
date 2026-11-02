@@ -1,0 +1,94 @@
+// ========================================
+// 统一页面头部样式 (Unified Page Header)
+// ========================================
+
+// 页面头部
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 1rem 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--c-border);
+}
+
+// 页面标题
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  > [class^="icon-"],
+  > .iconify {
+    font-size: 1.75em;
+    color: var(--c-primary);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  > h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--c-text) 0%, var(--c-text-2) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+// 页面操作区域
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+// 页面计数
+.page-count {
+  font-size: 0.9rem;
+  color: var(--c-text-2);
+
+  strong {
+    color: var(--c-primary);
+  }
+}
+
+// 页面链接
+.page-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45em 0.9em;
+  border-radius: 2em;
+  background-color: var(--c-bg-soft);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--c-text-2);
+  transition: all 0.2s;
+
+  [class^="icon-"],
+  .iconify {
+    font-size: 1.1em;
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, var(--c-accent), var(--c-primary));
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--c-accent), transparent 60%);
+  }
+}
+
+// 图标动画
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px var(--c-primary-soft));
+  }
+}

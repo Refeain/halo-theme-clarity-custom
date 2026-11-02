@@ -1,0 +1,51 @@
+// ========================================
+// Steam 页面混合宏 (Steam Mixins)
+// ========================================
+
+@use 'variables' as *;
+
+// 弹性布局
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+// 卡片基础样式
+@mixin card-base {
+  background: var(--ld-bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-slow ease;
+}
+
+// 卡片悬停效果
+@mixin card-hover {
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+// 按钮基础样式
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  text-decoration: none;
+  transition: all $transition-normal;
+}
+
+// 旋转动画
+@mixin spin-animation {
+  @keyframes steam-spin {
+    to { transform: rotate(360deg); }
+  }
+}

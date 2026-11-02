@@ -1,0 +1,36 @@
+// ========================================
+// 导航菜单
+// ========================================
+.sidebar-nav {
+	flex-grow: 1;
+	padding: 0 5%;
+	font-size: 0.9em;
+	overflow-y: auto;
+	scrollbar-width: thin;
+
+	// 子标题样式
+	h3 {
+		margin: 2em 0 1em 1em;
+		font: inherit;
+		color: var(--c-text-2);
+	}
+
+	// 列表项间距
+	li {
+		margin: 0.5em 0;
+	}
+
+	// 自定义滚动条样式
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: transparent;
+		border-radius: 2px;
+	}
+
+	&:hover::-webkit-scrollbar-thumb {
+		background-color: var(--c-border);
+	}
+}

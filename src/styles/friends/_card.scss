@@ -1,0 +1,59 @@
+// ========================================
+// 朋友圈卡片组件 (Friend Card)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 卡片进入动画
+@keyframes card-enter {
+	from {
+		opacity: 0;
+		transform: translateY(20px) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+// 朋友圈卡片
+.friend-card {
+	--card-radius: #{$card-radius};
+
+	position: relative;
+	@include flex(column, stretch, flex-start, $card-gap);
+	padding: $card-padding;
+	border-radius: var(--card-radius);
+	background: var(--c-bg-card, var(--c-bg-1));
+	box-shadow: $shadow-sm;
+	transition: all $transition-slow $easing-default;
+	@include animation-enter;
+	overflow: hidden;
+
+	// 顶部装饰线
+	&::before {
+		@include gradient-line;
+		opacity: 0;
+		transform: scaleX(0);
+		transition: all $transition-slow ease;
+	}
+
+	&:hover {
+		@include card-hover;
+
+		&::before {
+			opacity: 1;
+			transform: scaleX(1);
+		}
+
+		.author-avatar {
+			transform: scale(1.1) rotate(5deg);
+			box-shadow: 0 4px 12px color-mix(in srgb, var(--c-primary), transparent 70%);
+		}
+
+		.read-more > [class^="icon-"] {
+			transform: translate(2px, -2px);
+		}
+	}
+}

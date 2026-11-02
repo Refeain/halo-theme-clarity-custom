@@ -1,0 +1,32 @@
+:root {
+	--font-basic: "InterVariable", "Noto Sans SC-Local", ui-sans-serif, "sans-serif", "Noto Sans SC", system-ui, sans-serif;
+	--font-serif: "Noto Serif SC-Local", "Noto Serif SC", serif;
+	// 标题字体：快看世界体 -> 苹方(macOS) / 微软雅黑(Windows)
+	--font-creative: "快看世界体", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+	// Logo 字体：自定义字体(需在主题设置中配置) -> 回退到系统字体
+	--font-logo: "Logo Font", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+	// 友链标题字体：自定义字体(需在主题设置中配置) -> 回退到系统字体
+	--font-links-title: "Links Title Font", "PingFang SC", "Microsoft YaHei", "MiSans", system-ui, sans-serif;
+	--font-stroke-free: "Logo Font", "PingFang SC", "Microsoft YaHei", "MiSans", system-ui, sans-serif;
+	--font-monospace: ui-monospace, "JetBrains Mono", "Cascadia Code", "Consolas", "monospace", var(--font-basic), monospace;
+
+	@media (max-resolution: 1.2dppx) {
+		--font-basic: "InterVariable", system-ui, sans-serif;
+	}
+}
+
+/* autoprefixer: ignore next */
+// 仅在 Chrome 130+ 启用本地可变字体
+@supports (box-decoration-break: clone) {
+	@font-face {
+		font-family: "Noto Sans SC-Local";
+		font-weight: 100 900; // 不指定则为 400
+		src: local("Noto Sans SC");
+	}
+
+	@font-face {
+		font-family: "Noto Serif SC-Local";
+		font-weight: 100 900;
+		src: local("Noto Serif SC");
+	}
+}

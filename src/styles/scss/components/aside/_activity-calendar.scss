@@ -1,0 +1,157 @@
+// ========================================
+// 活跃日历组件
+// ========================================
+.activity-calendar {
+  --calendar-accent: var(--c-primary);
+  --calendar-muted: var(--c-text-3);
+
+  padding: 0.2rem 0.15rem 0.05rem;
+}
+
+.activity-calendar-header {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr 1.5rem;
+  align-items: center;
+  gap: 0.12rem;
+  margin-bottom: 0.45rem;
+
+  .calendar-label {
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--c-text);
+    letter-spacing: 0.01em;
+  }
+
+  .calendar-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    color: var(--c-text-3);
+    transition: all 0.18s;
+
+    &:hover:not(:disabled) {
+      color: var(--c-primary);
+      background: color-mix(in srgb, var(--c-primary), transparent 88%);
+    }
+
+    &:disabled {
+      opacity: 0.28;
+      cursor: default;
+    }
+  }
+}
+
+.activity-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-bottom: 0.24rem;
+  color: var(--calendar-muted);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.activity-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.16rem;
+}
+
+.calendar-day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.08rem;
+  min-height: 1.8rem;
+  border-radius: 0.5rem;
+  color: var(--c-text);
+  transition: background-color 0.18s, color 0.18s;
+
+  .day-number {
+    position: relative;
+    z-index: 1;
+    font-size: 0.82rem;
+    line-height: 1;
+    font-weight: 650;
+  }
+
+  .day-dot {
+    width: 0.22rem;
+    height: 0.22rem;
+    border-radius: 50%;
+    background: transparent;
+    transition: background-color 0.18s, transform 0.18s;
+  }
+
+  &:not(.empty):hover {
+    background: color-mix(in srgb, var(--c-primary), transparent 90%);
+  }
+
+  &.empty {
+    pointer-events: none;
+
+    .day-number,
+    .day-dot {
+      display: none;
+    }
+  }
+
+  &.active {
+    .day-dot {
+      transform: scale(1.15);
+    }
+
+    &.level-1 .day-dot {
+      background: color-mix(in srgb, var(--calendar-accent), transparent 74%);
+    }
+
+    &.level-2 .day-dot {
+      background: color-mix(in srgb, var(--calendar-accent), transparent 52%);
+    }
+
+    &.level-3 .day-dot {
+      background: color-mix(in srgb, var(--calendar-accent), transparent 32%);
+    }
+
+    &.level-4 .day-dot {
+      background: var(--calendar-accent);
+    }
+  }
+
+  &.is-today {
+    .day-number {
+      width: 1.34rem;
+      height: 1.34rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--calendar-accent);
+      box-shadow: 0 0.18rem 0.55rem color-mix(in srgb, var(--calendar-accent), transparent 75%);
+    }
+  }
+}
+
+.activity-calendar-summary {
+  margin-top: 0.48rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--c-text-2);
+  text-align: center;
+}
+
+.activity-calendar-hover {
+  margin-top: 0.2rem;
+  min-height: 1.2em;
+  text-align: center;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: var(--c-text-3);
+}

@@ -1,0 +1,78 @@
+// ========================================
+// 侧边栏基础布局
+// ========================================
+$breakpoint-widescreen: 1080px !default;
+
+#z-aside {
+	overflow: auto;
+	overscroll-behavior: contain;
+	padding: 0.5rem;
+
+	// 桌面端：固定定位
+	position: sticky;
+	top: 0;
+	flex-shrink: 0;
+	width: 280px;
+	height: 100vh;
+	height: 100dvh;
+	// 隐藏滚动条但保持可滚动
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	// 宽屏以下：默认隐藏，通过 .show 类显示
+	@media (max-width: $breakpoint-widescreen) {
+		display: block;
+		position: fixed;
+		top: 0;
+		inset-inline-end: 0;
+		width: 320px;
+		height: 100vh;
+		height: 100dvh;
+		max-width: 100%;
+		padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px));
+		visibility: hidden;
+		transform: var(--transform-end-far);
+		transition: transform 0.2s, visibility 0.2s;
+		background-color: var(--c-bg);
+		box-shadow: -0.5rem 0 2rem var(--ld-shadow);
+		z-index: 100;
+
+		// 显示状态
+		&.show {
+			visibility: visible;
+			transform: none;
+		}
+
+		@media (min-width: 769px), (max-height: 528px) {
+			padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
+		}
+
+		// 滑入时的 widget 样式
+		.widget-body.widget-card {
+			padding: 0.5rem;
+			border-radius: 1rem;
+			box-shadow: 0 0 1rem var(--ld-shadow);
+			background-color: var(--ld-bg-blur);
+			backdrop-filter: blur(0.5rem);
+		}
+	}
+}
+
+// 右侧边栏背景遮罩
+#z-aside-bgmask {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+	transition: opacity 0.2s;
+	z-index: 99;
+
+	&.hidden {
+		display: none;
+	}
+
+	@media (min-width: ($breakpoint-widescreen + 1px)) {
+		display: none;
+	}
+}

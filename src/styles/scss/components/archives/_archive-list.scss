@@ -1,0 +1,100 @@
+// 文章列表样式
+// Archive article list styles
+
+// 文章列表
+.archive-list,
+.tag-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	.pinned-post {
+		flex-shrink: 0;
+
+		.icon {
+			width: 16px;
+			height: 16px;
+			fill: var(--c-danger);
+			transition: all 0.3s ease;
+		}
+
+		&:hover .icon {
+			transform: scale(1.1);
+			fill: var(--c-danger-dark);
+		}
+	}
+}
+
+// 文章项
+.article-item {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin: 0.2em 0;
+	transition: all 0.2s;
+	animation: float-in 0.2s var(--delay, 0s) backwards;
+
+	@media (max-width: 768px) {
+		font-size: 0.9em;
+	}
+
+	// 日期
+	> time {
+		display: inline-block;
+		opacity: 0.4;
+		font-family: var(--font-monospace);
+		transition: opacity 0.2s;
+	}
+
+	&:hover > time {
+		opacity: 1;
+	}
+}
+
+// 文章链接卡片
+.article-link {
+	position: relative;
+	flex-grow: 1;
+	overflow: hidden;
+	padding: 0.3em 0.6em;
+	border-radius: 0.3em;
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+
+	.article-title {
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		line-height: 1.4;
+		color: var(--c-text);
+	}
+
+	&:hover {
+		background-color: var(--c-bg-soft);
+	}
+
+	// 文章封面（悬浮显示）
+	.article-cover {
+		position: absolute;
+		opacity: 0.65;
+		top: 0;
+		inset-inline-end: 0;
+		width: min(50%, 180px);
+		height: 100%;
+		margin: 0;
+		mask-image: linear-gradient(to var(--end, right), transparent 28%, #000 100%);
+		-webkit-mask-image: linear-gradient(to var(--end, right), transparent 28%, #000 100%);
+		transition: all 0.2s;
+		object-fit: cover;
+		z-index: -1;
+	}
+
+	&:hover .article-cover {
+		opacity: 1;
+		width: 50%;
+		object-position: center 43.5%;
+	}
+}

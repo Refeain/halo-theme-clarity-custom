@@ -1,0 +1,91 @@
+// ========================================
+// Tab 切换组件 (自定义实现)
+// ========================================
+.custom-tabs-container {
+  width: fit-content;
+  max-width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.custom-tabs-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.custom-tabs-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.custom-tab-item {
+  position: relative;
+  margin-bottom: 0.5em;
+  padding: 0.3em 0.5em;
+  border: none;
+  border-radius: 0.4em;
+  background: none;
+  color: var(--c-text-2);
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--c-bg-soft);
+    color: var(--c-text);
+  }
+
+  &::before,
+  &::after {
+    display: block;
+    position: absolute;
+    bottom: -0.5em;
+    inset-inline: 0.8em;
+    height: 2px;
+    border-radius: 1em;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    inset-inline: -0.8em;
+    background-color: var(--c-border);
+  }
+
+  &.active {
+    box-shadow: 0 1px 0.5em var(--ld-shadow);
+    background-color: var(--ld-bg-card);
+    color: var(--c-text);
+
+    &::before {
+      content: "";
+      background-color: var(--c-primary);
+      z-index: 1;
+    }
+  }
+}
+
+.custom-tabs-content {
+  padding: 0.5em 0;
+}
+
+.custom-tab-pane {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.link-tab {
+  margin: 1rem;
+}

@@ -1,0 +1,21 @@
+.photo-group {
+  margin-bottom: 2rem;
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-creative);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--c-text);
+
+  .group-count {
+    margin-left: auto;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--c-text-2);
+  }
+}

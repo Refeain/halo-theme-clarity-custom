@@ -1,0 +1,86 @@
+// ========================================
+// 文章列表样式
+// ========================================
+.article {
+	// ==========================================
+	// 列表样式
+	// ==========================================
+	:where(menu, ol, ul):not([class]) {
+		margin: 0.5em 0;
+		padding-inline-start: 1.5em;
+		font-size: 0.95rem;
+
+		&, ol ol ol {
+			list-style: revert;
+		}
+
+		ol, ol ol ol ol {
+			list-style-type: lower-alpha;
+		}
+
+		ol ol, ol ol ol ol ol {
+			list-style-type: lower-roman;
+		}
+
+		ol, ul {
+			margin-top: 0;
+		}
+
+		> li {
+			margin: 0.3em 0;
+
+			&::marker {
+				color: var(--c-primary);
+			}
+		}
+	}
+
+	// ==========================================
+	// 任务列表 (Checkbox List)
+	// ==========================================
+	ul[data-type="taskList"] {
+		list-style: none;
+		padding-inline-start: 0;
+		margin: 0.5em 0;
+
+		> li[data-type="taskItem"] {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.5em;
+			margin: 0.3em 0;
+
+			> label {
+				display: flex;
+				align-items: center;
+				flex-shrink: 0;
+				margin-top: 0.2em;
+
+				input[type="checkbox"] {
+					width: 1.1em;
+					height: 1.1em;
+					accent-color: var(--c-primary);
+					cursor: pointer;
+				}
+
+				> span {
+					display: none;
+				}
+			}
+
+			> div {
+				flex: 1;
+
+				> p {
+					margin: 0;
+				}
+			}
+
+			// 已完成的任务
+			&[data-checked="true"] > div {
+				opacity: 0.6;
+				text-decoration: line-through;
+				text-decoration-color: var(--c-text-3);
+			}
+		}
+	}
+}

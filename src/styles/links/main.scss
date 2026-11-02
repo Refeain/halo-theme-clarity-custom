@@ -1,0 +1,52 @@
+// ========================================
+// Links 友链页面组件入口文件
+// ========================================
+
+$breakpoint-phone: 528px !default;
+
+// 基础样式（包含变量和工具类）
+@use 'base';
+
+// FeedGroup 友链分组
+@use 'feed-group';
+
+// FeedList 友链列表
+@use 'feed-list' with (
+  $breakpoint-phone: $breakpoint-phone
+);
+
+// FeedCard 友链卡片
+@use 'feed-card';
+
+// FeedTooltip 悬浮提示
+@use 'feed-tooltip';
+
+// Tabs 标签页组件
+@use 'tabs';
+
+// MyFeedCard 我的博客卡片
+@use 'my-feed-card';
+
+// CopyFields 复制字段
+@use 'copy-fields';
+
+// ApplyContent 申请友链内容
+@use 'apply-content';
+
+// Comment 评论区
+@use 'comment';
+
+// SubmitActions 提交入口按钮
+@use 'submit-actions';
+
+// SubmitModal 提交弹窗
+@use 'submit-modal';
+
+// SubmitMessage 提交结果消息
+@use 'submit-message';
+
+// SubmitForm 提交表单
+@use 'submit-form';
+
+// RandomBtn 随机穿梭按钮
+@use 'random-btn';

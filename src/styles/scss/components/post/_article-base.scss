@@ -1,0 +1,27 @@
+// ========================================
+// 文章正文基础样式
+// ========================================
+.article {
+	margin: 1rem;
+	line-height: 1.8;
+
+	p {
+		margin: 0.5em 0;
+	}
+
+	> *, > p {
+		margin: 1rem 0;
+	}
+
+	// 锚点高亮（点击目录跳转时）
+	.toc-highlight {
+		border-radius: 0.25rem;
+		background-color: var(--c-primary-soft);
+		animation: toc-highlight-fade 2s ease-out forwards;
+
+		@keyframes toc-highlight-fade {
+			0% { background-color: var(--c-primary-soft); }
+			100% { background-color: transparent; }
+		}
+	}
+}

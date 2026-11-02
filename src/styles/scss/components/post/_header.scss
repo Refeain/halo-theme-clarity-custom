@@ -1,0 +1,189 @@
+// ========================================
+// 文章头部 (PostHeader)
+// ========================================
+
+$breakpoint-mobile: 768px !default;
+
+.post-header {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+	margin: 0.5rem;
+	border-radius: 1rem;
+	background-color: var(--c-bg-2);
+	color: var(--c-text);
+
+	@media (max-width: $breakpoint-mobile) {
+		margin: 0;
+		border-radius: 0;
+	}
+
+	&:hover .operations {
+		opacity: 1;
+	}
+
+	&.has-cover {
+		position: relative;
+		overflow: hidden;
+		overflow: clip;
+		min-height: 256px;
+		max-height: 320px;
+		color: #fff;
+		transition: font-size 0.2s;
+
+		&:hover {
+			font-size: 0.8em;
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 80px;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+			z-index: 1;
+			pointer-events: none;
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 120px;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+			z-index: 1;
+			pointer-events: none;
+		}
+
+		.post-title {
+			margin: 0 1rem 1rem;
+			background-image: none;
+			text-shadow: none;
+		}
+	}
+}
+
+.operations {
+	position: absolute;
+	top: 0.8em;
+	opacity: 0;
+	inset-inline-end: 1em;
+	color: var(--c-text-1);
+	transition: opacity 0.2s;
+	z-index: 2;
+
+	.has-cover & {
+		color: #fff;
+	}
+}
+
+.z-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3em;
+	padding: 0.4em 0.8em;
+	border-radius: 0.5em;
+	background-color: var(--c-bg-soft);
+	backdrop-filter: blur(4px);
+	font-size: 0.85em;
+	color: inherit;
+	cursor: pointer;
+	transition: all 0.2s;
+
+	.has-cover & {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+
+	&:hover {
+		background-color: var(--c-primary-soft);
+		color: var(--c-primary);
+
+		.has-cover & {
+			background-color: rgba(255, 255, 255, 0.3);
+			color: #fff;
+		}
+	}
+}
+
+.post-cover {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 1rem;
+}
+
+.post-title {
+	width: fit-content;
+	margin: 0 1rem 1rem;
+	font-size: 1.6em;
+	line-height: 1.2;
+	color: var(--c-text);
+	z-index: 2;
+
+	.has-cover & {
+		color: #fff;
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	// 有封面且开启居中时，标题垂直居中
+	.center-title.has-cover & {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: calc(100% - 2rem);
+		margin: 0;
+		text-align: center;
+	}
+}
+
+.post-nav {
+	padding: 0.8em 1rem;
+	position: relative;
+	z-index: 2;
+}
+
+.post-info {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 1.2em;
+	font-size: 0.85rem;
+	color: var(--c-text-2);
+
+	.has-cover & {
+		color: rgba(255, 255, 255, 0.9);
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	}
+
+	width: fit-content;
+	padding: 0.4em 0.8em;
+
+	span {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3em;
+	}
+
+	img {
+		width: 1em;
+		height: 1em;
+		border-radius: 0.2em;
+		object-fit: cover;
+	}
+
+	a {
+		color: inherit;
+
+		&:hover {
+			color: var(--c-primary);
+			.has-cover & { color: #fff; text-decoration: underline; }
+		}
+	}
+}

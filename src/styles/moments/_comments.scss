@@ -1,0 +1,194 @@
+// 瞬间评论区样式
+// Moment comments section styles
+
+// 折叠评论区
+.moment-comment {
+	display: none;
+	margin-top: 0.75rem;
+	padding: 0.75rem 0;
+	animation: slide-down 0.25s ease;
+
+	&.show {
+		display: block;
+	}
+
+	// 评论区标题
+	.comment-header {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin-bottom: 0.6rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--c-border);
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--c-text-2);
+
+		.iconify, [class^="icon-"] {
+			font-size: 1.1em;
+			color: var(--c-primary);
+		}
+	}
+
+	// ========== Halo 评论组件变量 ==========
+	--halo-cw-primary-1-color: var(--c-primary);
+	--halo-cw-primary-2-color: color-mix(in srgb, var(--c-primary) 20%, transparent);
+	--halo-cw-primary-3-color: color-mix(in srgb, var(--c-primary) 10%, transparent);
+	
+	--halo-cw-text-1-color: var(--c-text);
+	--halo-cw-text-2-color: var(--c-text-2);
+	--halo-cw-text-3-color: var(--c-text-3);
+	
+	--halo-cw-muted-1-color: var(--c-border);
+	--halo-cw-muted-2-color: var(--c-bg-soft);
+	--halo-cw-muted-3-color: var(--c-bg);
+	
+	// 紧凑版尺寸
+	--halo-cw-base-rounded: 0.5rem;
+	--halo-cw-avatar-rounded: 50%;
+	--halo-cw-avatar-size: 1.75rem;
+	--halo-cw-base-font-size: 0.8rem;
+	--halo-cw-base-font-family: var(--font-sans);
+
+	// 评论组件容器
+	.comment-widget,
+	comment-widget {
+		font-size: 0.85rem;
+	}
+
+	// 编辑器区域
+	[class*="editor"],
+	.editor-wrapper {
+		border-radius: 0.5rem;
+		border-color: var(--c-border);
+		background: var(--c-bg);
+		
+		&:focus-within {
+			border-color: var(--c-primary);
+			box-shadow: 0 0 0 2px color-mix(in srgb, var(--c-primary) 15%, transparent);
+		}
+	}
+
+	// 提交按钮
+	[class*="submit"],
+	button[type="submit"] {
+		padding: 0.35em 0.75em;
+		border-radius: 0.4rem;
+		font-size: 0.8rem;
+		font-weight: 500;
+		transition: all 0.2s;
+		
+		&:hover {
+			filter: brightness(1.05);
+		}
+	}
+
+	// 评论列表 - 紧凑布局
+	.comment-list,
+	[class*="comment-list"] {
+		.comment-item,
+		[class*="comment-item"] {
+			padding: 0.5rem 0;
+			border-bottom: 1px solid var(--c-border);
+			
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		// 头像
+		.avatar,
+		[class*="avatar"] {
+			width: 1.75rem !important;
+			height: 1.75rem !important;
+			border-radius: 50%;
+		}
+
+		// 评论内容
+		.content,
+		[class*="content"] {
+			font-size: 0.8rem;
+			line-height: 1.6;
+			color: var(--c-text-1);
+		}
+
+		// 时间
+		time,
+		[class*="time"],
+		[class*="date"] {
+			font-size: 0.7rem;
+			color: var(--c-text-3);
+		}
+
+		// 操作按钮
+		.actions,
+		[class*="actions"] {
+			button, a {
+				font-size: 0.75rem;
+				color: var(--c-text-3);
+				
+				&:hover {
+					color: var(--c-primary);
+				}
+			}
+		}
+	}
+
+	// 评论数标题
+	.comment-count,
+	[class*="comment-count"],
+	[class*="total"] {
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--c-text-2);
+		margin-bottom: 0.5rem;
+	}
+
+	// 空评论提示
+	[class*="empty"],
+	.no-comments {
+		padding: 1rem;
+		font-size: 0.8rem;
+		color: var(--c-text-3);
+		text-align: center;
+	}
+}
+
+// 详情页评论区
+.moment-comment-section {
+	margin: 0 1rem 2rem;
+	padding: 1rem 0;
+	animation: fade-slide-up 0.4s 0.5s both;
+
+	// 继承评论变量
+	--halo-cw-primary-1-color: var(--c-primary);
+	--halo-cw-primary-2-color: color-mix(in srgb, var(--c-primary) 20%, transparent);
+	--halo-cw-primary-3-color: color-mix(in srgb, var(--c-primary) 10%, transparent);
+	--halo-cw-text-1-color: var(--c-text);
+	--halo-cw-text-2-color: var(--c-text-2);
+	--halo-cw-text-3-color: var(--c-text-3);
+	--halo-cw-muted-1-color: var(--c-border);
+	--halo-cw-muted-2-color: var(--c-bg-soft);
+	--halo-cw-muted-3-color: var(--c-bg);
+	--halo-cw-base-rounded: 0.75rem;
+	--halo-cw-avatar-rounded: 50%;
+	--halo-cw-avatar-size: 2.5rem;
+	--halo-cw-base-font-size: 0.9rem;
+
+	.comment-title {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 0 0 1.25rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px dashed var(--c-border);
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--c-text-1);
+
+		[class^="icon-"], .iconify {
+			font-size: 1.2em;
+			color: var(--c-primary);
+		}
+	}
+}

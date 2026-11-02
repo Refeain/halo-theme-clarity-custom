@@ -1,0 +1,73 @@
+// ========================================
+// 插件缺失提示条（仅管理员可见）
+// ========================================
+
+.plugin-hint {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.625rem;
+	padding: 0.75rem 0.875rem;
+	border: 1px dashed color-mix(in srgb, #f59e0b 55%, transparent);
+	border-radius: 0.75rem;
+	background-color: color-mix(in srgb, #f59e0b 8%, transparent);
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	color: var(--c-text-1);
+	animation: float-in 0.3s ease;
+
+	.plugin-hint-icon {
+		flex-shrink: 0;
+		margin-top: 0.125em;
+		font-size: 1.15em;
+		color: #f59e0b;
+	}
+
+	.plugin-hint-body {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 0.2rem;
+		min-width: 0;
+	}
+
+	.plugin-hint-text {
+		margin: 0;
+	}
+
+	.plugin-hint-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.2em;
+		width: fit-content;
+		font-weight: 600;
+		color: #f59e0b;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.plugin-hint-close {
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.15rem;
+		border-radius: 0.375rem;
+		color: var(--c-text-3);
+		opacity: 0.7;
+		transition:
+			opacity 0.2s,
+			background-color 0.2s;
+
+		&:hover {
+			opacity: 1;
+			background-color: var(--c-bg-soft);
+		}
+	}
+}
+
+// 页面上下文（如 layout 主内容顶部），与页面内容保持间距
+.plugin-hint.plugin-hint-page {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}

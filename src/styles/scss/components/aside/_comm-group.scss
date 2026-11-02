@@ -1,0 +1,27 @@
+// ========================================
+// CommGroup 社区群组样式
+// ========================================
+.comm-title {
+	background-clip: text;
+	background-image: linear-gradient(60deg, var(--c-accent) -30%, var(--c-primary), var(--c-text-1));
+	background-position: 100% 0;
+	background-size: 200%;
+	font-size: 1.8em;
+	font-weight: 800;
+	letter-spacing: 0.05em;
+	color: transparent;
+	transition: background-position 0.2s;
+
+	.widget:hover & {
+		background-position: 0 0;
+	}
+}
+
+.comm-tip {
+	display: flex;
+	align-items: center;
+	gap: 0.3em;
+	font-size: 0.9em;
+	line-height: 2;
+	color: var(--c-text-2);
+}

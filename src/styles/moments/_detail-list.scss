@@ -1,0 +1,242 @@
+// ========================================
+// 列表模板详情页
+// ========================================
+.moment-detail-list {
+	margin: 0 1rem 1.5rem;
+	animation: fade-slide-up 0.4s 0.1s both;
+
+	.moment-header {
+		display: flex !important;
+		align-items: flex-start !important;
+		justify-content: flex-start !important;
+		gap: 0.6rem;
+		margin-bottom: 0.75rem;
+
+		.author-avatar {
+			width: 3em !important;
+			height: 3em !important;
+			border-radius: 2em !important;
+			box-shadow: 2px 4px 1rem var(--ld-shadow) !important;
+			flex-shrink: 0;
+		}
+
+		.author-name {
+			display: flex !important;
+			flex-direction: column !important;
+			gap: 0.15rem;
+			font-weight: 600;
+			font-size: 0.95rem;
+			color: var(--c-text-1) !important;
+		}
+
+		.moment-time {
+			font-size: 0.75rem;
+			color: var(--c-text-3);
+			background-color: transparent !important;
+			padding: 0 !important;
+			display: inline !important;
+		}
+	}
+
+	.moment-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin-top: 0.75rem;
+		animation: fade-in 0.4s 0.2s both;
+	}
+
+	.moment-text {
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: var(--c-text-1);
+
+		.tag,
+		[class*="tag"] {
+			display: none;
+		}
+	}
+
+	.moment-media {
+		margin-top: 0.5rem;
+		display: grid;
+		gap: 8px;
+		animation: fade-scale-in 0.4s 0.3s both;
+
+		&.single {
+			grid-template-columns: 1fr;
+
+			.media-item {
+				overflow: hidden;
+				border-radius: 8px;
+				box-shadow: 0 1px 3px color-mix(in srgb, var(--ld-shadow), transparent 85%);
+
+				img, video {
+					display: block;
+					width: 100%;
+					max-height: 70vh;
+					object-fit: cover;
+					cursor: zoom-in;
+				}
+			}
+		}
+
+		&.double {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		&.grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		&.double .media-item,
+		&.grid .media-item {
+			position: relative;
+			padding-bottom: 100%;
+			overflow: hidden;
+			border-radius: 8px;
+			box-shadow: 0 1px 3px color-mix(in srgb, var(--ld-shadow), transparent 85%);
+
+			img, video {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				cursor: zoom-in;
+				transition: transform 0.3s;
+
+				&:hover {
+					transform: scale(1.02);
+				}
+			}
+		}
+
+		.media-item.audio {
+			grid-column: 1 / -1;
+			padding-bottom: 0;
+			position: static;
+
+			audio {
+				width: 100%;
+			}
+		}
+	}
+
+	.moment-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 0.75rem;
+		padding-top: 0.5rem;
+		border-top: 1px dashed var(--c-border);
+		animation: fade-in 0.3s 0.4s both;
+
+		.moment-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px;
+			margin: 0;
+			padding: 0;
+		}
+
+		.moment-tag {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.15rem;
+			padding: 2px 6px;
+			border-radius: 4px;
+			background-color: var(--c-bg-2);
+			color: var(--c-primary);
+			font-size: 0.75rem;
+			text-decoration: none;
+			transition: all 0.2s;
+
+			[class^="icon-"] {
+				font-size: 0.85em;
+			}
+
+			&:hover {
+				color: #fff;
+				background-color: var(--c-primary);
+			}
+		}
+
+		.moment-actions {
+			display: flex;
+			gap: 0.25rem;
+			margin-left: auto;
+		}
+	}
+
+	@media (max-width: 640px) {
+		margin: 0 0.5rem 1rem;
+
+		.moment-header {
+			.author-avatar {
+				width: 2.5em;
+				height: 2.5em;
+			}
+
+			.author-name {
+				font-size: 0.85rem;
+			}
+
+			.moment-time {
+				font-size: 0.7rem;
+			}
+		}
+
+		.moment-body {
+			.moment-text {
+				font-size: 0.9rem;
+			}
+		}
+
+		.moment-footer {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+
+			.moment-actions {
+				margin-left: 0;
+				width: 100%;
+				justify-content: flex-end;
+			}
+		}
+
+		.moment-media {
+			&.single .media-item img,
+			&.single .media-item video {
+				max-height: 50vh;
+			}
+		}
+	}
+}
+
+// 列表模式返回按钮（简化版）
+.moment-back-simple {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+
+	.back-link {
+		padding: 0.3em 0.6em;
+		font-size: 0.75rem;
+		color: var(--c-text-3);
+		background-color: transparent;
+
+		[class^="icon-"] {
+			font-size: 1em;
+		}
+
+		&:hover {
+			color: var(--c-primary);
+			background-color: var(--c-primary-soft);
+
+			[class^="icon-"] {
+				transform: none;
+			}
+		}
+	}
+}

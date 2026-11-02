@@ -1,0 +1,64 @@
+// ========================================
+// 文章文字样式
+// ========================================
+.article {
+  
+	// 加粗 - 底部高亮效果
+	strong, b {
+		font-weight: 600;
+		background: linear-gradient(var(--c-primary-soft), var(--c-primary-soft)) no-repeat center bottom / 100% 30%;
+	}
+
+	// 斜体
+	em, i {
+		font-style: italic;
+		color: var(--c-text-2);
+	}
+
+	// 删除线
+	del, s {
+		opacity: 0.5;
+		text-decoration: line-through;
+		text-decoration-color: var(--c-text-3);
+	}
+
+	// 下划线
+	u, ins {
+		text-decoration: underline;
+		text-decoration-color: var(--c-primary);
+		text-underline-offset: 0.2em;
+	}
+
+	// 标记/高亮
+	mark {
+		padding: 0.1em 0.2em;
+		border-radius: 0.2em;
+		background-color: var(--c-primary-soft);
+		color: inherit;
+	}
+
+	// 上标和下标
+	sub, sup {
+		font-size: 0.75em;
+		color: var(--c-text-2);
+	}
+
+	// 缩写
+	abbr[title] {
+		text-decoration: underline dotted;
+		text-underline-offset: 0.2em;
+		cursor: help;
+	}
+
+	// 键盘按键
+	kbd {
+		display: inline-block;
+		padding: 0.1em 0.4em;
+		border: 1px solid var(--c-border);
+		border-radius: 0.25em;
+		background-color: var(--c-bg-2);
+		box-shadow: 0 2px 0 var(--c-border);
+		font-family: var(--font-monospace);
+		font-size: 0.85em;
+	}
+}

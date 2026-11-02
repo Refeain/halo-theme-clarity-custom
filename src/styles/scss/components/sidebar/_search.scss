@@ -1,0 +1,28 @@
+// ========================================
+// 搜索按钮
+// ========================================
+.search-btn {
+	opacity: 0.5;
+	margin: 1rem 0;
+	outline: 2px solid var(--c-border);
+	outline-offset: -2px;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 1;
+		outline-color: transparent;
+		background-color: transparent;
+	}
+
+	// 快捷键提示
+	.search-shortcut {
+		margin-inline-start: auto;
+		padding: 0.15em 0.4em;
+		border: 1px solid var(--c-border);
+		border-radius: 0.25em;
+		background-color: var(--c-bg-2);
+		font-size: 0.75em;
+		font-family: var(--font-monospace);
+		color: var(--c-text-3);
+	}
+}

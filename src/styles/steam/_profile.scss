@@ -1,0 +1,198 @@
+// ========================================
+// Steam 个人资料样式 (Steam Profile)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 个人资料卡片
+.steam-profile {
+  @include card-base;
+  @include card-hover;
+  padding: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
+  @include flex(row, flex-start, flex-start, $spacing-2xl);
+
+  // 头像包装
+  &__avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  // 头像
+  &__avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: $radius-md;
+    border: 3px solid var(--c-primary);
+    display: block;
+    object-fit: cover;
+  }
+
+  // 状态指示点
+  &__status-dot {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--c-bg-soft);
+    background: var(--c-text-3);
+
+    &.online {
+      background: $color-online;
+    }
+
+    &.playing {
+      background: $color-playing;
+    }
+  }
+
+  // 信息区域
+  &__info {
+    flex: 1;
+    min-width: 0;
+    @include flex(column, flex-start, flex-start, $spacing-sm);
+  }
+
+  // 头部区域
+  &__header {
+    @include flex(row, center, space-between, 12px);
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  // 用户名
+  &__name {
+    font-size: $font-size-2xl;
+    font-weight: 600;
+    color: var(--c-text);
+    margin: 0;
+  }
+
+  // 按钮
+  &__btn {
+    @include btn-base;
+    background: var(--c-primary);
+    color: #fff;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
+
+  // 状态行
+  &__status-row {
+    @include flex(row, center, flex-start, $spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  // 状态文本
+  &__status {
+    font-size: $font-size-md;
+    color: var(--c-text-2);
+
+    &.online {
+      color: $color-online;
+    }
+
+    &.playing {
+      color: $color-playing;
+    }
+  }
+
+  // 最后在线时间
+  &__last-online {
+    font-size: $font-size-sm;
+    color: var(--c-text-3);
+  }
+
+  // 元信息
+  &__meta {
+    @include flex(row, center, flex-start, 12px);
+    font-size: $font-size-md;
+    color: var(--c-text-2);
+    flex-wrap: wrap;
+  }
+
+  // 等级
+  &__level {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--c-primary);
+    color: #fff;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    font-weight: 600;
+  }
+
+  // 徽章区域
+  &__badges {
+    @include flex(row, center, flex-start, $spacing-sm);
+    flex-wrap: wrap;
+  }
+}
+
+// 徽章
+.steam-badge {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  border-radius: $radius-md;
+  @include flex(row, center, center);
+  cursor: default;
+  transition: all $transition-normal;
+  overflow: hidden;
+
+  &:hover {
+    border-color: var(--c-primary);
+    transform: scale(1.1);
+  }
+
+  &--foil {
+    border-color: $color-foil;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+  }
+
+  &__icon {
+    font-size: $font-size-lg;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__level {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: var(--c-primary);
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 2px;
+    line-height: 1;
+  }
+
+  &--more {
+    background: var(--c-bg-soft);
+    color: var(--c-text);
+    font-size: $font-size-sm;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--c-primary);
+      color: #fff;
+    }
+  }
+}

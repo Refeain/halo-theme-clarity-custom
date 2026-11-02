@@ -1,0 +1,37 @@
+// ========================================
+// Steam 区块样式 (Steam Section)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 区块
+.steam-section {
+  &:not(:last-child) {
+    margin-bottom: $spacing-3xl;
+  }
+
+  // 区块头部
+  &__header {
+    @include flex(row, center, space-between);
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  // 区块标题
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: var(--c-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    @include flex(row, center, flex-start, $spacing-sm);
+  }
+
+  // 副标题
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: var(--c-text-3);
+  }
+}

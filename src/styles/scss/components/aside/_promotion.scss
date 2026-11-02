@@ -1,0 +1,95 @@
+// ========================================
+// 推广轮播组件 (Promotion Carousel)
+// ========================================
+.promotion-carousel {
+	position: relative;
+	height: var(--promotion-height, 120px);
+	padding: 0 !important;
+	overflow: hidden;
+	border-radius: 0.8rem;
+	cursor: grab;
+	touch-action: pan-y pinch-zoom;
+	user-select: none;
+
+	&.dragging {
+		cursor: grabbing;
+	}
+
+	&.single {
+		cursor: default;
+	}
+}
+
+.promotion-track {
+	display: flex;
+	width: 100%;
+	height: var(--promotion-height, 120px);
+	will-change: transform;
+}
+
+.promotion-slide {
+	flex: 0 0 100%;
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	text-decoration: none;
+	color: inherit;
+
+	img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		pointer-events: none;
+	}
+}
+
+.promotion-tip {
+	position: relative;
+	z-index: 2;
+	display: block;
+	width: 100%;
+	// 右边距动态计算：每个圆点 6px + 活跃态额外 10px + 间距(count-1)*5px + 安全边距 12px
+	padding: 1.5em 0.6em 0.4em;
+	padding-right: calc((var(--promotion-count, 1) * 11px) + 12px);
+	font-size: 0.8em;
+	line-height: 1.4;
+	color: #fff;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+	border-radius: 0 0 0.8rem 0.8rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.promotion-dots {
+	position: absolute;
+	bottom: 0.4em;
+	right: 0.5em;
+	display: flex;
+	gap: 0.35em;
+	z-index: 10;
+}
+
+.promotion-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.6);
+	// 轻柔的描边 + 投影，确保在浅色背景上可见
+	box-shadow:
+		inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+		0 1px 2px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
+	transition: all 0.25s ease;
+
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.9);
+	}
+
+	&.active {
+		width: 16px;
+		background-color: #fff;
+	}
+}

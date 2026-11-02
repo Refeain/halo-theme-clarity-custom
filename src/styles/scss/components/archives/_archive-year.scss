@@ -1,0 +1,58 @@
+// 年份标题区样式
+// Archive year header styles
+
+// 年份标题区
+.archive-title {
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+	position: sticky;
+	opacity: 0.5;
+	top: 0;
+	font-size: min(1.5em, 5vw);
+	color: transparent;
+	transition: color 0.2s;
+
+	&::selection,
+	:hover > & {
+		color: var(--c-text-3);
+	}
+
+	:hover > & .archive-age {
+		opacity: 0;
+	}
+
+	// 大年份数字（水印效果）
+	> .archive-year,
+	.archive-age {
+		margin-bottom: -0.3em;
+		mask-image: linear-gradient(#FFF 50%, transparent);
+		font-family: var(--font-stroke-free, var(--font-sans));
+		font-size: 3em;
+		font-variant-numeric: tabular-nums;
+		font-weight: 800;
+		line-height: 1;
+		z-index: -1;
+		-webkit-text-stroke: 1px var(--c-text-3);
+	}
+
+	// 右侧年龄标签
+	> .archive-age {
+		position: absolute;
+		inset-inline-end: 0;
+		transition: opacity 0.2s;
+
+		> .age-label {
+			font-size: 0.5em;
+			vertical-align: super;
+		}
+	}
+
+	// 统计信息
+	> .archive-info {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		column-gap: 0.5em;
+	}
+}

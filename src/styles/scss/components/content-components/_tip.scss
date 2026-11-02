@@ -1,0 +1,49 @@
+// ========================================
+// Tip 提示文本
+// ========================================
+.c-tip {
+  position: relative;
+  text-decoration: underline dashed var(--c-text-3);
+  cursor: pointer;
+  text-underline-offset: 4px;
+
+  &[data-tip]:not([data-tip=""]) {
+    &::before {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      padding: 0.4em 0.8em;
+      border-radius: 0.4em;
+      background-color: var(--c-text);
+      font-size: 0.85em;
+      white-space: nowrap;
+      color: var(--c-bg);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      z-index: 100;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--c-text);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      z-index: 100;
+    }
+
+    &:hover::before,
+    &:hover::after {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

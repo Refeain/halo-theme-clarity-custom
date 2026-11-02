@@ -1,0 +1,30 @@
+// ========================================
+// 朋友圈列表布局 (Friends List Layout)
+// ========================================
+
+@use 'variables' as *;
+
+// 朋友圈列表 - 瀑布流双列布局
+.friends-list {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.75rem;
+	padding: 0.5rem $spacing-sm $spacing-lg;
+
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: 1fr;
+	}
+
+	// 分页组件跨越两列
+	.pagination-wrapper,
+	.pagination-wrapper.sticky-pagination,
+	.pagination-anchor {
+		grid-column: 1 / -1;
+	}
+
+	// 展开状态下填满整个容器
+	.pagination-wrapper.sticky-pagination.expand {
+		width: 100%;
+	}
+}

@@ -1,0 +1,44 @@
+// ========================================
+// Aside 侧边栏组件入口文件
+// ========================================
+
+// 可配置变量
+$breakpoint-widescreen: 1080px !default;
+
+// 基础布局（传递配置变量）
+@use 'layout' with (
+  $breakpoint-widescreen: $breakpoint-widescreen
+);
+
+// Widget 基础组件
+@use 'widget';
+
+// DlGroup 组件
+@use 'dl-group';
+
+// Expand 展开组件
+@use 'expand';
+
+// CommGroup 社区群组
+@use 'comm-group';
+
+// TOC 文章目录
+@use 'toc';
+
+// 赞助卡片
+@use 'sponsor';
+
+// 微语组件
+@use 'moments';
+
+// 最新评论组件
+@use 'recent-comments';
+
+// 热门文章、最新文章组件
+@use 'posts';
+
+// 推广轮播
+@use 'promotion';
+
+// 活跃日历
+@use 'activity-calendar';

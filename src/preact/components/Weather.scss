@@ -1,0 +1,154 @@
+.weather-card {
+  padding: 0.75rem 1rem;
+  min-height: 60px;
+}
+
+.weather-loading,
+.weather-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.5rem;
+  font-size: 0.9em;
+  color: var(--c-text-3);
+  animation: weatherPulse 1.5s ease-in-out infinite;
+
+  [class^="icon-"] {
+    font-size: 1.2em;
+  }
+}
+
+@keyframes weatherPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.weather-error {
+  cursor: pointer;
+  animation: none;
+  transition: all 0.25s ease;
+  border-radius: 0.5rem;
+  margin: -0.25rem;
+  padding: 0.75rem;
+
+  &:hover {
+    color: var(--c-primary);
+    background-color: var(--c-bg-soft);
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.weather-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: weatherSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes weatherSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-left {
+  flex-shrink: 0;
+}
+
+.weather-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  animation: weatherIconBounce 2s ease-in-out infinite;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    animation-play-state: paused;
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+@keyframes weatherIconBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+.weather-right {
+  flex: 1;
+  min-width: 0;
+}
+
+.weather-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.15em;
+  margin-bottom: 0.25em;
+}
+
+.temp-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-creative);
+  line-height: 1;
+  color: var(--c-text);
+  transition: color 0.3s;
+}
+
+.temp-unit {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--c-text-2);
+  margin-right: 0.5em;
+}
+
+.weather-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--c-text);
+  transition: color 0.3s;
+}
+
+.weather-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  font-size: 0.75em;
+  color: var(--c-text-3);
+  animation: weatherFadeIn 0.6s ease-out 0.2s both;
+}
+
+@keyframes weatherFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.weather-city,
+.weather-update {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  transition: color 0.2s;
+
+  [class^="icon-"] {
+    font-size: 1em;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    color: var(--c-text-2);
+  }
+}

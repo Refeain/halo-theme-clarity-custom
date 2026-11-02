@@ -1,0 +1,36 @@
+// ========================================
+// 文章表格样式
+// ========================================
+.article {
+	// ==========================================
+	// 表格
+	// ==========================================
+	table {
+		width: 100%;
+		margin: 1em 0;
+		border-collapse: collapse;
+		border-radius: 0.5em;
+		overflow: hidden;
+		font-size: 0.9em;
+
+		th, td {
+			padding: 0.6em 1em;
+			border: 1px solid var(--c-border);
+			text-align: start;
+		}
+
+		th {
+			background-color: var(--c-bg-2);
+			font-weight: 600;
+			color: var(--c-text);
+		}
+
+		tr:nth-child(even) td {
+			background-color: var(--c-bg-soft);
+		}
+
+		tr:hover td {
+			background-color: var(--c-primary-soft);
+		}
+	}
+}

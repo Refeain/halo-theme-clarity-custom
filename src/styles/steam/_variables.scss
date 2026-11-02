@@ -1,0 +1,47 @@
+// ========================================
+// Steam 页面变量 (Steam Variables)
+// ========================================
+
+// 颜色
+$color-online: #57cbde;
+$color-playing: #a4d007;
+$color-foil: #ffd700;
+
+// 间距
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+$spacing-xl: 20px;
+$spacing-2xl: 24px;
+$spacing-3xl: 32px;
+$spacing-4xl: 40px;
+$spacing-5xl: 48px;
+
+// 字体大小
+$font-size-xs: 0.6875rem;
+$font-size-sm: 0.75rem;
+$font-size-md: 0.875rem;
+$font-size-lg: 1rem;
+$font-size-xl: 1.125rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 2rem;
+$font-size-4xl: 3rem;
+
+// 圆角
+$radius-sm: 2px;
+$radius-md: 0.5rem;
+$radius-lg: 0.875rem;
+
+// 动画
+$transition-fast: 0.15s;
+$transition-normal: 0.2s;
+$transition-slow: 0.25s;
+
+// 阴影
+$shadow-sm: 0 1px 3px var(--ld-shadow);
+$shadow-md: 0 4px 12px var(--ld-shadow);
+
+// 断点
+$breakpoint-lg: 1024px;
+$breakpoint-md: 768px;

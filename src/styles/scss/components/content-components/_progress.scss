@@ -1,0 +1,41 @@
+// ========================================
+// Progress 进度条
+// ========================================
+.c-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin: 1em 0;
+  font-size: 0.9em;
+
+  .c-progress-label {
+    flex-shrink: 0;
+    min-width: 4em;
+    color: var(--c-text-2);
+  }
+
+  .c-progress-bar {
+    --c-progress-color: var(--c-primary);
+
+    flex-grow: 1;
+    height: 0.6em;
+    border-radius: 1em;
+    background-color: var(--c-bg-soft);
+    overflow: hidden;
+  }
+
+  .c-progress-fill {
+    height: 100%;
+    border-radius: 1em;
+    background: linear-gradient(90deg, var(--c-progress-color), color-mix(in srgb, var(--c-progress-color), white 20%));
+    transition: width 0.5s ease-out;
+  }
+
+  .c-progress-text {
+    flex-shrink: 0;
+    min-width: 3em;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--c-text-2);
+  }
+}

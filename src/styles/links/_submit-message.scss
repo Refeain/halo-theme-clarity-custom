@@ -1,0 +1,93 @@
+// ========================================
+// 提交结果消息（顶部）
+// ========================================
+.link-submit-content > .submit-message {
+  margin: 0;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  animation: slideDown 0.3s ease;
+
+  .msg-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  .msg-text {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  &.success {
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.12) 0%, transparent 100%);
+    color: #2e7d32;
+    border-bottom: 1px solid rgba(76, 175, 80, 0.15);
+
+    .msg-icon {
+      background: rgba(76, 175, 80, 0.2);
+      color: #2e7d32;
+    }
+  }
+
+  &.error {
+    background: linear-gradient(90deg, rgba(244, 67, 54, 0.12) 0%, transparent 100%);
+    color: #c62828;
+    border-bottom: 1px solid rgba(244, 67, 54, 0.15);
+
+    .msg-icon {
+      background: rgba(244, 67, 54, 0.2);
+      color: #c62828;
+    }
+  }
+
+  &.info {
+    background: linear-gradient(90deg, rgba(33, 150, 243, 0.12) 0%, transparent 100%);
+    color: #1565c0;
+    border-bottom: 1px solid rgba(33, 150, 243, 0.15);
+
+    .msg-icon {
+      background: rgba(33, 150, 243, 0.2);
+      color: #1565c0;
+    }
+  }
+
+  // 暗色模式颜色调整
+  :root.dark & {
+    &.success {
+      color: #81c784;
+      .msg-icon { color: #81c784; }
+    }
+    &.error {
+      color: #ef9a9a;
+      .msg-icon { color: #ef9a9a; }
+    }
+    &.info {
+      color: #90caf9;
+      .msg-icon { color: #90caf9; }
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

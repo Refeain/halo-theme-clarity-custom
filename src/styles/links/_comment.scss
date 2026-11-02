@@ -1,0 +1,16 @@
+// ========================================
+// 评论区标题
+// ========================================
+.links-page .comment-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 3rem 1rem 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.links-page .z-comment {
+  margin: 1rem;
+}

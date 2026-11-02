@@ -1,0 +1,67 @@
+// ========================================
+// 多级菜单样式
+// ========================================
+
+// 旧版结构兼容性：直接放在 has-dropdown 内的箭头
+.has-dropdown {
+	cursor: pointer;
+
+	.dropdown-arrow {
+		font-size: 0.8em;
+		transition: transform 0.2s;
+		margin: 0.25rem 0.25rem 0.25rem 4rem;
+	}
+}
+
+// 展开状态（需要配合 JS）
+.has-submenu.expanded {
+	.dropdown-arrow {
+		transform: rotate(180deg);
+	}
+
+	.dropdown-menu {
+		max-height: 500px;
+		opacity: 1;
+		margin-top: 0.5em;
+		visibility: visible;
+		transform: translateY(0);
+	}
+}
+
+.dropdown-menu {
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: all 0.3s ease-in-out;
+	margin-inline-start: 1em;
+	border-inline-start: 1px solid var(--c-border);
+
+	.dropdown-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.4em 1em;
+		font-size: 0.9em;
+		color: var(--c-text-2);
+		transition: color 0.2s;
+
+		&:hover {
+			color: var(--c-primary);
+		}
+
+		&.active {
+			color: var(--c-primary);
+			font-weight: 500;
+		}
+
+		// 下拉项中的菜单图标，开启「菜单图标颜色反转」时深色模式下反色
+		> img {
+			object-fit: contain;
+			flex-shrink: 0;
+
+			.dark #z-sidebar.menu-icon-invert & {
+				filter: invert(1) brightness(1.1);
+			}
+		}
+	}
+}

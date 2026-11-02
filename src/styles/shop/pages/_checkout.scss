@@ -1,0 +1,126 @@
+.shop-checkout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--shop-spacing-xl);
+  align-items: start;
+  margin: 0 1rem;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shop-spacing-lg);
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shop-spacing-lg);
+    position: sticky;
+    top: 100px;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--shop-spacing-md);
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shop-spacing-sm);
+
+    .shop-btn {
+      width: 100%;
+    }
+  }
+}
+
+.shop-order-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--shop-spacing-md);
+}
+
+.shop-order-item {
+  display: flex;
+  gap: var(--shop-spacing-md);
+  padding-bottom: var(--shop-spacing-md);
+  border-bottom: 1px solid var(--shop-gray-200);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &__image {
+    width: 75px;
+    height: 75px;
+    border-radius: var(--shop-border-radius);
+    background-color: var(--shop-gray-100);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--shop-spacing-xs);
+  }
+
+  &__name {
+    font-size: var(--shop-font-size-base);
+    font-weight: 600;
+    color: var(--shop-gray-900);
+  }
+
+  &__variant,
+  &__quantity {
+    font-size: var(--shop-font-size-sm);
+    color: var(--shop-gray-600);
+  }
+
+  &__price {
+    font-size: var(--shop-font-size-base);
+    font-weight: 600;
+    color: var(--shop-gray-900);
+    flex-shrink: 0;
+  }
+}
+
+.shop-order-summary {
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--shop-spacing-sm);
+    font-size: var(--shop-font-size-base);
+    color: var(--shop-gray-700);
+
+    &--total {
+      font-size: var(--shop-font-size-lg);
+      font-weight: 700;
+      color: var(--shop-gray-900);
+      margin: var(--shop-spacing-md) 0 0 0;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .shop-checkout {
+    grid-template-columns: 1fr;
+
+    &__summary {
+      position: static;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-checkout {
+    &__form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+}

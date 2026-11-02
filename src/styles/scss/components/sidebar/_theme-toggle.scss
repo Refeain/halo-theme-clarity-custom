@@ -1,0 +1,36 @@
+// ========================================
+// 主题切换按钮（三按钮样式，与原版一致）
+// ========================================
+.theme-toggle {
+	display: flex;
+	justify-content: center;
+	gap: 3px;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 2px;
+	border: 1px solid var(--c-border);
+	border-radius: 1rem;
+	background-color: var(--c-bg-2);
+
+	> button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 6px 1rem;
+		border-radius: 1rem;
+		transition: all 0.1s;
+
+		&:hover {
+			background-color: var(--c-bg-soft);
+			color: var(--c-text-1);
+		}
+
+		// 激活状态
+		&.active {
+			box-shadow: 0.1em 0.2em 0.5rem var(--ld-shadow);
+			background-color: var(--ld-bg-card);
+			color: var(--c-text-1);
+			cursor: auto;
+		}
+	}
+}

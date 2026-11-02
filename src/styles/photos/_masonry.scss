@@ -1,0 +1,17 @@
+.photo-masonry {
+  column-count: 4;
+  column-gap: 0.75rem;
+
+  @media (max-width: 1200px) {
+    column-count: 3;
+  }
+
+  @media (max-width: 768px) {
+    column-count: 2;
+  }
+
+  @media (max-width: 480px) {
+    column-count: 2;
+    column-gap: 0.5rem;
+  }
+}

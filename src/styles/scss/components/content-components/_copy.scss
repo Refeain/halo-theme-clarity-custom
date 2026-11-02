@@ -1,0 +1,62 @@
+// ========================================
+// Copy 复制命令
+// ========================================
+.c-copy {
+  display: flex;
+  overflow: clip;
+  margin: 0.5rem 0;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  background-color: var(--ld-bg-card);
+  font-size: 0.8rem;
+  line-height: 2.5;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: var(--c-primary);
+    outline: 0.2em solid var(--c-primary-soft);
+
+    .c-copy-prompt {
+      border-inline-end-color: var(--c-primary);
+      background-color: var(--c-primary-soft);
+      color: var(--c-primary);
+    }
+  }
+
+  .c-copy-prompt {
+    flex-shrink: 0;
+    padding: 0 1em;
+    border-inline-end: 1px solid var(--c-border);
+    background-color: var(--c-bg-2);
+    color: var(--c-text-2);
+    transition: all 0.2s;
+  }
+
+  .c-copy-code {
+    flex-grow: 1;
+    position: relative;
+    overflow-x: auto;
+    padding: 0 1em;
+    outline: none;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+      background-color: transparent;
+    }
+  }
+
+  .c-copy-btn {
+    flex-shrink: 0;
+    height: 2.5em;
+    margin-inline-start: -0.5em;
+    padding: 0.5em;
+    border: none;
+    background: none;
+    color: var(--c-text-2);
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover { color: var(--c-primary); }
+  }
+}

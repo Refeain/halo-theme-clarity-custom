@@ -1,0 +1,239 @@
+// 瞬间卡片样式
+// Moment card styles
+
+// 瞬间卡片 - 带渐变边框效果
+.moment-card {
+	position: relative;
+	padding: 1rem;
+	border-radius: 0.75rem;
+	background-color: var(--ld-bg-card);
+	box-shadow: 0 1px 3px var(--ld-shadow);
+	animation: float-in 0.3s var(--delay, 0s) both;
+	transition: all 0.25s ease;
+	z-index: 0;
+
+	// 渐变边框伪元素
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		border: 2px solid transparent;
+		border-radius: inherit;
+		background: 
+			linear-gradient(var(--ld-bg-card), var(--ld-bg-card)) padding-box,
+			linear-gradient(135deg, var(--c-primary), var(--c-accent)) border-box;
+		transition: opacity 0.25s ease;
+		pointer-events: none;
+		z-index: -1;
+	}
+
+	&:hover {
+		box-shadow: 0 4px 12px var(--ld-shadow);
+		transform: translateY(-2px);
+
+		&::before {
+			opacity: 1;
+		}
+	}
+}
+
+// 卡片头部 - 作者 + 时间
+.moment-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin-bottom: 0.75rem;
+
+	.author-info {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.author-avatar {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		object-fit: cover;
+		box-shadow: 0 0 0 2px var(--ld-bg-card), 0 0 0 3px var(--c-primary-soft);
+		transition: box-shadow 0.2s, transform 0.2s;
+
+		&:hover {
+			box-shadow: 0 0 0 2px var(--ld-bg-card), 0 0 0 4px var(--c-primary);
+			transform: scale(1.05);
+		}
+	}
+
+	.author-name {
+		font-weight: 600;
+		font-size: 0.9rem;
+		color: var(--c-text-1);
+		transition: color 0.2s;
+
+		&:hover {
+			color: var(--c-primary);
+		}
+	}
+
+	.moment-time {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		padding: 0.25em 0.6em;
+		border-radius: 1em;
+		background-color: var(--c-bg-soft);
+		font-size: 0.7rem;
+		color: var(--c-text-3);
+
+		[class^="icon-"], .iconify {
+			font-size: 1em;
+		}
+	}
+}
+
+// 瞬间内容 - 文章样式
+.moment-body {
+	.moment-text {
+		font-size: 0.85rem;
+		line-height: 1.65;
+		color: var(--c-text-1);
+
+		// 隐藏内容中自带的标签（由后端渲染）
+		.tag, [class*="tag"] {
+			display: none;
+		}
+
+		// 段落
+		p {
+			margin: 0.4em 0;
+
+			&:first-child { margin-top: 0; }
+			&:last-child { margin-bottom: 0; }
+		}
+
+		// 标题
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0.6em 0 0.3em;
+			font-weight: 600;
+			line-height: 1.35;
+			color: var(--c-text-1);
+
+			&:first-child { margin-top: 0; }
+		}
+
+		h1 { font-size: 1.15em; }
+		h2 { font-size: 1.1em; }
+		h3 { font-size: 1.05em; }
+		h4, h5, h6 { font-size: 1em; }
+
+		// 链接
+		a {
+			color: var(--c-primary);
+			text-decoration: none;
+			border-bottom: 1px dashed var(--c-primary-soft);
+			transition: border-color 0.2s;
+
+			&:hover {
+				border-bottom-style: solid;
+				border-color: var(--c-primary);
+			}
+		}
+
+		// 列表
+		ul, ol {
+			margin: 0.4em 0;
+			padding-left: 1.25em;
+		}
+
+		ul {
+			list-style: disc;
+
+			ul { list-style: circle; }
+		}
+
+		ol {
+			list-style: decimal;
+		}
+
+		li {
+			margin: 0.2em 0;
+			padding-left: 0.25em;
+
+			&::marker {
+				color: var(--c-primary);
+			}
+		}
+
+		// 行内代码
+		code {
+			padding: 0.1em 0.3em;
+			border-radius: 0.2em;
+			background-color: var(--c-bg-soft);
+			font-family: var(--font-monospace);
+			font-size: 0.9em;
+			color: var(--c-accent);
+		}
+
+		// 代码块
+		pre {
+			margin: 0.5em 0;
+			padding: 0.6em 0.8em;
+			border-radius: 0.4em;
+			background-color: var(--c-bg-soft);
+			overflow-x: auto;
+			font-size: 0.8em;
+
+			code {
+				padding: 0;
+				background: none;
+				color: inherit;
+			}
+		}
+
+		// 引用
+		blockquote {
+			margin: 0.5em 0;
+			padding: 0.35em 0.7em;
+			border-left: 2px solid var(--c-primary);
+			background-color: var(--c-primary-soft);
+			border-radius: 0 0.2em 0.2em 0;
+			color: var(--c-text-2);
+			font-size: 0.95em;
+
+			p {
+				margin: 0.15em 0;
+			}
+		}
+
+		// 粗体 & 斜体
+		strong, b {
+			font-weight: 600;
+			color: var(--c-text-1);
+		}
+
+		em, i {
+			font-style: italic;
+		}
+
+		// 删除线
+		del, s {
+			text-decoration: line-through;
+			color: var(--c-text-3);
+		}
+
+		// 分割线
+		hr {
+			margin: 0.8em 0;
+			border: none;
+			border-top: 1px dashed var(--c-border);
+		}
+
+		// 图片（内联）
+		img {
+			max-width: 100%;
+			border-radius: 0.25em;
+		}
+	}
+}

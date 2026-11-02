@@ -1,0 +1,59 @@
+// ========================================
+// Alert 警告提示框
+// ========================================
+.c-alert {
+  margin: 1em 0;
+  padding: 0.2em 0.8em;
+  border-radius: 0.5em;
+  font-size: 0.9em;
+  background-color: var(--ld-bg-card);
+  background-image:
+    radial-gradient(circle at 4em -25em, var(--c-primary), transparent 30em),
+    linear-gradient(var(--c-primary) -2000%, transparent);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--c-primary) 20%, transparent);
+  }
+
+  @supports (color: color-mix(in srgb, transparent, transparent)) {
+    --c-primary-soft: color-mix(in srgb, var(--c-primary) 15%, transparent);
+  }
+
+  // 关闭渐变效果
+  &.no-gradient {
+    background-image: none;
+  }
+
+  // 卡片模式
+  &.card {
+    padding: 0.8em 1.2em;
+    border-radius: 0.75em;
+    box-shadow:
+      0 2px 8px color-mix(in srgb, var(--c-primary) 15%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--c-primary) 20%, transparent);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 6px 16px color-mix(in srgb, var(--c-primary) 25%, transparent),
+        inset 0 0 0 1px color-mix(in srgb, var(--c-primary) 30%, transparent);
+    }
+  }
+
+  .c-alert-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 0.5em 0;
+    font-weight: bold;
+    color: var(--c-primary);
+
+    p { margin: 0; }
+  }
+
+  .c-alert-body {
+    p:last-child { margin-bottom: 0.5em; }
+  }
+}

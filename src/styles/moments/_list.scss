@@ -1,0 +1,586 @@
+// ========================================
+// 瞬间列表模式 (Moments - List Mode)
+// 参考 blog.linux-qitong.top/essay 的 .talk-item 风格
+// 每条瞬间是独立卡片，box-shadow 边框，垂直布局
+// ========================================
+
+// ---- Banner ----
+
+.moments-banner {
+  position: relative;
+  min-height: 256px;
+  max-height: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--c-primary);
+  margin: 1rem 1rem 1rem;
+}
+
+.moments-banner-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  color: #eee;
+  text-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.moments-banner-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.moments-banner-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.moments-banner-desc {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.moments-banner-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.moments-banner-count {
+  font-size: 0.75rem;
+  opacity: 0.7;
+
+  strong {
+    font-size: 0.85rem;
+  }
+}
+
+.moments-banner-rss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #eee;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    transform: scale(1.1);
+  }
+}
+
+// ---- 列表模式标签栏 ----
+
+.moments-list-tags {
+  // 不加额外 margin，内部 .moments-tags-wrapper 自带 margin: 0 1rem
+  .moments-tags {
+    gap: 0.4rem;
+  }
+
+  .tag-item {
+    padding: 0.3em 0.75em;
+    border-radius: 2em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--c-text-2);
+    background: var(--c-bg-1);
+    box-shadow: 0 0 0 1px var(--c-bg-soft);
+    transition: all 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--c-primary);
+      box-shadow: 0 0 0 1px var(--c-primary);
+      background: var(--c-bg-2);
+    }
+
+    &.active {
+      color: #fff;
+      background: var(--c-primary);
+      box-shadow: none;
+    }
+
+    .tag-count {
+      margin-left: 0.2em;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
+  }
+}
+
+// ---- 列表容器 ----
+
+.page-moments-list {
+  padding: 0 1rem 1rem;
+
+  .pagination-wrapper.sticky-pagination.expand {
+    width: 100%;
+  }
+}
+
+// ---- 列表项 ----
+
+.moment-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.moment-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px var(--c-bg-soft);
+  animation: float-in 0.3s var(--delay, 0s) both;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 0 0 1px var(--c-primary-soft);
+  }
+}
+
+// ---- 头部：头像 + 昵称/日期（上下排列） ----
+
+.moment-list-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.moment-list-avatar {
+  width: 3em;
+  border-radius: 2em;
+  object-fit: cover;
+  box-shadow: 2px 4px 1rem var(--ld-shadow);
+  flex-shrink: 0;
+}
+
+.moment-list-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3em;
+  height: 3em;
+  border-radius: 2em;
+  background: var(--c-bg-soft, var(--c-bg-2));
+  box-shadow: 2px 4px 1rem var(--ld-shadow);
+  color: var(--c-text-3);
+  font-size: 1.2rem;
+}
+
+.moment-list-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.moment-list-nick {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--c-text-1);
+}
+
+.moment-list-date {
+  color: var(--c-text-3);
+  font-size: 0.8rem;
+}
+
+// ---- 正文 ----
+
+.moment-list-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--c-text-2);
+  line-height: 1.6;
+
+  .moment-text {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--c-text-1);
+
+    .tag,
+    [class*="tag"] {
+      display: none;
+    }
+
+    p {
+      margin: 0.3em 0;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0.5em 0 0.25em;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--c-text-1);
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h1 { font-size: 1.1em; }
+    h2 { font-size: 1.05em; }
+    h3, h4, h5, h6 { font-size: 1em; }
+
+    a {
+      color: var(--c-primary);
+      text-decoration: none;
+      background: linear-gradient(var(--c-primary-soft), var(--c-primary-soft)) no-repeat bottom / 100% 0.1em;
+      margin: -0.1em -0.2em;
+      padding: 0.1em 0.2em;
+      transition: all 0.2s;
+
+      &:hover {
+        background-size: 100% 100%;
+        border-radius: 0.3em;
+      }
+    }
+
+    ul, ol {
+      margin: 0.3em 0;
+      padding-left: 1.25em;
+    }
+
+    ul {
+      list-style: disc;
+      ul { list-style: circle; }
+    }
+
+    ol { list-style: decimal; }
+
+    li {
+      margin: 0.15em 0;
+      padding-left: 0.25em;
+      &::marker { color: var(--c-primary); }
+    }
+
+    code {
+      padding: 0.1em 0.3em;
+      border-radius: 0.2em;
+      background-color: var(--c-bg-soft);
+      font-family: var(--font-monospace);
+      font-size: 0.9em;
+      color: var(--c-accent);
+    }
+
+    pre {
+      margin: 0.4em 0;
+      padding: 0.5em 0.7em;
+      border-radius: 0.4em;
+      background-color: var(--c-bg-soft);
+      overflow-x: auto;
+      font-size: 0.8em;
+
+      code {
+        padding: 0;
+        background: none;
+        color: inherit;
+      }
+    }
+
+    blockquote {
+      margin: 0.4em 0;
+      padding: 0.3em 0.6em;
+      border-left: 2px solid var(--c-primary);
+      background-color: var(--c-primary-soft);
+      border-radius: 0 0.2em 0.2em 0;
+      color: var(--c-text-2);
+      font-size: 0.95em;
+
+      p { margin: 0.1em 0; }
+    }
+
+    strong, b {
+      font-weight: 600;
+      color: var(--c-text-1);
+    }
+
+    em, i { font-style: italic; }
+
+    del, s {
+      text-decoration: line-through;
+      color: var(--c-text-3);
+    }
+
+    hr {
+      margin: 0.6em 0;
+      border: none;
+      border-top: 1px dashed var(--c-border);
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 0.25em;
+    }
+  }
+
+  // ---- 列表模式下的媒体 ----
+  // 与参考站一致：所有图片统一走 3 列网格 + 正方形裁切
+  .moment-media {
+    margin-top: 0;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+
+    &.single,
+    &.double,
+    &.grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .media-item {
+      margin: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 100%;
+
+      &.photo img,
+      &.video video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: zoom-in;
+        transition: transform 0.3s;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      // 音频横跨整行
+      &.audio {
+        grid-column: 1 / -1;
+        padding-bottom: 0;
+        position: static;
+
+        audio {
+          position: static;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// ---- 底部：标签 + 操作按钮 ----
+
+.moment-list-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--c-text-3);
+}
+
+.moment-list-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 0.7rem;
+}
+
+.moment-list-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--c-bg-2);
+  color: var(--c-primary);
+  text-decoration: none;
+  transition: all 0.2s;
+
+  [class^="icon-"] {
+    font-size: 0.85em;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: var(--c-primary);
+  }
+}
+
+.moment-list-bottom .moment-actions {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.moment-list-bottom .action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.3em 0.5em;
+  border-radius: 2em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--c-text-3);
+  background-color: transparent;
+  transition: all 0.2s;
+
+  [class^="icon-"],
+  .iconify {
+    font-size: 1.1em;
+  }
+
+  &:hover {
+    background-color: var(--c-bg-soft);
+    color: var(--c-text-1);
+  }
+
+  &.comment:hover {
+    background-color: var(--c-primary-soft);
+    color: var(--c-primary);
+  }
+
+  &.comment:has(span:not([class])):not(:has(span:empty)) {
+    background-color: var(--c-bg-soft);
+  }
+
+  &.share:hover {
+    background-color: color-mix(in srgb, var(--c-accent), transparent 85%);
+    color: var(--c-accent);
+  }
+
+  &.share.copied {
+    background-color: #dcfce7;
+    color: #16a34a;
+
+    .dark & {
+      background-color: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+    }
+
+    [class^="icon-"],
+    .iconify {
+      display: none;
+    }
+
+    &::before {
+      content: "✓ 已复制";
+      font-weight: 600;
+    }
+  }
+
+  &.like {
+    &:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    &.active {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+
+      .dark & {
+        background-color: rgba(239, 68, 68, 0.15);
+      }
+    }
+
+    &.loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    &.active [class*="heart-fill"] {
+      animation: like-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+  }
+}
+
+// 列表模式评论区
+.moment-list-item .moment-comment {
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--c-border);
+}
+
+// ---- 响应式 ----
+
+@media (max-width: 640px) {
+  .moments-banner {
+    min-height: 180px;
+    margin: 1.5rem 0.5rem 0.5rem;
+    border-radius: 6px;
+  }
+
+  .moments-banner-content {
+    padding: 1rem;
+  }
+
+  .moments-banner-title {
+    font-size: 1.1rem;
+  }
+
+  .moments-banner-desc {
+    font-size: 0.8rem;
+  }
+
+  .moments-list-tags {
+    .moments-tags-wrapper {
+      margin: 0 0.5rem 0.5rem;
+    }
+  }
+
+  .page-moments-list {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  .moment-list-items {
+    gap: 0.75rem;
+  }
+
+  .moment-list-item {
+    padding: 0.75rem;
+  }
+
+  .moment-list-avatar,
+  .moment-list-avatar-placeholder {
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  .moment-list-nick {
+    font-size: 0.8rem;
+  }
+
+  .moment-list-date {
+    font-size: 0.7rem;
+  }
+
+  .moment-list-content {
+    .moment-text {
+      font-size: 0.8rem;
+    }
+  }
+}

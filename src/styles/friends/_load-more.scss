@@ -1,0 +1,63 @@
+// ========================================
+// 朋友圈「加载更多」按钮 (Friends Load More)
+// 极简文字链接：无边框无底色，hover 变主色 + 下划线滑入。
+// 卡片 / 列表两模式共用，居中、克制、不抢戏。
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.friends-load-more {
+	@include flex(row, center, center);
+	padding: $spacing-lg 0 $spacing-xl;
+}
+
+.friends-load-more-btn {
+	position: relative;
+	@include flex(row, center, center, $spacing-xs);
+	padding: 0.4rem 0.6rem;
+	border: none;
+	background: none;
+	color: var(--c-text-2);
+	font-size: $font-size-md;
+	font-weight: 500;
+	cursor: pointer;
+	transition: color $transition-normal $easing-default;
+
+	// hover 下划线（从中间滑入）
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0.6rem;
+		right: 0.6rem;
+		bottom: 0.15rem;
+		height: 1px;
+		background: currentColor;
+		transform: scaleX(0);
+		transition: transform $transition-normal $easing-default;
+	}
+
+	&:hover:not(:disabled) {
+		color: var(--c-primary);
+
+		&::after {
+			transform: scaleX(1);
+		}
+	}
+
+	&:disabled {
+		opacity: 0.55;
+		cursor: default;
+	}
+}
+
+// ---- 响应式 ----
+@media (max-width: $breakpoint-mobile) {
+	.friends-load-more {
+		padding: $spacing-md 0 $spacing-lg;
+	}
+
+	.friends-load-more-btn {
+		font-size: $font-size-sm;
+	}
+}

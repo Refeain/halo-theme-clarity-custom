@@ -1,0 +1,40 @@
+// ========================================
+// Timeline 时间线
+// ========================================
+.c-timeline {
+  position: relative;
+  padding-inline-start: 1.5em;
+  font-size: 0.9em;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0.5em auto 0;
+    inset-inline-start: 0.5em;
+    width: 0.3em;
+    background-color: var(--c-bg-soft);
+  }
+
+  dt {
+    opacity: 0.8;
+    font-size: 0.9em;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0.3em;
+      width: 0.8em;
+      height: 0.8em;
+      margin-top: 0.5em;
+      border-radius: 1em;
+      background-color: var(--c-text-2);
+    }
+  }
+
+  dd {
+    overflow: hidden;
+    width: fit-content;
+    margin-bottom: 1em;
+    padding: 0 1em;
+  }
+}

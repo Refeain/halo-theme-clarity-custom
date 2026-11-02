@@ -1,0 +1,75 @@
+// ========================================
+// 朋友圈页面混合宏 (Friends Mixins)
+// ========================================
+
+@use 'variables' as *;
+
+// 多行文本截断
+@mixin text-clamp($lines: 2) {
+	display: -webkit-box;
+	-webkit-line-clamp: $lines;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+// 渐变背景按钮
+@mixin gradient-btn {
+	background: linear-gradient(135deg, var(--c-primary), var(--c-accent, var(--c-primary)));
+	color: #fff;
+	transform: translateY(-2px);
+	box-shadow: $shadow-lg;
+}
+
+// 卡片悬停效果
+@mixin card-hover {
+	transform: translateY(-4px);
+	box-shadow: $shadow-md;
+}
+
+// 弹性布局
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0) {
+	display: flex;
+	flex-direction: $direction;
+	align-items: $align;
+	justify-content: $justify;
+	@if $gap != 0 {
+		gap: $gap;
+	}
+}
+
+// 圆形元素
+@mixin circle($size) {
+	width: $size;
+	height: $size;
+	border-radius: $radius-full;
+}
+
+// 渐变背景装饰线
+@mixin gradient-line {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: $spacing-lg;
+	right: $spacing-lg;
+	height: 2px;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--c-primary) 20%,
+		var(--c-accent, var(--c-primary)) 80%,
+		transparent
+	);
+}
+
+// 动画关键帧
+@mixin animation-enter {
+	animation: card-enter 0.5s $easing-bounce backwards;
+	animation-delay: var(--delay, 0s);
+}
+
+// 链接悬停下划线效果
+@mixin link-underline($color: var(--c-primary)) {
+	background: linear-gradient($color, $color) no-repeat 0 100%;
+	background-size: 0 2px;
+	transition: background-size $transition-slow ease;
+}

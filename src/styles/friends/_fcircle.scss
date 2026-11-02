@@ -1,0 +1,383 @@
+// ========================================
+// 朋友圈列表模式 (Friends Circle - List Mode)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ---- Banner ----
+
+.fcircle-banner {
+	position: relative;
+	min-height: 256px;
+	max-height: 320px;
+	border-radius: 8px;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center;
+	background-color: var(--c-primary);
+	margin: $spacing-xl $spacing-lg $spacing-lg;
+}
+
+// 整体内容层：左上标题 + 左下描述/右下数目
+.fcircle-banner-content {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 1.25rem;
+	color: #eee;
+	text-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+	z-index: 1;
+}
+
+.fcircle-banner-title {
+	font-size: $font-size-2xl;
+	font-weight: 700;
+}
+
+// 底部：左边描述，右边数目
+.fcircle-banner-bottom {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: $spacing-md;
+}
+
+.fcircle-banner-desc {
+	margin: 0;
+	opacity: 0.9;
+	font-size: $font-size-md;
+}
+
+.fcircle-banner-count {
+	flex-shrink: 0;
+	font-size: 0.75rem;
+	opacity: 0.7;
+
+	strong {
+		font-size: 0.85rem;
+	}
+}
+
+// ---- 页面容器 ----
+
+.page-fcircle {
+	padding: 0 $spacing-lg $spacing-lg;
+}
+
+// ---- 文章列表 ----
+
+// 随机阅读区域
+.fcircle-random-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin: 1rem 0;
+}
+
+.fcircle-random-title {
+	flex-shrink: 0;
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: var(--c-text-1);
+	white-space: nowrap;
+}
+
+.fcircle-random-card {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	min-width: 0;
+	padding: 8px 12px;
+	border-radius: 8px;
+	box-shadow: 0 0 0 1px var(--c-bg-soft);
+	background: var(--c-bg-1);
+	text-decoration: none;
+	color: inherit;
+	transition: all $transition-fast;
+
+	&:hover {
+		box-shadow: 0 0 0 1px var(--c-primary);
+		background: var(--c-bg-2);
+
+		.fcircle-random-title-inner {
+			color: var(--c-text);
+		}
+	}
+}
+
+.fcircle-random-author {
+	flex-shrink: 0;
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: var(--c-text-2);
+}
+
+.fcircle-random-title-inner {
+	flex: 1;
+	min-width: 0;
+	font-size: 0.9375rem;
+	font-weight: 600;
+	color: var(--c-text-2);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.fcircle-random-date {
+	flex-shrink: 0;
+	font-size: 0.75rem;
+	color: var(--c-text-3);
+}
+
+// 刷新按钮
+.fcircle-random-refresh {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border: none;
+	border-radius: 8px;
+	background: var(--c-bg-1);
+	box-shadow: 0 0 0 1px var(--c-bg-soft);
+	color: var(--c-text-2);
+	cursor: pointer;
+	transition: all $transition-fast;
+
+	&:hover {
+		background: var(--c-bg-2);
+		color: var(--c-primary);
+		box-shadow: 0 0 0 1px var(--c-primary);
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	> [class^="icon-"] {
+		font-size: 1.1rem;
+		transition: transform $transition-slow $easing-default;
+	}
+
+	&.is-spinning > [class^="icon-"] {
+		animation: spin 0.4s ease-in-out;
+	}
+}
+
+@keyframes spin {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+
+.fcircle-articles {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+// 列表项
+.fcircle-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	@include animation-enter;
+}
+
+// 圆形头像容器
+.fcircle-item-image {
+	display: flex;
+	flex-shrink: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 0 0 1px var(--c-bg-soft);
+	align-self: flex-start;
+	margin-top: 6px;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.8;
+		transition: all $transition-fast;
+	}
+}
+
+.fcircle-item:hover .fcircle-item-image img {
+	opacity: 1;
+}
+
+.fcircle-avatar-placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px var(--c-bg-soft);
+	background: var(--c-bg-soft, var(--c-bg-2));
+	color: var(--c-text-3);
+	font-size: 1rem;
+	align-self: flex-start;
+	margin-top: 6px;
+}
+
+// 内容容器 - 两行结构
+.fcircle-item-container {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex: 1;
+	min-width: 0;
+	padding: 8px 10px;
+	border-radius: 8px;
+	box-shadow: 0 0 0 1px var(--c-bg-soft);
+	overflow: hidden;
+	text-decoration: none;
+	color: inherit;
+
+	&:hover .fcircle-item-title {
+		color: var(--c-text);
+	}
+}
+
+// 第一行：网站名 | 标题（截断） | 日期
+.fcircle-item-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	min-width: 0;
+}
+
+.fcircle-item-author {
+	flex-shrink: 0;
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: var(--c-text-2);
+}
+
+.fcircle-item-title {
+	flex: 1;
+	min-width: 0;
+	font-size: 0.9375rem;
+	font-weight: 600;
+	color: var(--c-text-2);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: color $transition-fast;
+}
+
+.fcircle-item-date {
+	flex-shrink: 0;
+	font-size: 0.75rem;
+	color: var(--c-text-3);
+}
+
+// 第二行：摘要内容（两行截断）
+.fcircle-item-desc {
+	font-size: 0.75rem;
+	color: var(--c-text-3);
+	line-height: 1.5;
+	@include text-clamp(2);
+}
+
+// ---- 响应式 ----
+
+@media (max-width: $breakpoint-mobile) {
+	.fcircle-banner {
+		min-height: 180px;
+		margin: $spacing-xl $spacing-sm $spacing-sm;
+		border-radius: 6px;
+	}
+
+	.fcircle-banner-content {
+		padding: 1rem;
+	}
+
+	.fcircle-banner-title {
+		font-size: $font-size-xl;
+	}
+
+	.fcircle-banner-desc {
+		font-size: $font-size-sm;
+	}
+
+	.page-fcircle {
+		padding: 0 $spacing-sm $spacing-sm;
+	}
+
+	.fcircle-item-image,
+	.fcircle-avatar-placeholder {
+		width: 2rem;
+		height: 2rem;
+		margin-top: 4px;
+	}
+
+	.fcircle-item-container {
+		padding: 6px 8px;
+	}
+
+	.fcircle-item-desc {
+		@include text-clamp(1);
+	}
+
+	.fcircle-item-author {
+		font-size: 0.75rem;
+	}
+
+	.fcircle-item-title {
+		font-size: 0.85rem;
+	}
+
+	.fcircle-item-date {
+		font-size: 0.7rem;
+	}
+
+	.fcircle-random-wrapper {
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.fcircle-random-title {
+		width: 100%;
+	}
+
+	.fcircle-random-title {
+		font-size: $font-size-md;
+	}
+
+	.fcircle-random-card {
+		padding: 6px 10px;
+	}
+
+	.fcircle-random-author {
+		font-size: 0.75rem;
+	}
+
+	.fcircle-random-title-inner {
+		font-size: 0.85rem;
+	}
+
+	.fcircle-random-date {
+		font-size: 0.7rem;
+	}
+
+	.fcircle-random-refresh {
+		width: 2rem;
+		height: 2rem;
+
+		> [class^="icon-"] {
+			font-size: 1rem;
+		}
+	}
+}

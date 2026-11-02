@@ -1,0 +1,44 @@
+// ========================================
+// Steam 统计数据样式 (Steam Stats)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 统计网格
+.steam-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-lg;
+  margin-bottom: $spacing-2xl;
+
+  // 统计项
+  &__item {
+    @include card-base;
+    @include card-hover;
+    padding: $spacing-xl;
+    text-align: center;
+
+    &:hover {
+      border-color: var(--c-primary-soft);
+      transform: translateY(-2px);
+    }
+  }
+
+  // 数值
+  &__value {
+    font-size: $font-size-3xl;
+    font-weight: 300;
+    color: var(--c-primary);
+    margin-bottom: $spacing-xs;
+    font-variant-numeric: tabular-nums;
+  }
+
+  // 标签
+  &__label {
+    font-size: $font-size-sm;
+    color: var(--c-text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}

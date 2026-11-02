@@ -1,0 +1,54 @@
+// 瞬间分页样式
+// Moments pagination styles
+
+// 分页
+.moments-pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	margin: 2rem 1rem;
+	padding: 1rem;
+
+	.page-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.6em 1.2em;
+		border-radius: 2em;
+		background-color: var(--c-bg-soft);
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: var(--c-text-2);
+		transition: all 0.2s;
+		border: 1px solid transparent;
+
+		[class^="icon-"], .iconify {
+			font-size: 1em;
+		}
+
+		&:hover:not(.disabled) {
+			background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+			color: white;
+			border-color: transparent;
+			transform: translateY(-1px);
+			box-shadow: 0 3px 10px color-mix(in srgb, var(--c-primary), transparent 50%);
+		}
+
+		&.disabled {
+			opacity: 0.35;
+			cursor: not-allowed;
+			background-color: var(--c-bg-2);
+		}
+	}
+
+	.page-info {
+		padding: 0.5em 1.25em;
+		border-radius: 2em;
+		background-color: var(--c-bg-2);
+		font-size: 0.8rem;
+		font-weight: 500;
+		font-variant-numeric: tabular-nums;
+		color: var(--c-text-3);
+	}
+}

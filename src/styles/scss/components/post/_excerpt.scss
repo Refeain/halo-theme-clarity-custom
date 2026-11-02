@@ -1,0 +1,29 @@
+// ========================================
+// 文章摘要 (Excerpt)
+// ========================================
+.md-excerpt {
+	margin: 1rem;
+	padding: 0.5rem;
+	font-size: 0.9em;
+	color: var(--c-text-2);
+
+	> [class^="icon-"] {
+		margin-inline-end: 0.3em;
+	}
+
+	&:hover {
+		color: currentcolor;
+	}
+}
+
+// 摘要打字机光标
+.excerpt-caret {
+	animation: blink 1s step-end infinite;
+	color: var(--c-primary);
+	font-weight: bold;
+}
+
+@keyframes blink {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0; }
+}

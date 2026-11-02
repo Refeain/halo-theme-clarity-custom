@@ -1,0 +1,122 @@
+// ========================================
+// 标签归档页面样式
+// ========================================
+
+.tags-archive {
+  padding: 1rem;
+}
+
+// 页面标题
+.tags-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.tags-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--c-text);
+
+  > span:first-child {
+    color: var(--c-primary);
+  }
+}
+
+.tags-count {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--c-text-3);
+
+  strong {
+    color: var(--c-primary);
+    font-weight: 600;
+  }
+}
+
+// 标签云
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  animation: float-in 0.4s ease-out;
+}
+
+// 标签项
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  background-color: var(--c-bg-soft);
+  color: var(--c-text-2);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: float-in 0.3s ease-out backwards;
+  animation-delay: var(--delay, 0s);
+
+  &:hover {
+    background-color: var(--c-primary);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--c-primary-soft);
+
+    .tag-count {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: inherit;
+    }
+  }
+}
+
+// 标签名称
+.tags-cloud .tag-name {
+  font-weight: 500;
+}
+
+// 文章数量
+.tags-cloud .tag-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 0.4em;
+  border-radius: 0.25em;
+  background-color: var(--c-bg-2);
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--c-text-3);
+  transition: all 0.2s;
+}
+
+// 空状态
+.tags-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  color: var(--c-text-3);
+
+  > span:first-child {
+    font-size: 4rem;
+    opacity: 0.5;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+  }
+}

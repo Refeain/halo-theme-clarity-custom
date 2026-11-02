@@ -1,0 +1,42 @@
+// ========================================
+// 朋友圈分页 (Friends Pagination)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.friends-pagination {
+	@include flex(row, center, center, $spacing-md);
+	padding: 1.5rem $spacing-lg;
+
+	.page-btn {
+		@include flex(row, center, flex-start, 0.3rem);
+		padding: 0.6rem 1.2rem;
+		border-radius: $radius-xl;
+		background: var(--c-bg-1);
+		color: var(--c-text-1);
+		font-size: $font-size-sm;
+		font-weight: 500;
+		text-decoration: none;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+		transition: all $transition-slow $easing-default;
+
+		&:hover:not(.disabled) {
+			@include gradient-btn;
+		}
+
+		&.disabled {
+			opacity: 0.35;
+			cursor: not-allowed;
+		}
+	}
+
+	.page-info {
+		padding: 0.4rem 0.8rem;
+		border-radius: $radius-lg;
+		background: var(--c-bg-2);
+		font-size: $font-size-sm;
+		font-weight: 500;
+		color: var(--c-text-2);
+	}
+}

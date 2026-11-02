@@ -1,0 +1,26 @@
+// ========================================
+// 申请友链内容
+// ========================================
+.apply-content {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--c-bg-2);
+
+  p {
+    margin: 0.5em 0;
+  }
+
+  ul {
+    margin: 1em 0;
+    padding-inline-start: 1.5em;
+    list-style: disc;
+
+    li {
+      margin: 0.3em 0;
+
+      &::marker {
+        color: var(--c-primary);
+      }
+    }
+  }
+}

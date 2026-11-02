@@ -1,0 +1,16 @@
+@use "../scss/reusable" as *;
+
+// ========================================
+// 友链页面基础样式
+// ========================================
+$breakpoint-phone: 528px !default;
+
+// 友链页面容器
+.links-page {
+  min-height: 70vh;
+}
+
+// 通用工具类
+.hidden {
+  display: none !important;
+}

@@ -1,0 +1,16 @@
+// ========================================
+// Steam 页面基础样式 (Steam Base)
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 页面容器
+.steam-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-xl $spacing-2xl;
+}
+
+// 加载动画
+@include spin-animation;

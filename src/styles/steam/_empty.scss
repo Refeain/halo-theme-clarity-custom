@@ -1,0 +1,29 @@
+// ========================================
+// Steam 空状态样式 (Steam Empty)
+// ========================================
+
+@use 'variables' as *;
+
+// 空状态
+.steam-empty {
+  text-align: center;
+  padding: $spacing-5xl $spacing-xl;
+  color: var(--c-text-3);
+
+  &__icon {
+    font-size: $font-size-4xl;
+    margin-bottom: $spacing-lg;
+    opacity: 0.5;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    color: var(--c-text);
+    margin-bottom: $spacing-sm;
+  }
+
+  &__desc {
+    font-size: $font-size-md;
+    color: var(--c-text-3);
+  }
+}
