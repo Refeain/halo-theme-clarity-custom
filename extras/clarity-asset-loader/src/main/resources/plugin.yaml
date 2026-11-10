@@ -1,0 +1,18 @@
+apiVersion: plugin.halo.run/v1alpha1
+kind: Plugin
+metadata:
+  name: clarity-asset-loader
+spec:
+  enabled: true
+  requires: ">=2.27.1"
+  displayName: Clarity Asset Loader
+  description: Load selected content assets only when their components exist.
+  version: 1.0.0
+  author:
+    name: Refeain
+    website: https://www.yuyt.cn
+  pluginDependencies:
+    steam?: ">=1.0.0"
+    shiki?: ">=1.5.1"
+    editor-hyperlink-card?: ">=1.9.2"
+    summaraidGPT?: ">=4.0.7"
