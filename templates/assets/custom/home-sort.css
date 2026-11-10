@@ -1,0 +1,6 @@
+/* Backport of Clarity 1.6.19 home sorting; preserve existing theme bundle. */
+.category-toolbar{gap:1rem;flex-wrap:wrap}
+.sort-toggle{display:inline-flex;align-items:center;color:var(--c-text-2);transition:color .2s}
+.sort-toggle:hover{color:var(--c-primary)}
+.sort-toggle .order-text{margin-inline-start:.2em}
+.sort-toggle-icon{flex-shrink:0}

@@ -35,6 +35,12 @@
       </th:block>
     </ul>
   </details>
+
+  <!-- 排序切换：仅首页文章列表（isUpdate 由 index.html 注入），样式对齐上游 blog-v3：图标 + 当前排序文本，点击切换到另一排序 -->
+  <a class="sort-toggle" th:if="${caller != null and caller == 'index'}" th:href="${isUpdate} ? '/' : '/?sort=update'">
+    <svg class="sort-toggle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h4"/></svg>
+    <span class="order-text" th:text="${isUpdate} ? '最近更新' : '最新发布'">最新发布</span>
+  </a>
 </div>
 
 <th:block th:fragment="catItem(cat, level)">
