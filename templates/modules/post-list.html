@@ -19,7 +19,7 @@
             th:srcset="|${thumbnail.gen(post.spec.cover, 's')} 400w, ${thumbnail.gen(post.spec.cover, 'm')} 800w|"
             sizes="(max-width: 528px) 400px, 800px"
             class="article-cover"
-            loading="lazy"
+            th:attr="loading=${iterStat.index == 0 ? 'eager' : 'lazy'}, fetchpriority=${iterStat.index == 0 ? 'high' : null}"
             th:alt="${post.spec.title}"
           />
           <!-- DEBUG: default_cover=[[${theme.config.post.default_cover}]], cover=[[${post.spec.cover}]], isEmpty=[[${#strings.isEmpty(post.spec.cover)}]] -->
