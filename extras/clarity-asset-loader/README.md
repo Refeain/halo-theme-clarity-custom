@@ -1,9 +1,10 @@
 # Clarity Asset Loader
 
 A small Halo 2.27.1 companion plugin for the customized Clarity theme. It turns
-six globally injected CSS/JS references into inert HTML templates. A small
-inline loader requests them only when their associated content exists in the
-page, including content inserted after navigation or infinite scrolling.
+eleven globally injected CSS/JS references into inert HTML templates. The
+inline loader requests content-specific assets only when their components exist,
+and waits until statistics widgets approach the viewport before loading charts.
+It also handles content inserted after navigation or infinite scrolling.
 
 | Feature | Tested plugin version | Trigger |
 | --- | --- | --- |
@@ -11,8 +12,9 @@ page, including content inserted after navigation or infinite scrolling.
 | Code highlighting | shiki 1.5.1 | `shiki-code` and its two variants |
 | Link cards | editor-hyperlink-card 1.9.2 | `hyperlink-card`, `hyperlink-inline-card` |
 | Article summaries and reading view | summaraidGPT 4.0.7 | Summary/reading placeholders and components |
+| Statistics and heatmap | data-statistics 1.0.5 | Statistics widgets; chart assets load within 700px of the viewport |
 
-Search, comments, Lottie emotes, statistics/heatmap, content widgets, theme assets,
+Search, comments, Lottie emotes, content widgets, theme assets,
 the existing sorting customization, and preconnect settings keep their existing
 loading behavior. Shiki's independent plain-code renderer on moments/docs pages
 also remains intact. No third-party plugin JAR is modified.
@@ -20,12 +22,12 @@ also remains intact. No third-party plugin JAR is modified.
 ## Compatibility
 
 The processor runs at the lowest Spring order, with optional dependencies on
-the four source plugins to place it after their injectors. It modifies only
-literal plugin snippets, not the surrounding Thymeleaf model. Recognition is
-limited to exact tested asset paths and versions. Unknown versions retain their
-normal eager loading until reviewed. Plugin startup and the final rendered HTML
-must be checked after deployment or an upgrade; an ordering change can make an
-asset eager again.
+the source plugins to place it after their injectors. It modifies only literal
+plugin snippets, not the surrounding Thymeleaf model. Recognition is limited to
+exact tested asset paths and versions. Unknown versions retain their normal
+eager loading until reviewed. Plugin startup and the final rendered HTML must
+be checked after deployment or an upgrade; an ordering change can make an asset
+eager again.
 
 The loader preserves original script attributes (including module type), observes
 DOM additions, deduplicates URL requests, and retries failed resources twice.
@@ -33,13 +35,19 @@ It does not emit synthetic DOMContentLoaded events. ArticleSummary handles an
 already-loaded DOM; the other selected scripts register custom elements, which
 upgrade existing content automatically.
 
+Statistics CSS loads before its scripts. The loader requests Chart.js, the chart
+initializer, and the statistics initializer in order after a matching widget
+enters the 700px viewport margin. If IntersectionObserver is unavailable, the
+statistics assets load immediately so the widget still works. CommentNext stays
+enabled because it also adapts emote images globally.
+
 This plugin acts on Halo theme head injection, and is not restricted to one
 theme name. Disable it when switching to an untested theme or plugin version.
 
 ## Build and Test
 
 `src/main/resources/plugin.yaml` is the installation manifest. The compiled
-`dist/clarity-asset-loader-1.0.0.jar` is the deployed artifact. Build with Java 21
+`dist/clarity-asset-loader-1.1.0.jar` is the deployed artifact. Build with Java 21
 and Halo 2.27.1's API, Thymeleaf, Spring, Reactor, PF4J, reactive-streams and jsoup
 dependencies on the compiler classpath. No dependencies are bundled in the JAR.
 
@@ -53,7 +61,7 @@ For the DOM loader tests, run `pnpm install --ignore-scripts`, then
 any real site assets. `test/RewriteTest.java` tests the server transformer with
 the pre-change homepage HTML supplied as its first argument.
 
-## Measured Result (2026-11-10)
+## Measured Result (2026-11-10 and 2026-11-13)
 
 The homepage's directly referenced CSS/JS count changed from 31 to 25, including
 one external font stylesheet in both counts. Same-origin CSS/JS changed from
@@ -62,10 +70,11 @@ resources total 224,519 bytes (11.99% of the same-origin baseline); the inline
 loader adds 3,115 bytes to HTML. Images, font binaries, transferred compression,
 and later dynamic requests are excluded from this comparison.
 
-Server checks covered homepage, updated sorting, an article, moments and photos;
-all original theme files and plugin JARs were hash-checked as unchanged. This is
-an asset/markup verification, not a measured browser LCP or a full interaction
-test in a real browser.
+The initial 1.0.0 deployment covered homepage, updated sorting, an article,
+moments and photos; all original theme files and plugin JARs were hash-checked
+as unchanged. Version 1.1.0 adds deferred statistics assets with unit coverage
+for viewport loading and the no-IntersectionObserver fallback. Browser LCP and
+the visual state of the widget still need a real-browser measurement.
 
 ## Install and Roll Back
 

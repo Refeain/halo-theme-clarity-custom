@@ -7,7 +7,7 @@ spec:
   requires: ">=2.27.1"
   displayName: Clarity Asset Loader
   description: Load selected content assets only when their components exist.
-  version: 1.0.0
+  version: 1.1.0
   author:
     name: Refeain
     website: https://www.yuyt.cn
@@ -16,3 +16,4 @@ spec:
     shiki?: ">=1.5.1"
     editor-hyperlink-card?: ">=1.9.2"
     summaraidGPT?: ">=4.0.7"
+    data-statistics?: ">=1.0.5"

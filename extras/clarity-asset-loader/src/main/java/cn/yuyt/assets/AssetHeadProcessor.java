@@ -18,13 +18,18 @@ import run.halo.app.theme.dialect.TemplateHeadProcessor;
 @Component
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class AssetHeadProcessor implements TemplateHeadProcessor {
-    private static final Map<String, String> ASSETS = Map.of(
-        "/plugins/steam/assets/static/steam-game-card.js?v=1.0.0", "steam",
-        "/plugins/steam/assets/static/steam-game-card.css?v=1.0.0", "steam",
-        "/plugins/shiki/assets/static/shiki-code.js?version=1.5.1", "shiki",
-        "/plugins/editor-hyperlink-card/assets/static/index.iife.js?version=1.9.2", "hyperlink",
-        "/plugins/editor-hyperlink-card/assets/static/index.css?version=1.9.2", "hyperlink",
-        "/plugins/summaraidGPT/assets/static/ArticleSummary.js?version=4.0.7", "summary"
+    private static final Map<String, String> ASSETS = Map.ofEntries(
+        Map.entry("/plugins/steam/assets/static/steam-game-card.js?v=1.0.0", "steam"),
+        Map.entry("/plugins/steam/assets/static/steam-game-card.css?v=1.0.0", "steam"),
+        Map.entry("/plugins/shiki/assets/static/shiki-code.js?version=1.5.1", "shiki"),
+        Map.entry("/plugins/editor-hyperlink-card/assets/static/index.iife.js?version=1.9.2", "hyperlink"),
+        Map.entry("/plugins/editor-hyperlink-card/assets/static/index.css?version=1.9.2", "hyperlink"),
+        Map.entry("/plugins/summaraidGPT/assets/static/ArticleSummary.js?version=4.0.7", "summary"),
+        Map.entry("/plugins/data-statistics/assets/static/min/chart.umd.min.js?version=1.0.5", "statistics"),
+        Map.entry("/plugins/data-statistics/assets/static/min/siteCharts.min.css?version=1.0.5", "statistics"),
+        Map.entry("/plugins/data-statistics/assets/static/min/siteCharts.min.js?version=1.0.5", "statistics"),
+        Map.entry("/plugins/data-statistics/assets/static/min/dataStatistics.min.js?version=1.0.5", "statistics"),
+        Map.entry("/plugins/data-statistics/assets/static/min/dataStatistics.min.css?version=1.0.5", "statistics")
     );
     private final String loader;
 

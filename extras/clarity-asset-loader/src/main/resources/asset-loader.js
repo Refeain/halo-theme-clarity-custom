@@ -7,9 +7,12 @@
     steam: 'steam-game-card',
     shiki: 'shiki-code,shiki-code-simple-variant,shiki-code-mac-variant',
     hyperlink: 'hyperlink-card,hyperlink-inline-card',
-    summary: 'ai-summaraidgpt,ai-summaraidgpt-data,ai-summaraidgpt-reading,likcc-article-summary,likcc-article-reading'
+    summary: 'ai-summaraidgpt,ai-summaraidgpt-data,ai-summaraidgpt-reading,likcc-article-summary,likcc-article-reading',
+    statistics: '.xhhaocom-chartboard,.github-statistics-container,.xhhaocom-dataStatistics-v2-traffic-card,.xhhaocom-dataStatistics-v2-traffic-label,.xhhaocom-dataStatistics-v2-traffic-value'
   };
   const resources = new Map();
+  let visibilityTargets = new WeakMap();
+  const visibilityObservers = new Set();
   let queued = false;
 
   function load(original) {
@@ -39,7 +42,7 @@
     queued = false;
     for (const template of document.querySelectorAll('template[data-clarity-feature]')) {
       const selector = selectors[template.dataset.clarityFeature];
-      if (!selector || template.dataset.clarityLoading || !document.querySelector(selector)) continue;
+      if (!selector || template.dataset.clarityLoading || !featureIsReady(template, selector)) continue;
       template.dataset.clarityLoading = 'true';
       const nodes = Array.from(template.content.querySelectorAll('link[rel="stylesheet"][href],script[src]'));
       const styles = nodes.filter(node => node.tagName === 'LINK');
@@ -60,6 +63,41 @@
     }
   }
 
+  function featureIsReady(template, selector) {
+    const targets = Array.from(document.querySelectorAll(selector));
+    if (!targets.length) return false;
+    if (template.dataset.clarityFeature !== 'statistics' || template.dataset.clarityVisible === 'true') return true;
+
+    const Observer = window.IntersectionObserver;
+    if (typeof Observer !== 'function') return true;
+
+    let state = visibilityTargets.get(template);
+    if (!state) {
+      state = { observer: null, observed: new WeakSet() };
+      state.observer = new Observer(entries => {
+        if (!entries.some(entry => entry.isIntersecting || entry.intersectionRatio > 0)) return;
+        template.dataset.clarityVisible = 'true';
+        state.observer.disconnect();
+        visibilityObservers.delete(state.observer);
+        schedule();
+      }, { rootMargin: '700px 0px' });
+      visibilityTargets.set(template, state);
+      visibilityObservers.add(state.observer);
+    }
+    for (const target of targets) {
+      if (state.observed.has(target)) continue;
+      state.observed.add(target);
+      state.observer.observe(target);
+    }
+    return false;
+  }
+
+  function resetVisibilityObservers() {
+    for (const observer of visibilityObservers) observer.disconnect();
+    visibilityObservers.clear();
+    visibilityTargets = new WeakMap();
+  }
+
   function schedule() {
     if (queued) return;
     queued = true;
@@ -72,6 +110,12 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
   else start();
-  document.addEventListener('swup:contentReplaced', schedule);
-  document.addEventListener('pjax:complete', schedule);
+  document.addEventListener('swup:contentReplaced', () => {
+    resetVisibilityObservers();
+    schedule();
+  });
+  document.addEventListener('pjax:complete', () => {
+    resetVisibilityObservers();
+    schedule();
+  });
 })();

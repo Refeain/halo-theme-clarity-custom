@@ -6,13 +6,17 @@ const { parseHTML } = require('linkedom');
 const loader = fs.readFileSync(__dirname + '/../src/main/resources/asset-loader.js', 'utf8');
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
-function setup(body = '', fail = () => false) {
+function setup(body = '', fail = () => false, options = {}) {
   const { document } = parseHTML(`<html><head>
     <template data-clarity-feature="steam"><script src="/steam.js"></script></template>
     <template data-clarity-feature="steam"><link rel="stylesheet" href="/steam.css"></template>
     <template data-clarity-feature="shiki"><script type="module" src="/shiki.js"></script></template>
     <template data-clarity-feature="hyperlink"><script src="/hyperlink.js"></script></template>
     <template data-clarity-feature="summary"><script src="/summary.js"></script></template>
+    <template data-clarity-feature="statistics">
+      <link rel="stylesheet" href="/siteCharts.css"><link rel="stylesheet" href="/dataStatistics.css">
+      <script defer src="/chart.js"></script><script defer src="/siteCharts.js"></script><script defer src="/dataStatistics.js"></script>
+    </template>
     </head><body>${body}</body></html>`);
   Object.defineProperty(document, 'readyState', { value: 'complete' });
   const fetched = [], timers = [], warnings = [];
@@ -24,11 +28,18 @@ function setup(body = '', fail = () => false) {
     queueMicrotask(() => fail(url) ? node.onerror() : node.onload());
     return result;
   };
-  const window = {};
+  const observers = [];
+  class FakeIntersectionObserver {
+    constructor(callback, init) { this.callback = callback; this.init = init; this.targets = []; observers.push(this); }
+    observe(target) { this.targets.push(target); }
+    disconnect() { this.disconnected = true; }
+    trigger() { this.callback(this.targets.map(target => ({ target, isIntersecting: true, intersectionRatio: 1 })), this); }
+  }
+  const window = options.intersectionObserver ? { IntersectionObserver: FakeIntersectionObserver } : {};
   const context = vm.createContext({ document, window, MutationObserver: document.defaultView.MutationObserver,
     queueMicrotask, setTimeout: callback => timers.push(callback), console: { warn: (...args) => warnings.push(args) } });
   vm.runInContext(loader, context);
-  return { document, window, fetched, timers, warnings, context };
+  return { document, window, fetched, timers, warnings, context, observers };
 }
 
 test('empty homepage does not download any selected plugin asset', async () => {
@@ -66,4 +77,21 @@ test('network failures retry twice and terminate without mutation loops', async 
   assert.equal(env.fetched.length, 3);
   assert.equal(env.timers.length, 0);
   assert.equal(env.warnings.length, 3);
+});
+
+test('statistics assets wait until a chartboard approaches the viewport', async () => {
+  const env = setup('<div class="xhhaocom-chartboard"></div>', () => false, { intersectionObserver: true });
+  await settle();
+  assert.deepEqual(env.fetched, []);
+  assert.equal(env.observers.length, 1);
+  assert.equal(env.observers[0].init.rootMargin, '700px 0px');
+  env.observers[0].trigger();
+  await settle();
+  assert.deepEqual(env.fetched, ['/siteCharts.css', '/dataStatistics.css', '/chart.js', '/siteCharts.js', '/dataStatistics.js']);
+});
+
+test('statistics remain available when IntersectionObserver is unsupported', async () => {
+  const env = setup('<div class="xhhaocom-chartboard"></div>');
+  await settle();
+  assert.deepEqual(env.fetched, ['/siteCharts.css', '/dataStatistics.css', '/chart.js', '/siteCharts.js', '/dataStatistics.js']);
 });
